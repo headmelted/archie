@@ -61,20 +61,20 @@ echo "Adding architectures supported by cobbler"
 dpkg --add-architecture i386
 for arch in $cobbler_foreign_architectures; do dpkg --add-architecture $arch; done
 
-echo "Adding ubuntu ports for multiarch packages"
-echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports xenial main universe multiverse restricted" | tee /etc/apt/sources.list.d/cobbler.list;
-echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports xenial-security main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
-echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports xenial-updates main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
-echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports xenial-backports main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
+#echo "Adding ubuntu ports for multiarch packages"
+#echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports xenial main universe multiverse restricted" | tee /etc/apt/sources.list.d/cobbler.list;
+#echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports xenial-security main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
+#echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports xenial-updates main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
+#echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports xenial-backports main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
 
-echo "cobbler.list be like:"
-cat /etc/apt/sources.list.d/cobbler.list;
+#echo "cobbler.list be like:"
+#cat /etc/apt/sources.list.d/cobbler.list;
 
-echo "Binding all unfiltered repositories to intel";
-sed -i 's/deb http/deb [arch=amd64,i386] http/g' /etc/apt/sources.list;
-find /etc/apt/sources.list.d/ -name '*.list' -print0 | xargs -0 -I {} -P 0 sed -i 's/deb http/deb [arch=amd64,i386] http/g' {}
+#echo "Binding all unfiltered repositories to intel";
+#sed -i 's/deb http/deb [arch=amd64,i386] http/g' /etc/apt/sources.list;
+#find /etc/apt/sources.list.d/ -name '*.list' -print0 | xargs -0 -I {} -P 0 sed -i 's/deb http/deb [arch=amd64,i386] http/g' {}
 
-apt-get update -yq;
+#apt-get update -yq;
 
 apt-get install -y \
 software-properties-common xvfb wget git python curl zip p7zip-full \
