@@ -10,11 +10,12 @@ for triplet in $cobbler_foreign_triplets; do cobbler_packages_to_install="$cobbl
 gcc-$triplet \
 g++-$triplet"; done
 
-for arch in $cobbler_cross_architectures; do cobbler_packages_to_install="$cobbler_packages_to_install \
-libc6-$arch-cross \
-libstdc++6-$arch-cross \
-crossbuild-essential-$arch"; done
+# libc6-$arch-cross \
+# libstdc++6-$arch-cross \
 
+for arch in $cobbler_cross_architectures; do cobbler_packages_to_install="$cobbler_packages_to_install \
+crossbuild-essential-$arch"; done
+#  libjpeg-turbo:$arch \
 for arch in $cobbler_foreign_architectures; do cobbler_packages_to_install="$cobbler_packages_to_install \
 libgtk2.0-0:$arch \
 libxkbfile-dev:$arch \
@@ -35,7 +36,6 @@ libxfixes3:$arch \
 libfreetype6:$arch \
 libavahi-client3:$arch \
 libgssapi-krb5-2:$arch \
-libjpeg-turbo8:$arch \
 libtiff5:$arch \
 fontconfig-config \
 libgdk-pixbuf2.0-common \
@@ -61,26 +61,37 @@ echo "Adding architectures supported by cobbler"
 dpkg --add-architecture i386
 for arch in $cobbler_foreign_architectures; do dpkg --add-architecture $arch; done
 
-#echo "Adding ubuntu ports for multiarch packages"
+echo "Updating package sources"
+apt-get update -yq;
+
+echo "Installing curl"
+apt-get install -y curl;
+
+echo "Adding emdebian signing key"
+curl http://emdebian.org/tools/debian/emdebian-toolchain-archive.key | apt-key add -
+
+echo "Adding emdebian for multiarch packages"
+echo "deb http://emdebian.org/tools/debian/ jessie main" | tee /etc/apt/sources.list.d/cobbler.list;
 #echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports xenial main universe multiverse restricted" | tee /etc/apt/sources.list.d/cobbler.list;
 #echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports xenial-security main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
 #echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports xenial-updates main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
 #echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports xenial-backports main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
 
-#echo "cobbler.list be like:"
-#cat /etc/apt/sources.list.d/cobbler.list;
+echo "cobbler.list be like:"
+cat /etc/apt/sources.list.d/cobbler.list;
 
 #echo "Binding all unfiltered repositories to intel";
 #sed -i 's/deb http/deb [arch=amd64,i386] http/g' /etc/apt/sources.list;
 #find /etc/apt/sources.list.d/ -name '*.list' -print0 | xargs -0 -I {} -P 0 sed -i 's/deb http/deb [arch=amd64,i386] http/g' {}
 
-#apt-get update -yq;
+echo "Updating package sources"
+apt-get update -yq;
 
 apt-get install -y \
 software-properties-common xvfb wget git python curl zip p7zip-full \
 rpm graphicsmagick libwww-perl libxml-libxml-perl libxml-sax-expat-perl \
 dpkg-dev perl libconfig-inifiles-perl libxml-simple-perl \
 liblocale-gettext-perl libdpkg-perl libconfig-auto-perl \
-libdebian-dpkgcross-perl ucf debconf cross-binutils cross-gcc-dev tree \
+libdebian-dpkgcross-perl ucf debconf dpkg-cross tree \
 libx11-dev libxkbfile-dev \
 zlib1g-dev qemu binfmt-support qemu-user-static ${cobbler_packages_to_install};
