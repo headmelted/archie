@@ -1,9 +1,9 @@
 #!/bin/bash
 
-cobbler_cross_architectures="armhf arm64 ppc64el s390x"
+cobbler_cross_architectures="armhf arm64"
 cobbler_foreign_architectures="i386 ${cobbler_cross_architectures}"
-cobbler_foreign_triplets="arm-linux-gnueabihf aarch64-linux-gnu powerpc64-linux-gnu s390x-linux-gnu"
-cobbler_architectures_ports_list="armhf,arm64,ppc64el,s390x"
+cobbler_foreign_triplets="arm-linux-gnueabihf aarch64-linux-gnu"
+cobbler_architectures_ports_list="armhf,arm64"
 
 cobbler_packages_to_install=""
 for triplet in $cobbler_foreign_triplets; do cobbler_packages_to_install="$cobbler_packages_to_install \
@@ -35,7 +35,7 @@ libxfixes3:$arch \
 libfreetype6:$arch \
 libavahi-client3:$arch \
 libgssapi-krb5-2:$arch \
-libjpeg8:$arch \
+libjpeg-turbo8:$arch \
 libtiff5:$arch \
 fontconfig-config \
 libgdk-pixbuf2.0-common \
@@ -81,6 +81,6 @@ software-properties-common xvfb wget git python curl zip p7zip-full \
 rpm graphicsmagick libwww-perl libxml-libxml-perl libxml-sax-expat-perl \
 dpkg-dev perl libconfig-inifiles-perl libxml-simple-perl \
 liblocale-gettext-perl libdpkg-perl libconfig-auto-perl \
-libdebian-dpkgcross-perl ucf debconf dpkg-cross tree \
+libdebian-dpkgcross-perl ucf debconf cross-binutils cross-gcc-dev tree \
 libx11-dev libxkbfile-dev \
 zlib1g-dev qemu binfmt-support qemu-user-static ${cobbler_packages_to_install};
