@@ -48,6 +48,7 @@ libatk1.0-0:$arch \
 libx11-xcb-dev:$arch \
 libxtst6:$arch \
 libxss-dev:$arch \
+libxss1:$arch \
 libgconf-2-4:$arch \
 libasound2:$arch \
 libnss3:$arch \
