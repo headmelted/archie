@@ -89,7 +89,7 @@ echo "Updating package sources"
 apt-get update -yq;
 
 apt-get install -y \
-software-properties-common xvfb wget git python curl zip p7zip-full \
+pkg-config software-properties-common xvfb wget git python curl zip p7zip-full \
 rpm graphicsmagick libwww-perl libxml-libxml-perl libxml-sax-expat-perl \
 dpkg-dev perl libconfig-inifiles-perl libxml-simple-perl \
 liblocale-gettext-perl libdpkg-perl libconfig-auto-perl \
