@@ -1,8 +1,5 @@
 #!/bin/bash
 
-echo "Checking for node";
-if [[ "$(node -v)" != "v7.4.0" ]]; then
-
   echo "Removing old nvm for user if it exists";
   rm -rf ~/.nvm;
 
@@ -20,12 +17,6 @@ if [[ "$(node -v)" != "v7.4.0" ]]; then
   nvm use 7.4.0;
   nvm alias default 7.4.0;
   
-else
-
-  echo "node up-to-date"
-  
-fi;
-
 echo "Setting python binding";
 npm config set python `which python`;
 
