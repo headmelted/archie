@@ -1,5 +1,6 @@
 #!/bin/bash
-  
+set -e;
+
 ls ../../../../cobbler/;
     
 echo "Applying patches";

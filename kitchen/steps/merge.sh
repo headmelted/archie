@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e;
 
 merge_tag_id=$(date +%Y%m%d%H%M%S);
 echo "Merge tag is $merge_tag_id.";

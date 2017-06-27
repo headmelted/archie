@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e;
 
   echo "Removing old nvm for user if it exists";
   rm -rf ~/.nvm;
