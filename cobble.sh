@@ -48,6 +48,7 @@ libatk1.0-0:$arch \
 libsecret-1-dev:$arch \
 gir1.2-secret-1:$arch \
 libglib2.0-dev:$arch \
+pkg-config:$arch \
 libx11-xcb-dev:$arch \
 libxtst6:$arch \
 libxss-dev:$arch \
