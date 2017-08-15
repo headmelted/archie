@@ -12,6 +12,7 @@ PACKAGE_ARCH="arm";
 QEMU_ARCH="arm";
 ELECTRON_ARCH="arm";
 VSCODE_ELECTRON_PLATFORM="arm";
+export VSCODE_ELECTRON_PLATFORM="$VSCODE_ELECTRON_PLATFORM";
 
         # # "JAIL_ROOTFS=""http:#cdimage.ubuntu.com/ubuntu-base/releases/16.04.2/release/ubuntu-base-16.04.2-base-${ARCH}.tar.gz"";
         # "QEMU_ARCHIVE=""http:#archive.raspbian.org/raspbian"";
