@@ -69,10 +69,10 @@ echo "Installing curl"
 apt-get install -y curl;
 
 echo "Adding yarn signing key"
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 
 echo "Adding yarn repository"
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
 echo "Adding emdebian signing key"
 curl http://emdebian.org/tools/debian/emdebian-toolchain-archive.key | apt-key add -
