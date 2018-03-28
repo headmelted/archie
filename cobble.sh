@@ -78,7 +78,7 @@ echo "Adding emdebian signing key"
 curl http://emdebian.org/tools/debian/emdebian-toolchain-archive.key | apt-key add -
 
 echo "Adding emdebian for multiarch packages"
-echo "deb http://emdebian.org/tools/debian/ jessie main" | tee /etc/apt/sources.list.d/cobbler.list;
+echo "deb http://emdebian.org/tools/debian/ unstable main" | tee /etc/apt/sources.list.d/cobbler.list;
 #echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports xenial main universe multiverse restricted" | tee /etc/apt/sources.list.d/cobbler.list;
 #echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports xenial-security main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
 #echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports xenial-updates main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
