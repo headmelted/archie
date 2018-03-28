@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian:sid
 WORKDIR /workspace
 COPY kitchen /kitchen/
 ADD cobble.sh /
