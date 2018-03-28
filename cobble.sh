@@ -105,4 +105,4 @@ libx11-dev libxkbfile-dev \
 zlib1g-dev qemu binfmt-support qemu-user-static ${cobbler_packages_to_install};
 
 echo "Installing yarn"
-apt-get install --no-install-recommends yarn
+apt-get install -y --no-install-recommends yarn
