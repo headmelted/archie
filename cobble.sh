@@ -65,8 +65,8 @@ for arch in $cobbler_foreign_architectures; do dpkg --add-architecture $arch; do
 echo "Updating package sources"
 apt-get update -yq;
 
-echo "Installing curl"
-apt-get install -y curl;
+echo "Installing curl and gnupg"
+apt-get install -y curl gnupg;
 
 echo "Adding yarn signing key"
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
