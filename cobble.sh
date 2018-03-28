@@ -94,11 +94,15 @@ cat /etc/apt/sources.list.d/cobbler.list;
 echo "Updating package sources"
 apt-get update -yq;
 
+echo "Installing packages"
 apt-get install -y \
 pkg-config libsecret-1-dev software-properties-common xvfb wget git python curl zip p7zip-full \
 rpm graphicsmagick libwww-perl libxml-libxml-perl libxml-sax-expat-perl \
 dpkg-dev perl libconfig-inifiles-perl libxml-simple-perl \
 liblocale-gettext-perl libdpkg-perl libconfig-auto-perl \
 libdebian-dpkgcross-perl ucf debconf dpkg-cross tree \
-libx11-dev libxkbfile-dev yarn \
+libx11-dev libxkbfile-dev \
 zlib1g-dev qemu binfmt-support qemu-user-static ${cobbler_packages_to_install};
+
+echo "Installing yarn"
+apt-get install --no-install-recommends yarn
