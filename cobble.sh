@@ -68,6 +68,12 @@ apt-get update -yq;
 echo "Installing curl"
 apt-get install -y curl;
 
+echo "Adding yarn signing key"
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+
+echo "Adding yarn repository"
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+
 echo "Adding emdebian signing key"
 curl http://emdebian.org/tools/debian/emdebian-toolchain-archive.key | apt-key add -
 
@@ -94,5 +100,5 @@ rpm graphicsmagick libwww-perl libxml-libxml-perl libxml-sax-expat-perl \
 dpkg-dev perl libconfig-inifiles-perl libxml-simple-perl \
 liblocale-gettext-perl libdpkg-perl libconfig-auto-perl \
 libdebian-dpkgcross-perl ucf debconf dpkg-cross tree \
-libx11-dev libxkbfile-dev \
+libx11-dev libxkbfile-dev yarn \
 zlib1g-dev qemu binfmt-support qemu-user-static ${cobbler_packages_to_install};
