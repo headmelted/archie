@@ -65,8 +65,8 @@ for arch in $cobbler_foreign_architectures; do dpkg --add-architecture $arch; do
 echo "Updating package sources"
 apt-get update -yq;
 
-echo "Installing curl and gnupg"
-apt-get install -y curl gnupg;
+echo "Installing curl, gnupg and git"
+apt-get install -y curl gnupg git;
 
 echo "Adding yarn signing key"
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
@@ -96,7 +96,7 @@ apt-get update -yq;
 
 echo "Installing packages"
 apt-get install -y \
-pkg-config libsecret-1-dev software-properties-common xvfb wget git python curl zip p7zip-full \
+pkg-config libsecret-1-dev software-properties-common xvfb wget python curl zip p7zip-full \
 rpm graphicsmagick libwww-perl libxml-libxml-perl libxml-sax-expat-perl \
 dpkg-dev perl libconfig-inifiles-perl libxml-simple-perl \
 liblocale-gettext-perl libdpkg-perl libconfig-auto-perl \
