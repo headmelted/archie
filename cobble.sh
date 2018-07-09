@@ -62,6 +62,9 @@ echo "Adding architectures supported by cobbler"
 dpkg --add-architecture i386
 for arch in $cobbler_foreign_architectures; do dpkg --add-architecture $arch; done
 
+echo "Sources list be like:"
+cat /etc/apt/sources.list;
+
 echo "Updating package sources"
 apt-get update -yq;
 
