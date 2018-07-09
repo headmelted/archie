@@ -1,6 +1,6 @@
 FROM ubuntu:cosmic
-ARG arch
-ARG triplet
+ARG arch=armhf
+ARG triplet=arm-linux-gnueabihf
 WORKDIR /workspace
 COPY kitchen /kitchen/
 ADD cobble.sh /
