@@ -1,9 +1,9 @@
 #!/bin/bash
 
-cobbler_cross_architectures="armhf arm64"
-cobbler_foreign_architectures="i386 ${cobbler_cross_architectures}"
-cobbler_foreign_triplets="arm-linux-gnueabihf aarch64-linux-gnu"
-cobbler_architectures_ports_list="armhf,arm64"
+cobbler_cross_architectures="${arch}"
+cobbler_foreign_architectures="${arch}"
+cobbler_foreign_triplets="${triplet}"
+cobbler_architectures_ports_list="${arch}"
 
 cobbler_packages_to_install=""
 for triplet in $cobbler_foreign_triplets; do cobbler_packages_to_install="$cobbler_packages_to_install \
@@ -28,7 +28,6 @@ echo "Package install list: ${cobbler_packages_to_install}"
 echo "Building cobbler image for ${cobbler_ports_architectures_list}"
 
 echo "Adding architectures supported by cobbler"
-dpkg --add-architecture i386
 for arch in $cobbler_foreign_architectures; do dpkg --add-architecture $arch; done
 
 #echo "Adding yarn signing key"
