@@ -102,7 +102,24 @@ dpkg-dev perl libconfig-inifiles-perl libxml-simple-perl \
 liblocale-gettext-perl libdpkg-perl libconfig-auto-perl \
 libdebian-dpkgcross-perl ucf debconf dpkg-cross tree \
 libx11-dev libxkbfile-dev \
-zlib1g-dev qemu binfmt-support qemu-user-static ${cobbler_packages_to_install};
+zlib1g-dev qemu binfmt-support qemu-user-static ${cobbler_packages_to_install} \
+debootstrap fakeroot ;
 
-echo "Installing yarn"
-apt-get install -y --no-install-recommends yarn
+echo "Installing gulp and yarn"
+apt-get install -y -g gulp yarn
+
+echo "Checking for debootstrap"
+if [[ ! -d "rootfs" ]]; then
+  echo "Creating ${ARCH} qemu debootstrap"
+  qemu-debootstrap --arch=${ARCH} --variant=minbase xenial rootfs
+fi
+
+echo "Mounting rootfs directories"
+mount --bind /dev/pts $(pwd)/rootfs/dev/pts
+mount --bind /proc $(pwd)/rootfs/proc
+
+echo "Updating rootfs apt"
+sudo chroot rootfs apt-get update -yq;
+
+echo "Installing build packages into rootfs"
+chroot rootfs apt-get install -y libx11-dev libxkbfile-dev pkg-config libsecret-1-dev libglib2.0;
