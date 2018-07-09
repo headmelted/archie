@@ -36,7 +36,7 @@ libxfixes3:$arch \
 libfreetype6:$arch \
 libavahi-client3:$arch \
 libgssapi-krb5-2:$arch \
-libtiff5:$arch \
+libtiff5:$arch \ 
 fontconfig-config \
 libgdk-pixbuf2.0-common \
 libgdk-pixbuf2.0-0:$arch \
