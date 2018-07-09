@@ -62,15 +62,6 @@ echo "Adding architectures supported by cobbler"
 dpkg --add-architecture i386
 for arch in $cobbler_foreign_architectures; do dpkg --add-architecture $arch; done
 
-echo "Sources list be like:"
-cat /etc/apt/sources.list;
-
-echo "Updating package sources"
-apt-get update -yq;
-
-echo "Installing curl, gnupg and git"
-apt-get install -y curl gnupg git;
-
 #echo "Adding yarn signing key"
 #curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 
@@ -80,15 +71,29 @@ apt-get install -y curl gnupg git;
 #echo "Adding emdebian signing key"
 #curl http://emdebian.org/tools/debian/emdebian-toolchain-archive.key | apt-key add -
 
-#echo "Adding emdebian for multiarch packages"
+echo "Resetting ubuntu package lists"
 #echo "deb http://emdebian.org/tools/debian/ unstable main" | tee /etc/apt/sources.list.d/cobbler.list;
-#echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports xenial main universe multiverse restricted" | tee /etc/apt/sources.list.d/cobbler.list;
-#echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports xenial-security main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
-#echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports xenial-updates main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
-#echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports xenial-backports main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
+echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ cosmic main universe multiverse restricted" | tee /etc/apt/sources.list.d/cobbler.list;
+echo "deb [arch=amd64] http://security.ubuntu.com/ubuntu/ cosmic-security main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
+echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ cosmic-updates main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
+echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ cosmic-backports main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
+
+echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports cosmic main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
+echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports cosmic-security main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
+echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports cosmic-updates main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
+echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports cosmic-backports main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
 
 echo "cobbler.list be like:"
 cat /etc/apt/sources.list.d/cobbler.list;
+
+echo "Deleting original packages sources"
+rm /etc/apt/sources.list;
+
+echo "Updating package sources"
+apt-get update -yq;
+
+echo "Installing curl, gnupg and git"
+apt-get install -y curl gnupg git;
 
 #echo "Binding all unfiltered repositories to intel";
 #sed -i 's/deb http/deb [arch=amd64,i386] http/g' /etc/apt/sources.list;
