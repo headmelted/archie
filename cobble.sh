@@ -68,17 +68,17 @@ apt-get update -yq;
 echo "Installing curl, gnupg and git"
 apt-get install -y curl gnupg git;
 
-echo "Adding yarn signing key"
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+#echo "Adding yarn signing key"
+#curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 
-echo "Adding yarn repository"
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+#echo "Adding yarn repository"
+#echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
-echo "Adding emdebian signing key"
-curl http://emdebian.org/tools/debian/emdebian-toolchain-archive.key | apt-key add -
+#echo "Adding emdebian signing key"
+#curl http://emdebian.org/tools/debian/emdebian-toolchain-archive.key | apt-key add -
 
-echo "Adding emdebian for multiarch packages"
-echo "deb http://emdebian.org/tools/debian/ unstable main" | tee /etc/apt/sources.list.d/cobbler.list;
+#echo "Adding emdebian for multiarch packages"
+#echo "deb http://emdebian.org/tools/debian/ unstable main" | tee /etc/apt/sources.list.d/cobbler.list;
 #echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports xenial main universe multiverse restricted" | tee /etc/apt/sources.list.d/cobbler.list;
 #echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports xenial-security main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
 #echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports xenial-updates main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
