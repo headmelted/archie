@@ -1,9 +1,9 @@
 #!/bin/bash
 
-cobbler_cross_architectures="${arch}"
-cobbler_foreign_architectures="${arch}"
-cobbler_foreign_triplets="${triplet}"
-cobbler_architectures_ports_list="${arch}"
+cobbler_cross_architectures="${ARCH}"
+cobbler_foreign_architectures="${ARCH}"
+cobbler_foreign_triplets="${GNU_TRIPLET}"
+cobbler_architectures_ports_list="${ARCH}"
 
 cobbler_packages_to_install=""
 for triplet in $cobbler_foreign_triplets; do cobbler_packages_to_install="$cobbler_packages_to_install \
