@@ -83,7 +83,7 @@ mount --bind /dev/pts $(pwd)/rootfs/dev/pts
 mount --bind /proc $(pwd)/rootfs/proc
 
 echo "Updating rootfs apt"
-sudo chroot rootfs apt-get update -yq;
+chroot rootfs apt-get update -yq;
 
 echo "Installing build packages into rootfs"
 chroot rootfs apt-get install -y libx11-dev libxkbfile-dev pkg-config libsecret-1-dev libglib2.0;
