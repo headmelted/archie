@@ -1,4 +1,5 @@
 FROM ubuntu:cosmic
+ARG arch
 WORKDIR /workspace
 COPY kitchen /kitchen/
 ADD cobble.sh /
