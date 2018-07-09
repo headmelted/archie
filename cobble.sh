@@ -107,11 +107,8 @@ apt-get install -y pkg-config libsecret-1-dev software-properties-common xvfb wg
 dpkg-dev perl libconfig-inifiles-perl libxml-simple-perl liblocale-gettext-perl libdpkg-perl libconfig-auto-perl libdebian-dpkgcross-perl ucf debconf dpkg-cross tree \
 libx11-dev libxkbfile-dev zlib1g-dev qemu binfmt-support qemu-user-static ${cobbler_packages_to_install} debootstrap fakeroot;
 
-echo "Checking for debootstrap"
-if [[ ! -d "rootfs" ]]; then
-  echo "Creating ${ARCH} qemu debootstrap"
-  qemu-debootstrap --arch=${ARCH} --variant=minbase xenial rootfs
-fi
+echo "Creating ${ARCH} qemu debootstrap"
+qemu-debootstrap --arch=${ARCH} --variant=minbase xenial rootfs
 
 echo "Mounting rootfs directories"
 mount --bind /dev/pts $(pwd)/rootfs/dev/pts
