@@ -6,7 +6,7 @@ if [ "$1" == "" ]; then LABEL="amd64_linux"; else LABEL=$1; fi;
 echo "Setting environment for $LABEL";
 . ./tools/env/$LABEL.sh;
 
-export CXX="${GPP_COMPILER}" CC="${GCC_COMPILER}" DEBIAN_FRONTEND="noninteractive";
+export CXX="${GPP_COMPILER} --sysroot=$(pwd)/rootfs -L$(pwd)/rootfs/usr/lib/${GNU_TRIPLET} -I$(pwd)/rootfs/usr/include/libsecret-1 -I$(pwd)/rootfs/usr/include/glib-2.0 -I$(pwd)/rootfs/usr/lib/${GNU_TRIPLET}/glib-2.0/include" CC="${GCC_COMPILER}" DEBIAN_FRONTEND="noninteractive";
 echo "C compiler is ${CC}, C++ compiler is ${CXX}."
     
 echo "Installing dependencies";
