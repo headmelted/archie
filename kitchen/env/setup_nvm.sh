@@ -14,12 +14,12 @@ set -e;
   source ~/.nvm/nvm.sh;
 
   echo "Setting up NVM";
-  nvm install 7.4.0;
-  nvm use 7.4.0;
-  nvm alias default 7.4.0;
+  nvm install 8.9.0;
+  nvm use 8.9.0;
+  nvm alias default 8.9.0;
   
 echo "Setting python binding";
 npm config set python `which python`;
 
 echo "Installing npm dependencies";
-npm install -g gulp;
+npm install -g gulp yarn;
