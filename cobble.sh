@@ -77,7 +77,7 @@ dpkg-dev perl libconfig-inifiles-perl libxml-simple-perl liblocale-gettext-perl 
 libx11-dev libxkbfile-dev zlib1g-dev qemu binfmt-support qemu-user-static ${cobbler_packages_to_install} debootstrap fakeroot
 
 echo "Creating ${ARCH} qemu debootstrap"
-qemu-debootstrap --arch=${ARCH} --variant=minbase xenial rootfs
+qemu-debootstrap --arch=${ARCH} --variant=minbase cosmic rootfs
 
 echo "Mounting rootfs directories"
 mount --bind /dev/pts $(pwd)/rootfs/dev/pts
