@@ -1,4 +1,4 @@
-FROM debian:sid
+FROM ubuntu:cosmic
 WORKDIR /workspace
 COPY kitchen /kitchen/
 ADD cobble.sh /
