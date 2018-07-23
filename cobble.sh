@@ -5,7 +5,9 @@ cobbler_foreign_architectures="${ARCH}"
 cobbler_foreign_triplets="${GNU_TRIPLET}"
 cobbler_architectures_ports_list=""
 
-if ["${ARCH}" != "amd64"] && ["${ARCH}" != "i386"] cobbler_architectures_ports_list="${ARCH}";
+if ["${ARCH}" != "amd64"] && ["${ARCH}" != "i386"]; then
+  cobbler_architectures_ports_list="${ARCH}";
+fi;
 
 cobbler_packages_to_install=""
 for triplet in $cobbler_foreign_triplets; do cobbler_packages_to_install="$cobbler_packages_to_install \
