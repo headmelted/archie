@@ -5,9 +5,9 @@ cobbler_foreign_architectures="${ARCH}"
 cobbler_foreign_triplets="${GNU_TRIPLET}"
 cobbler_architectures_ports_list=""
 
-if ["${ARCH}" != "amd64"] && ["${ARCH}" != "i386"]; then
+if ["${ARCH}" != "amd64"] && ["${ARCH}" != "i386"] then
   cobbler_architectures_ports_list="${ARCH}";
-fi;
+fi
 
 cobbler_packages_to_install=""
 for triplet in $cobbler_foreign_triplets; do cobbler_packages_to_install="$cobbler_packages_to_install \
@@ -51,13 +51,13 @@ echo "deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ cosmic-updates mai
 echo "deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ cosmic-backports main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
 
 echo "Checking ports list [${cobbler_architectures_ports_list}]...";
-if ["${cobbler_architectures_ports_list}" != ""]; then
+if [ -z "${cobbler_architectures_ports_list}" ] then
   echo "Adding ports repositories...";
   echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports cosmic main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
   echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports cosmic-security main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
   echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports cosmic-updates main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
   echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports cosmic-backports main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
-fi;
+fi
 
 echo "cobbler.list be like:"
 cat /etc/apt/sources.list.d/cobbler.list;
