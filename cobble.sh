@@ -47,7 +47,7 @@ echo "deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ cosmic-updates mai
 echo "deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ cosmic-backports main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
 
 echo "Checking ports list [${cobbler_architectures_ports_list}]...";
-if [[ -n "${cobbler_architectures_ports_list}" ]]; then
+if [ -n "${cobbler_architectures_ports_list}" ]; then
   echo "Adding ports repositories...";
   echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports cosmic main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
   echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports cosmic-security main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
