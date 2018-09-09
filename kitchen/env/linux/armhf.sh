@@ -10,8 +10,8 @@ CXX="arm-linux-gnueabihf-g++";
 CC="arm-linux-gnueabihf-gcc";
 PACKAGE_ARCH="arm";
 QEMU_ARCH="arm";
-ELECTRON_ARCH="arm";
-VSCODE_ELECTRON_PLATFORM="arm";
+ELECTRON_ARCH="armv7l";
+VSCODE_ELECTRON_PLATFORM="armv7l";
 export VSCODE_ELECTRON_PLATFORM="$VSCODE_ELECTRON_PLATFORM";
 
         # # "JAIL_ROOTFS=""http:#cdimage.ubuntu.com/ubuntu-base/releases/16.04.2/release/ubuntu-base-16.04.2-base-${ARCH}.tar.gz"";
