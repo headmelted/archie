@@ -7,8 +7,9 @@ if [[ ! -d ../.cache ]]; then mkdir ../.cache; fi
 echo "Setting environment for $1";
 . ./env/linux/$1.sh;
 
-echo "Initializing cobbler for ${ARCH}";
-. ../../cobble.sh;
+echo "cobble.sh is run at docker build time now, so skipping here"
+# echo "Initializing cobbler for ${ARCH}";
+# . ../../cobble.sh;
 
 echo "Checking presence of NVM";
 . ./env/setup_nvm.sh;
