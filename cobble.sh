@@ -81,17 +81,17 @@ apt-get update -yq;
 echo "Installing packages"
 apt-get install -y pkg-config libsecret-1-dev software-properties-common xvfb wget python curl zip p7zip-full rpm graphicsmagick libwww-perl libxml-libxml-perl libxml-sax-expat-perl \
 dpkg-dev perl libconfig-inifiles-perl libxml-simple-perl liblocale-gettext-perl libdpkg-perl libconfig-auto-perl libdebian-dpkgcross-perl ucf debconf dpkg-cross tree \
-libx11-dev libxkbfile-dev zlib1g-dev qemu binfmt-support qemu-user-static ${cobbler_packages_to_install} debootstrap fakeroot
+libx11-dev libxkbfile-dev zlib1g-dev ${cobbler_packages_to_install}
 
-echo "Creating ${ARCH} qemu debootstrap"
-qemu-debootstrap --arch=${ARCH} --variant=minbase cosmic rootfs
+#echo "Creating ${ARCH} qemu debootstrap"
+#qemu-debootstrap --arch=${ARCH} --variant=minbase cosmic rootfs
 
-echo "Mounting rootfs directories"
-mount --bind /dev/pts $(pwd)/rootfs/dev/pts
-mount --bind /proc $(pwd)/rootfs/proc
+#echo "Mounting rootfs directories"
+#mount --bind /dev/pts $(pwd)/rootfs/dev/pts
+#mount --bind /proc $(pwd)/rootfs/proc
 
-echo "Updating rootfs apt"
-chroot rootfs apt-get update -yq;
+#echo "Updating rootfs apt"
+#chroot rootfs apt-get update -yq;
 
-echo "Installing build packages into rootfs"
-chroot rootfs apt-get install -y libx11-dev libxkbfile-dev pkg-config libsecret-1-dev libglib2.0;
+#echo "Installing build packages into rootfs"
+#chroot rootfs apt-get install -y libx11-dev libxkbfile-dev pkg-config libsecret-1-dev libglib2.0;
