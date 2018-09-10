@@ -12,8 +12,7 @@ PACKAGE_ARCH='arm64';
 QEMU_ARCH='aarch64';
 ELECTRON_ARCH='arm64';
 VSCODE_ELECTRON_PLATFORM='arm64';
-export VSCODE_ELECTRON_PLATFORM='$VSCODE_ELECTRON_PLATFORM';
-export GITHUB_TOKEN='$GITHUB_TOKEN';
+
         # FLATPAK_REPO='../VSCode-linux-arm64-flatpak';
         # QEMU_IMAGE='"https:#dl.armbian.com/odroidc2/Ubuntu_xenial_default.7z"';
         # QEMU_KERNEL='"Image"';
