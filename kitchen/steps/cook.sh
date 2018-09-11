@@ -23,6 +23,10 @@ if [[ ! -d .builds ]]; then mkdir .builds; fi;
 if [[ ! -d $BUILDS_DIRECTORY ]]; then mkdir $BUILDS_DIRECTORY; fi;
 if [[ ! -d $CODE_DIRECTORY ]]; then mkdir $CODE_DIRECTORY; fi;
 
+echo "Ready to cook";
+
+echo "C compiler is ${CC}, C++ compiler is ${CXX}.";
+
 echo "Preparing recipe";
 for i in "${@:2}"; do
   echo "Entering code directory [$CODE_DIRECTORY]";
