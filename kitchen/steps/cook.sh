@@ -4,8 +4,8 @@ set -e;
 echo "Creating .cache folder if it does not exist";
 if [[ ! -d ../.cache ]]; then mkdir ../.cache; fi
 
-echo "Setting environment for $1";
-. ./env/linux/$1.sh;
+echo "Setting environment for ${ARCH}";
+. ./env/linux/${ARCH}.sh;
 
 echo "cobble.sh is run at docker build time now, so skipping here"
 # echo "Initializing cobbler for ${ARCH}";
