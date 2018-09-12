@@ -95,5 +95,4 @@ libx11-dev libxkbfile-dev zlib1g-dev libc6-dev ${cobbler_packages_to_install}
 echo "Entering the kitchen";
 cd /kitchen;
 
-echo "Starting to cook";
-./steps/cook.sh get build package test;
+echo "Ready to cook";
