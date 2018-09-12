@@ -91,3 +91,9 @@ libx11-dev libxkbfile-dev zlib1g-dev libc6-dev ${cobbler_packages_to_install}
 
 #echo "Installing build packages into rootfs"
 #chroot rootfs apt-get install -y libx11-dev libxkbfile-dev pkg-config libsecret-1-dev libglib2.0;
+
+echo "Entering the kitchen";
+cd /kitchen;
+
+echo "Starting to cook";
+./steps/cook.sh get build package test;
