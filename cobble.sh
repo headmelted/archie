@@ -1,9 +1,9 @@
 #!/bin/bash
 
-cobbler_foreign_architectures="armhf arm64";
+cobbler_foreign_architectures="armhf arm64 ppc64el s390x";
 cobbler_cross_architectures="i386 $cobbler_foreign_architectures";
-cobbler_foreign_triplets="arm-linux-gnueabihf aarch64-linux-gnu";
-cobbler_architectures_ports_list="armhf,arm64";
+cobbler_foreign_triplets="arm-linux-gnueabihf aarch64-linux-gnu powerpc64le-linux-gnu s390x-linux-gnu";
+cobbler_architectures_ports_list="armhf,arm64,ppc64el,s390x";
 
 cobbler_packages_to_install=""
 for triplet in $cobbler_foreign_triplets; do cobbler_packages_to_install="$cobbler_packages_to_install \
