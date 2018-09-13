@@ -28,9 +28,10 @@ echo "Ready to cook";
 echo "C compiler is ${CC}, C++ compiler is ${CXX}.";
 
 echo "Preparing recipe";
-for i in "${@:2}"; do
+for i in "${@:1}"; do
   echo "Entering code directory [$CODE_DIRECTORY]";
   cd $CODE_DIRECTORY;
+  echo "Executing step [$i]";
   if [[ -f /cobbler/steps/$i.sh ]]; then
     echo "Executing PROJECT step [$i]";
     . /cobbler/steps/$i.sh;
