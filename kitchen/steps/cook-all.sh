@@ -4,5 +4,5 @@
 # to retain /kitchen as the current directory, which Cobbler
 # depends on to reconcile further steps in the build process.
 
-echo "Running all cook steps (get, build, package, test)";
-. ./steps/cook.sh get build package test;
+echo "Running all cook steps (get, patch, build, package, test)";
+. ./steps/cook.sh get patch build package test;
