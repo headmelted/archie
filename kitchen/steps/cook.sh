@@ -15,7 +15,7 @@ echo "Checking presence of NVM";
 . ./env/setup_nvm.sh;
 
 export ROOT_DIRECTORY=$(pwd);
-export BUILDS_DIRECTORY=$ROOT_DIRECTORY/.builds/$1;
+export BUILDS_DIRECTORY=$ROOT_DIRECTORY/.builds/${ARCH};
 export CODE_DIRECTORY=$BUILDS_DIRECTORY/.code;
 
 echo "Creating .builds folders if they do not exist";
