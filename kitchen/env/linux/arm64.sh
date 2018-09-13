@@ -2,7 +2,7 @@ echo "Setting environment for arm64";
 LABEL='arm64_linux';
 CROSS_TOOLCHAIN='true';
 ARCH='arm64';
-RPM_ARCH='aarch64';
+RPM_ARCH='arm64';
 NPM_ARCH='arm64';
 GNU_TRIPLET='aarch64-linux-gnu';
 GNU_MULTILIB_TRIPLET='arm-linux-gnueabihf';
