@@ -14,9 +14,9 @@ set -e;
   source ~/.nvm/nvm.sh;
 
   echo "Setting up NVM";
-  nvm install 8.9.0;
-  nvm use 8.9.0;
-  nvm alias default 8.9.0;
+  nvm install 8.9.4;
+  nvm use 8.9.4;
+  nvm alias default 8.9.4;
   
 echo "Setting python binding";
 npm config set python `which python`;
