@@ -1,39 +1,39 @@
 #!/bin/bash
 
-if [ "${arch}" != "amd64" && "${arch}" != "i386" ]; cobbler_foreign_architectures="$arch"; done;
+if [ "${arch}" != "amd64" && "${arch}" != "i386" ]; cobbler_foreign_architectures="$arch"; fi;
 
-if [ "${arch}" != "amd64" ]; cobbler_cross_architectures="$arch"; done;
+if [ "${arch}" != "amd64" ]; cobbler_cross_architectures="$arch"; fi;
 
 if [ "${arch}" == "arm64" ];
   cobbler_qemu_architectures="aarch64";
 else
   cobbler_qemu_architectures="$arch";
-fi
+fi;
 
 case $arch in
 "amd64")
-  cobbler_foreign_triplets="x86-64-linux-gnu"
-  qemu_package_architecture="x86"
+  cobbler_foreign_triplets="x86-64-linux-gnu";
+  qemu_package_architecture="x86";
   ;;
 "i386")
-  cobbler_foreign_triplets="i686-linux-gnu"
-  qemu_package_architecture="x86"
+  cobbler_foreign_triplets="i686-linux-gnu";
+  qemu_package_architecture="x86";
   ;;
 "armhf")
-  cobbler_foreign_triplets="arm-linux-gnueabihf"
-  qemu_package_architecture="arm"
+  cobbler_foreign_triplets="arm-linux-gnueabihf";
+  qemu_package_architecture="arm";
   ;;
 "arm64")
-  cobbler_foreign_triplets="aarch64-linux-gnu"
-  qemu_package_architecture="arm"
+  cobbler_foreign_triplets="aarch64-linux-gnu";
+  qemu_package_architecture="arm";
   ;;
 "ppc64el")
-  cobbler_foreign_triplets="powerpc64le-linux-gnu"
-  qemu_package_architecture="ppc"
+  cobbler_foreign_triplets="powerpc64le-linux-gnu";
+  qemu_package_architecture="ppc";
   ;;
 "s390x")
-  cobbler_foreign_triplets="s390x-linux-gnu"
-  qemu_package_architecture="s390x"
+  cobbler_foreign_triplets="s390x-linux-gnu";
+  qemu_package_architecture="s390x";
   ;;
 esac
 
@@ -49,6 +49,8 @@ echo "QEMU architecture: $cobbler_qemu_architectures";
 echo "QEMU system emulator: qemu-system-$qemu_package_architecture";
 echo "C compiler: gcc-$cobbler_foreign_triplets";
 echo "C++ compiler: gpp-$cobbler_foreign_triplets";
+
+exit;
 
 cobbler_packages_to_install=""
 for triplet in $cobbler_foreign_triplets; do cobbler_packages_to_install="$cobbler_packages_to_install \
