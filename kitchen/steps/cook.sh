@@ -1,29 +1,7 @@
 #!/bin/bash
 set -e;
 
-echo "Creating .cache folder if it does not exist";
-if [[ ! -d ../.cache ]]; then mkdir ../.cache; fi
-
-echo "Setting environment for ${ARCH}";
-. ./env/linux/${ARCH}.sh;
-
-echo "cobble.sh is run at docker build time now, so skipping here"
-# echo "Initializing cobbler for ${ARCH}";
-# . ../../cobble.sh;
-
-echo "Checking presence of NVM";
-. ./env/setup_nvm.sh;
-
-export ROOT_DIRECTORY=$(pwd);
-export BUILDS_DIRECTORY=$ROOT_DIRECTORY/.builds/${ARCH};
-export CODE_DIRECTORY=$BUILDS_DIRECTORY/.code;
-
-echo "Creating .builds folders if they do not exist";
-if [[ ! -d .builds ]]; then mkdir .builds; fi;
-if [[ ! -d $BUILDS_DIRECTORY ]]; then mkdir $BUILDS_DIRECTORY; fi;
-if [[ ! -d $CODE_DIRECTORY ]]; then mkdir $CODE_DIRECTORY; fi;
-
-echo "Ready to cook";
+echo "Starting to cook";
 
 echo "C compiler is ${CC}, C++ compiler is ${CXX}.";
 
