@@ -6,8 +6,8 @@ arch=$DOCKER_TAG;
 echo "Entering the kitchen";
 cd kitchen;
 
-echo "Setting environment for ${ARCH}";
-. ./env/linux/${ARCH}.sh;
+echo "Setting environment for $arch";
+. ./env/linux/$arch.sh;
 
 if [ "${arch}" != "amd64" ]
 then
