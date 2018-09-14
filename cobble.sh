@@ -2,6 +2,7 @@
 
 cobbler_foreign_architectures="armhf arm64 ppc64el s390x";
 cobbler_cross_architectures="i386 $cobbler_foreign_architectures";
+cobbler_qemu_architectures="amd64 i386 armhf aarch64 ppc64el s390x";
 cobbler_foreign_triplets="arm-linux-gnueabihf aarch64-linux-gnu powerpc64le-linux-gnu s390x-linux-gnu";
 cobbler_architectures_ports_list="armhf,arm64,ppc64el,s390x";
 
@@ -95,8 +96,8 @@ libx11-dev libxkbfile-dev zlib1g-dev libc6-dev ${cobbler_packages_to_install}
 echo "Creating images directory [/kitchen/.images]"
 mkdir /kitchen/.images;
 
-echo "Downloading Ubuntu cloud image for $ARCH (used for testing later)";
-wget "https://cloud-images.ubuntu.com/cosmic/20180913/cosmic-server-cloudimg-$ARCH.img" -O /kitchen/.images/cosmic-server-cloudimg-$ARCH.img;
+echo "Downloading Ubuntu cloud images (used for testing later)";
+for arch in $cobbler_qemu_architectures; do wget "https://cloud-images.ubuntu.com/cosmic/current/cosmic-server-cloudimg-$arch.img" -O /kitchen/.images/cosmic-server-cloudimg-$arch.img; done;
 
 echo "Entering the kitchen";
 cd /kitchen;
