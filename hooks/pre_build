@@ -150,4 +150,9 @@ for arch in $cobbler_qemu_architectures; do wget "https://cloud-images.ubuntu.co
 echo "Entering the kitchen";
 cd /kitchen;
 
+echo "Setting up NPM";
+
+echo "Running yarn install for ${NPM_ARCH}";
+yarn install --target-arch=${NPM_ARCH} --unsafe-perm;
+
 echo "Ready to cook";
