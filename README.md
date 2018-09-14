@@ -16,3 +16,5 @@ As Cobbler is built on Ubuntu Cosmic, the architectures supported mirror those s
 * arm64 (64-bit ARM)
 * ppc64el (64-bit IBM PowerPC, Little-endian)
 * s390x (64-bit IBM Z/LinuxONE)
+
+_Note that the amd64 target does not involve cross-compilation, and simply maps the $CC and $CXX variables to GCC 4.9.  The target is included so that the same pattern can be followed for all architectures within Cobbler itself.  It's expected therefore that most projects using Cobbler will treat their build process agnostically of the underlying processor architecture of their target._
