@@ -1,22 +1,63 @@
 #!/bin/bash
 
-cobbler_foreign_architectures="armhf arm64 ppc64el s390x";
-cobbler_cross_architectures="i386 $cobbler_foreign_architectures";
-cobbler_qemu_architectures="amd64 i386 armhf aarch64 ppc64el s390x";
-cobbler_foreign_triplets="arm-linux-gnueabihf aarch64-linux-gnu powerpc64le-linux-gnu s390x-linux-gnu";
-cobbler_architectures_ports_list="armhf,arm64,ppc64el,s390x";
+if [ "${arch}" != "amd64" && "${arch}" != "i386" ]; cobbler_foreign_architectures="$arch"; done;
+
+if [ "${arch}" != "amd64" ]; cobbler_cross_architectures="$arch"; done;
+
+if [ "${arch}" == "arm64" ];
+  cobbler_qemu_architectures="aarch64";
+else
+  cobbler_qemu_architectures="$arch";
+fi
+
+case $arch in
+"amd64")
+  cobbler_foreign_triplets="x86-64-linux-gnu"
+  qemu_package_architecture="x86"
+  ;;
+"i386")
+  cobbler_foreign_triplets="i686-linux-gnu"
+  qemu_package_architecture="x86"
+  ;;
+"armhf")
+  cobbler_foreign_triplets="arm-linux-gnueabihf"
+  qemu_package_architecture="arm"
+  ;;
+"arm64")
+  cobbler_foreign_triplets="aarch64-linux-gnu"
+  qemu_package_architecture="arm"
+  ;;
+"ppc64el")
+  cobbler_foreign_triplets="powerpc64le-linux-gnu"
+  qemu_package_architecture="ppc"
+  ;;
+"s390x")
+  cobbler_foreign_triplets="s390x-linux-gnu"
+  qemu_package_architecture="s390x"
+  ;;
+esac
+
+cobbler_architectures_ports_list="$arch";
+
+echo "Environment Summary"
+echo "-------------------"
+echo ""
+echo "Target architecture: $arch"; 
+echo "Compiler architecture: $cobbler_foreign_architectures";
+echo "Cross-compile architecture: $cobbler_cross_architectures";
+echo "QEMU architecture: $cobbler_qemu_architectures";
+echo "QEMU system emulator: qemu-system-$qemu_package_architecture";
+echo "C compiler: gcc-$cobbler_foreign_triplets";
+echo "C++ compiler: gpp-$cobbler_foreign_triplets";
 
 cobbler_packages_to_install=""
 for triplet in $cobbler_foreign_triplets; do cobbler_packages_to_install="$cobbler_packages_to_install \
 gcc-$triplet \
 g++-$triplet"; done
 
-# libc6-$arch-cross \
-# libstdc++6-$arch-cross \
-
 for arch in $cobbler_cross_architectures; do cobbler_packages_to_install="$cobbler_packages_to_install \
 crossbuild-essential-$arch"; done
-#  libjpeg-turbo:$arch \
+
 for arch in $cobbler_foreign_architectures; do cobbler_packages_to_install="$cobbler_packages_to_install libgtk2.0-0:$arch libxkbfile-dev:$arch \
 libx11-dev:$arch libxdmcp-dev:$arch libdbus-1-3:$arch libpcre3:$arch libselinux1:$arch libp11-kit0:$arch libcomerr2:$arch libk5crypto3:$arch \
 libkrb5-3:$arch libpango-1.0-0:$arch libpangocairo-1.0-0:$arch libpangoft2-1.0-0:$arch libxcursor1:$arch libxfixes3:$arch libfreetype6:$arch libavahi-client3:$arch \
@@ -65,18 +106,15 @@ rm /etc/apt/sources.list;
 echo "Updating package sources"
 apt-get update -yq;
 
-echo "Installing curl, gnupg and git"
-apt-get install -y curl gnupg git;
-
 #echo "Binding all unfiltered repositories to intel";
 #sed -i 's/deb http/deb [arch=amd64,i386] http/g' /etc/apt/sources.list;
 #find /etc/apt/sources.list.d/ -name '*.list' -print0 | xargs -0 -I {} -P 0 sed -i 's/deb http/deb [arch=amd64,i386] http/g' {}
 
-echo "Updating package sources"
-apt-get update -yq;
+#echo "Updating package sources"
+# apt-get update -yq;
 
 echo "Installing packages"
-apt-get install -y pkg-config libsecret-1-dev libglib2.0-dev software-properties-common xvfb wget python curl zip p7zip-full rpm graphicsmagick libwww-perl libxml-libxml-perl libxml-sax-expat-perl \
+apt-get install -y curl gnupg git qemu-system-$qemu_package_architecture pkg-config libsecret-1-dev libglib2.0-dev software-properties-common xvfb wget python curl zip p7zip-full rpm graphicsmagick libwww-perl libxml-libxml-perl libxml-sax-expat-perl \
 dpkg-dev perl libconfig-inifiles-perl libxml-simple-perl liblocale-gettext-perl libdpkg-perl libconfig-auto-perl libdebian-dpkgcross-perl ucf debconf dpkg-cross tree \
 libx11-dev libxkbfile-dev zlib1g-dev libc6-dev ${cobbler_packages_to_install}
 
