@@ -1,14 +1,20 @@
 #!/bin/bash
 
-if [ "${arch}" != "amd64" && "${arch}" != "i386" ]; cobbler_foreign_architectures="$arch"; fi;
+if [ "${arch}" != "amd64" ]
+then
+  cobbler_cross_architectures="$arch";
+  if [ "${arch}" != "i386" ]
+  then
+    cobbler_foreign_architectures="$arch";
+  fi
+fi
 
-if [ "${arch}" != "amd64" ]; cobbler_cross_architectures="$arch"; fi;
-
-if [ "${arch}" == "arm64" ];
+if [ "${arch}" == "arm64" ]
+then
   cobbler_qemu_architectures="aarch64";
 else
   cobbler_qemu_architectures="$arch";
-fi;
+fi
 
 case $arch in
 "amd64")
