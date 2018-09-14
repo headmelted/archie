@@ -9,6 +9,7 @@ GNU_MULTILIB_TRIPLET="";
 CXX="arm-linux-gnueabihf-g++";
 CC="arm-linux-gnueabihf-gcc";
 PACKAGE_ARCH="arm";
+QEMU_PACKAGE_ARCH="arm";
 QEMU_ARCH="arm";
 ELECTRON_ARCH="arm";
 VSCODE_ELECTRON_PLATFORM="arm";
