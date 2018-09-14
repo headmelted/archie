@@ -45,16 +45,17 @@ esac
 
 cobbler_architectures_ports_list="$arch";
 
-echo "Environment Summary"
-echo "-------------------"
-echo ""
-echo "Target architecture: $arch"; 
-echo "Non-native target architectures: $cobbler_foreign_architectures";
-echo "Cross-compile architectures: $cobbler_cross_architectures";
-echo "QEMU architectures: $cobbler_qemu_architectures";
-echo "QEMU system emulator set: qemu-system-$qemu_package_architecture";
-echo "C compilers (gcc-): $cobbler_foreign_triplets";
-echo "C++ compilers (gpp-): $cobbler_foreign_triplets";
+echo "-------------------------------------------------------------"
+echo "| Environment Summary"
+echo "-------------------------------------------------------------"
+echo "| Target architecture: $arch"; 
+echo "| Non-native target architectures: $cobbler_foreign_architectures";
+echo "| Cross-compile architectures: $cobbler_cross_architectures";
+echo "| QEMU architectures: $cobbler_qemu_architectures";
+echo "| QEMU system emulator set: qemu-system-$qemu_package_architecture";
+echo "| C compilers (gcc-): $cobbler_foreign_triplets";
+echo "| C++ compilers (gpp-): $cobbler_foreign_triplets";
+echo "-------------------------------------------------------------"
 
 exit;
 
