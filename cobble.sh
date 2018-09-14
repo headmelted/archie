@@ -49,12 +49,12 @@ echo "Environment Summary"
 echo "-------------------"
 echo ""
 echo "Target architecture: $arch"; 
-echo "Compiler architecture: $cobbler_foreign_architectures";
-echo "Cross-compile architecture: $cobbler_cross_architectures";
-echo "QEMU architecture: $cobbler_qemu_architectures";
-echo "QEMU system emulator: qemu-system-$qemu_package_architecture";
-echo "C compiler: gcc-$cobbler_foreign_triplets";
-echo "C++ compiler: gpp-$cobbler_foreign_triplets";
+echo "Non-native target architectures: $cobbler_foreign_architectures";
+echo "Cross-compile architectures: $cobbler_cross_architectures";
+echo "QEMU architectures: $cobbler_qemu_architectures";
+echo "QEMU system emulator set: qemu-system-$qemu_package_architecture";
+echo "C compilers (gcc-): $cobbler_foreign_triplets";
+echo "C++ compilers (gpp-): $cobbler_foreign_triplets";
 
 exit;
 
