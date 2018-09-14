@@ -172,7 +172,4 @@ if [[ ! -d .builds ]]; then mkdir .builds; fi;
 if [[ ! -d $BUILDS_DIRECTORY ]]; then mkdir $BUILDS_DIRECTORY; fi;
 if [[ ! -d $CODE_DIRECTORY ]]; then mkdir $CODE_DIRECTORY; fi;
 
-echo "Running yarn install for ${NPM_ARCH}";
-yarn install --target-arch=${NPM_ARCH} --unsafe-perm;
-
 echo "Ready to cook";
