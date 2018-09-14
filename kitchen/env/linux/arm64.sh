@@ -9,6 +9,7 @@ GNU_MULTILIB_TRIPLET='arm-linux-gnueabihf';
 CXX='aarch64-linux-gnu-g++';
 CC='aarch64-linux-gnu-gcc';
 PACKAGE_ARCH='arm64';
+QEMU_PACKAGE_ARCH='arm';
 QEMU_ARCH='aarch64';
 ELECTRON_ARCH='arm64';
 VSCODE_ELECTRON_PLATFORM='arm64';
