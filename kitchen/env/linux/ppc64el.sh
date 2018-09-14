@@ -1,0 +1,15 @@
+echo "Setting environment for ppc64el";
+LABEL="ppc64el_linux";
+CROSS_TOOLCHAIN="true";
+ARCH="ppc64el";
+RPM_ARCH="ppc64el";
+NPM_ARCH="ppc64el";
+GNU_TRIPLET="powerpc64le-linux-gnu";
+GNU_MULTILIB_TRIPLET="";
+CXX="powerpc64le-linux-gnu-g++";
+CC="powerpc64le-linux-gnu-gcc";
+PACKAGE_ARCH="ppc64el";
+QEMU_PACKAGE_ARCH="ppc";
+QEMU_ARCH="ppc64le";
+ELECTRON_ARCH="";
+VSCODE_ELECTRON_PLATFORM="";
