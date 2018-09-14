@@ -1,5 +1,6 @@
 FROM ubuntu:cosmic
-ENV arch=amd64
+ARG DOCKER_TAG
+ENV arch=${DOCKER_TAG}
 WORKDIR /workspace
 COPY kitchen /kitchen/
 ADD cobble.sh /
