@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e;
 
+echo "Setting environment to [$arch] again, as we should now be inside the CI session."
+. ./env/linux/$arch.sh;
+
 echo "Starting to cook";
 
 echo "C compiler is ${CC}, C++ compiler is ${CXX}.";
