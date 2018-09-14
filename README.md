@@ -14,5 +14,5 @@ As Cobbler is built on Ubuntu Cosmic, the architectures supported mirror those s
 * amd64 (64-bit Intel)
 * armhf (32-bit ARM)
 * arm64 (64-bit ARM)
-* powerpc64el (64-bit IBM PowerPC)
+* ppc64el (64-bit IBM PowerPC, Little-endian)
 * s390x (64-bit IBM Z/LinuxONE)
