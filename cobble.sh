@@ -79,8 +79,8 @@ libasound2:$arch libnss3:$arch zlib1g:$arch"; done
 echo "Package install list: ${cobbler_packages_to_install}"
 
 echo "Adding architectures supported by cobbler"
-#for arch in $cobbler_foreign_architectures; do dpkg --add-architecture $arch; done
-dpkg --add-architecture $arch;
+for arch in $cobbler_foreign_architectures; do dpkg --add-architecture $arch; done
+#dpkg --add-architecture $arch;
 
 #echo "Adding yarn signing key"
 #curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
@@ -98,7 +98,9 @@ echo "deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu/ cosmic-security m
 echo "deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ cosmic-updates main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
 echo "deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ cosmic-backports main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
 
-cobbler_architectures_ports_list="${cobbler_foreign_architectures// /,}"
+#cobbler_architectures_ports_list="${cobbler_foreign_architectures// /,}"
+
+cobbler_architectures_ports_list=$cobbler_foreign_architectures;
 
 echo "Checking for ports list [${cobbler_architectures_ports_list}]...";
 if [ -n "${cobbler_architectures_ports_list}" ]; then
