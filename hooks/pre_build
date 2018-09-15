@@ -161,10 +161,6 @@ echo "cobble.sh is run at docker build time now, so skipping here"
 echo "Checking presence of NVM";
 . ./env/setup_nvm.sh;
 
-export ROOT_DIRECTORY=$(pwd);
-export BUILDS_DIRECTORY=$ROOT_DIRECTORY/.builds/${ARCH};
-export CODE_DIRECTORY=$BUILDS_DIRECTORY/.code;
-
 echo "Creating .builds folders if they do not exist";
 if [[ ! -d .builds ]]; then mkdir .builds; fi;
 if [[ ! -d $BUILDS_DIRECTORY ]]; then mkdir $BUILDS_DIRECTORY; fi;
