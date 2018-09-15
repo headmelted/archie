@@ -1,2 +1,2 @@
 #!/bin/sh
-docker build --env arch=$DOCKER_TAG -t $IMAGE_NAME .
+docker build --build-arg arch=$DOCKER_TAG -t $IMAGE_NAME .
