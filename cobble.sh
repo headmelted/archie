@@ -145,12 +145,6 @@ libx11-dev libxkbfile-dev zlib1g-dev libc6-dev ${cobbler_packages_to_install}
 #echo "Installing build packages into rootfs"
 #chroot rootfs apt-get install -y libx11-dev libxkbfile-dev pkg-config libsecret-1-dev libglib2.0;
 
-echo "Creating images directory [/kitchen/.images]"
-mkdir .images;
-
-echo "Downloading Ubuntu cloud images (used for testing later)";
-for arch in $cobbler_qemu_architectures; do wget "https://cloud-images.ubuntu.com/cosmic/current/cosmic-server-cloudimg-$arch.img" -O ./.images/cosmic-server-cloudimg-$arch.img; done;
-
 echo "Creating .cache folder if it does not exist";
 if [[ ! -d ../.cache ]]; then mkdir ../.cache; fi
 
