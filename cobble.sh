@@ -79,7 +79,8 @@ libasound2:$arch libnss3:$arch zlib1g:$arch"; done
 echo "Package install list: ${cobbler_packages_to_install}"
 
 echo "Adding architectures supported by cobbler"
-for arch in $cobbler_foreign_architectures; do dpkg --add-architecture $arch; done
+#for arch in $cobbler_foreign_architectures; do dpkg --add-architecture $arch; done
+dpkg --add-architecture $arch;
 
 #echo "Adding yarn signing key"
 #curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
