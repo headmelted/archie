@@ -1,10 +1,7 @@
 #!/bin/bash
 
-echo "Setting arch to $1";
-arch=$1;
-
 echo "Entering the kitchen";
-cd kitchen;
+cd /kitchen;
 
 echo "Setting environment for $arch";
 . ./env/linux/$arch.sh;
