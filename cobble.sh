@@ -174,7 +174,7 @@ echo "Checking presence of NVM";
 
 echo "Creating .builds folders if they do not exist";
 if [[ ! -d .builds ]]; then mkdir .builds; fi;
-if [[ ! -d $BUILDS_DIRECTORY ]]; then mkdir $BUILDS_DIRECTORY; fi;
+if [[ ! -d $COBBLER_BUILDS_DIRECTORY ]]; then mkdir $COBBLER_BUILDS_DIRECTORY; fi;
 if [[ ! -d $COBBLER_CODE_DIRECTORY ]]; then mkdir $COBBLER_CODE_DIRECTORY; fi;
 
 echo "Ready to cook";
