@@ -3,8 +3,8 @@
 echo "Passed label [$1]";
 if [ "$1" == "" ]; then LABEL="amd64_linux"; else LABEL=$1; fi;
 
-echo "Setting environment for $LABEL";
-. ./tools/env/$LABEL.sh;
+echo "Setting environment for $COBBLER_LABEL";
+. ./tools/env/$COBBLER_LABEL.sh;
 
 export CXX="${GPP_COMPILER} --sysroot=$(pwd)/rootfs -L$(pwd)/rootfs/usr/lib/${GNU_TRIPLET} -I$(pwd)/rootfs/usr/include/libsecret-1 -I$(pwd)/rootfs/usr/include/glib-2.0 -I$(pwd)/rootfs/usr/lib/${GNU_TRIPLET}/glib-2.0/include" CC="${GCC_COMPILER}" DEBIAN_FRONTEND="noninteractive";
 echo "C compiler is ${CC}, C++ compiler is ${CXX}."

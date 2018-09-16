@@ -3,84 +3,82 @@
 echo "Entering the kitchen";
 cd /kitchen;
 
-echo "Setting environment for $arch";
-. ./env/linux/$arch.sh;
+echo "Setting environment for $COBBLER_ARCH";
+. ./env/linux/$COBBLER_ARCH.sh;
 
-if [ "${arch}" != "amd64" ]
+if [ "$COBBLER_ARCH" != "amd64" ]
 then
-  cobbler_cross_architectures="$arch";
-  if [ "${arch}" != "i386" ]
+  cobbler_cross_architectures="$COBBLER_ARCH";
+  if [ "$COBBLER_ARCH" != "i386" ]
   then
-    cobbler_foreign_architectures="$arch";
+    cobbler_foreign_architectures="$COBBLER_ARCH";
   fi
 fi
 
-if [ "${arch}" == "arm64" ]
-then
-  cobbler_qemu_architectures="aarch64";
-else
-  cobbler_qemu_architectures="$arch";
-fi
+# if [ "$COBBLER_ARCH" == "arm64" ]
+# then
+#   cobbler_qemu_architectures="aarch64";
+# else
+#   cobbler_qemu_architectures="$COBBLER_ARCH";
+# fi
 
-case $arch in
-"amd64")
-  cobbler_foreign_triplets="x86-64-linux-gnu";
-  qemu_package_architecture="x86";
-  ;;
-"i386")
-  cobbler_foreign_triplets="i686-linux-gnu";
-  qemu_package_architecture="x86";
-  ;;
-"armhf")
-  cobbler_foreign_triplets="arm-linux-gnueabihf";
-  qemu_package_architecture="arm";
-  ;;
-"arm64")
-  cobbler_foreign_triplets="aarch64-linux-gnu";
-  qemu_package_architecture="arm";
-  ;;
-"ppc64el")
-  cobbler_foreign_triplets="powerpc64le-linux-gnu";
-  qemu_package_architecture="ppc";
-  ;;
-"s390x")
-  cobbler_foreign_triplets="s390x-linux-gnu";
-  qemu_package_architecture="s390x";
-  ;;
-esac
+# case $COBBLER_ARCH in
+# "amd64")
+#   cobbler_foreign_triplets="x86-64-linux-gnu";
+#   qemu_package_architecture="x86";
+#   ;;
+# "i386")
+#   cobbler_foreign_triplets="i686-linux-gnu";
+#   qemu_package_architecture="x86";
+#   ;;
+# "armhf")
+#   cobbler_foreign_triplets="arm-linux-gnueabihf";
+#   qemu_package_architecture="arm";
+#   ;;
+# "arm64")
+#   cobbler_foreign_triplets="aarch64-linux-gnu";
+#   qemu_package_architecture="arm";
+#   ;;
+# "ppc64el")
+#   cobbler_foreign_triplets="powerpc64le-linux-gnu";
+#   qemu_package_architecture="ppc";
+#   ;;
+# "s390x")
+#   cobbler_foreign_triplets="s390x-linux-gnu";
+#   qemu_package_architecture="s390x";
+#   ;;
+# esac
 
 echo "-------------------------------------------------------------"
 echo "| Environment Summary"
 echo "-------------------------------------------------------------"
-echo "| Target architecture: $arch"; 
+echo "| Target architecture: $COBBLER_ARCH"; 
 echo "| Non-native target architectures: $cobbler_foreign_architectures";
 echo "| Cross-compile architectures: $cobbler_cross_architectures";
-echo "| QEMU architectures: $cobbler_qemu_architectures";
-echo "| QEMU system emulator set: qemu-system-$qemu_package_architecture";
-echo "| C compilers (gcc-): $cobbler_foreign_triplets";
-echo "| C++ compilers (gpp-): $cobbler_foreign_triplets";
+echo "| QEMU architectures: $COBBLER_QEMU_ARCH";
+echo "| QEMU system emulator set: qemu-system-$COBBLER_QEMU_PACKAGE_ARCH";
+echo "| C compilers (gcc-): $COBBLER_GNU_TRIPLET";
+echo "| C++ compilers (gpp-): $COBBLER_GNU_TRIPLET";
 echo "-------------------------------------------------------------"
 
-cobbler_packages_to_install=""
-for triplet in $cobbler_foreign_triplets; do cobbler_packages_to_install="$cobbler_packages_to_install \
-gcc-$triplet \
-g++-$triplet"; done
+cobbler_packages_to_install="gcc-$COBBLER_GNU_TRIPLET g++-$COBBLER_GNU_TRIPLET"
 
-for arch in $cobbler_cross_architectures; do cobbler_packages_to_install="$cobbler_packages_to_install \
-crossbuild-essential-$arch"; done
+for cobbler_cross_architecture in $cobbler_cross_architectures; do cobbler_packages_to_install="$cobbler_packages_to_install \
+crossbuild-essential-$cobbler_cross_architecture"; done
 
-for arch in $cobbler_foreign_architectures; do cobbler_packages_to_install="$cobbler_packages_to_install libgtk2.0-0:$arch libxkbfile-dev:$arch \
-libx11-dev:$arch libxdmcp-dev:$arch libdbus-1-3:$arch libpcre3:$arch libselinux1:$arch libp11-kit0:$arch libcomerr2:$arch libk5crypto3:$arch \
-libkrb5-3:$arch libpango-1.0-0:$arch libpangocairo-1.0-0:$arch libpangoft2-1.0-0:$arch libxcursor1:$arch libxfixes3:$arch libfreetype6:$arch libavahi-client3:$arch \
-libgssapi-krb5-2:$arch libtiff5:$arch fontconfig-config libgdk-pixbuf2.0-common libgdk-pixbuf2.0-0:$arch libfontconfig1:$arch libcups2:$arch \
-libcairo2:$arch libc6-dev:$arch linux-libc-dev:$arch libatk1.0-0:$arch libx11-xcb-dev:$arch libxtst6:$arch libxss-dev:$arch libxss1:$arch libgconf-2-4:$arch \
-libasound2:$arch libnss3:$arch zlib1g:$arch"; done
+for arch in $cobbler_foreign_architectures; do cobbler_packages_to_install="$cobbler_packages_to_install libgtk2.0-0:$COBBLER_ARCH libxkbfile-dev:$COBBLER_ARCH \
+libx11-dev:$COBBLER_ARCH libxdmcp-dev:$COBBLER_ARCH libdbus-1-3:$COBBLER_ARCH libpcre3:$COBBLER_ARCH libselinux1:$COBBLER_ARCH libp11-kit0:$COBBLER_ARCH libcomerr2:$COBBLER_ARCH libk5crypto3:$COBBLER_ARCH \
+libkrb5-3:$COBBLER_ARCH libpango-1.0-0:$COBBLER_ARCH libpangocairo-1.0-0:$COBBLER_ARCH libpangoft2-1.0-0:$COBBLER_ARCH libxcursor1:$COBBLER_ARCH libxfixes3:$COBBLER_ARCH libfreetype6:$COBBLER_ARCH libavahi-client3:$COBBLER_ARCH \
+libgssapi-krb5-2:$COBBLER_ARCH libtiff5:$COBBLER_ARCH fontconfig-config libgdk-pixbuf2.0-common libgdk-pixbuf2.0-0:$COBBLER_ARCH libfontconfig1:$COBBLER_ARCH libcups2:$COBBLER_ARCH \
+libcairo2:$COBBLER_ARCH libc6-dev:$COBBLER_ARCH linux-libc-dev:$COBBLER_ARCH libatk1.0-0:$COBBLER_ARCH libx11-xcb-dev:$COBBLER_ARCH libxtst6:$COBBLER_ARCH libxss-dev:$COBBLER_ARCH libxss1:$COBBLER_ARCH libgconf-2-4:$COBBLER_ARCH \
+libasound2:$COBBLER_ARCH libnss3:$COBBLER_ARCH zlib1g:$COBBLER_ARCH"; done
 
 echo "Package install list: ${cobbler_packages_to_install}"
 
 echo "Adding architectures supported by cobbler"
-for arch in $cobbler_foreign_architectures; do dpkg --add-architecture $arch; done
-#dpkg --add-architecture $arch;
+for arch in $cobbler_foreign_architectures; do dpkg --add-architecture $COBBLER_ARCH; done
+
+#dpkg --add-architecture $COBBLER_ARCH;
 
 #echo "Adding yarn signing key"
 #curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
@@ -128,12 +126,31 @@ apt-get update -yq;
 # apt-get update -yq;
 
 echo "Installing packages"
-apt-get install -y curl gnupg git qemu-system-$qemu_package_architecture pkg-config libsecret-1-dev libglib2.0-dev software-properties-common xvfb wget python curl zip p7zip-full rpm graphicsmagick libwww-perl libxml-libxml-perl libxml-sax-expat-perl \
+apt-get install -y curl gnupg git qemu qemu-user-static binfmt-support debootstrap qemu-system-$qemu_package_architecture pkg-config libsecret-1-dev libglib2.0-dev software-properties-common xvfb wget python curl zip p7zip-full rpm graphicsmagick libwww-perl libxml-libxml-perl libxml-sax-expat-perl \
 dpkg-dev perl libconfig-inifiles-perl libxml-simple-perl liblocale-gettext-perl libdpkg-perl libconfig-auto-perl libdebian-dpkgcross-perl ucf debconf dpkg-cross tree \
 libx11-dev libxkbfile-dev zlib1g-dev libc6-dev ${cobbler_packages_to_install}
 
-#echo "Creating ${ARCH} qemu debootstrap"
-#qemu-debootstrap --arch=${arch} --variant=minbase cosmic rootfs
+echo "Creating [/kitchen/testing]";
+mkdir /kitchen/testing;
+
+if [ "$COBBLER_QEMU_TEST_METHOD" == "rootfs" ]; then
+
+  echo "Creating [/kitchen/testing/.rootfs]";
+  mkdir /kitchen/testing/.rootfs;
+
+  echo "Creating [/kitchen/testing/.rootfs/cosmic]";
+  mkdir /kitchen/testing/.rootfs/cosmic;
+
+  echo "Creating [/kitchen/testing/.rootfs/cosmic/$COBBLER_ARCH]";
+  mkdir /kitchen/testing/.rootfs/cosmic/$COBBLER_ARCH;
+
+  echo "Creating emulated [$COBBLER_ARCH] debootstrap for testing at [/kitchen/testing/.rootfs/cosmic/$COBBLER_ARCH]";
+  qemu-debootstrap --arch=$COBBLER_ARCH --variant=minbase cosmic /kitchen/testing/.rootfs/cosmic/$COBBLER_ARCH;
+
+fi;
+
+#echo "Creating $COBBLER_ARCH qemu debootstrap"
+#qemu-debootstrap --arch=$COBBLER_ARCH --variant=minbase cosmic rootfs
 
 #echo "Mounting rootfs directories"
 #mount --bind /dev/pts $(pwd)/rootfs/dev/pts
@@ -145,23 +162,19 @@ libx11-dev libxkbfile-dev zlib1g-dev libc6-dev ${cobbler_packages_to_install}
 #echo "Installing build packages into rootfs"
 #chroot rootfs apt-get install -y libx11-dev libxkbfile-dev pkg-config libsecret-1-dev libglib2.0;
 
-echo "Creating .cache folder if it does not exist";
-if [[ ! -d ../.cache ]]; then mkdir ../.cache; fi
+# echo "Creating .cache folder if it does not exist";
+# if [[ ! -d ../.cache ]]; then mkdir ../.cache; fi
 
-echo "cobble.sh is run at docker build time now, so skipping here"
-# echo "Initializing cobbler for ${arch}";
+# echo "cobble.sh is run at docker build time now, so skipping here"
+# echo "Initializing cobbler for $COBBLER_ARCH";
 # . ../../cobble.sh;
 
 echo "Checking presence of NVM";
 . ./env/setup_nvm.sh;
 
-export ROOT_DIRECTORY=$(pwd);
-export BUILDS_DIRECTORY=$ROOT_DIRECTORY/.builds/${arch};
-export CODE_DIRECTORY=$BUILDS_DIRECTORY/.code;
-
 echo "Creating .builds folders if they do not exist";
 if [[ ! -d .builds ]]; then mkdir .builds; fi;
 if [[ ! -d $BUILDS_DIRECTORY ]]; then mkdir $BUILDS_DIRECTORY; fi;
-if [[ ! -d $CODE_DIRECTORY ]]; then mkdir $CODE_DIRECTORY; fi;
+if [[ ! -d $COBBLER_CODE_DIRECTORY ]]; then mkdir $COBBLER_CODE_DIRECTORY; fi;
 
 echo "Ready to cook";

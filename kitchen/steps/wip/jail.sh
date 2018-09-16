@@ -1,9 +1,9 @@
 #!/bin/bash
 
-echo "Checking if jail exists for $LABEL";
-if [ ! -d "./.work/jails/$LABEL" ]; then
+echo "Checking if jail exists for $COBBLER_LABEL";
+if [ ! -d "./.work/jails/$COBBLER_LABEL" ]; then
 
-  echo "Jail does NOT exist for $LABEL";
+  echo "Jail does NOT exist for $COBBLER_LABEL";
   
   if [ ! -d ".work" ]; then
     echo "Working folder does not exist, creating";
@@ -15,44 +15,44 @@ if [ ! -d "./.work/jails/$LABEL" ]; then
     mkdir .work/jails;
   fi;
 
-  echo "Creating $LABEL jail"
-  mkdir ./.work/jails/$LABEL;
+  echo "Creating $COBBLER_LABEL jail"
+  mkdir ./.work/jails/$COBBLER_LABEL;
 
   echo "Downloading $JAIL_ROOTFS";
-  wget -qO- "$JAIL_ROOTFS" | (tar xz -C ./.work/jails/$LABEL || true);
+  wget -qO- "$JAIL_ROOTFS" | (tar xz -C ./.work/jails/$COBBLER_LABEL || true);
   
   echo "Creating home directory for root user";
-  mkdir ./.work/jails/$LABEL/home/root;
+  mkdir ./.work/jails/$COBBLER_LABEL/home/root;
   
   echo 'Setting /tmp permissions for jail';
-  chmod 1777 ./.work/jails/$LABEL/tmp;
+  chmod 1777 ./.work/jails/$COBBLER_LABEL/tmp;
   
   echo "Inserting custom xvfb into /etc/init.d";
-  cp -f ./tools/xvfb ./.work/jails/$LABEL/etc/init.d/xvfb;
+  cp -f ./tools/xvfb ./.work/jails/$COBBLER_LABEL/etc/init.d/xvfb;
 
   echo "Remove tools from jail if they exist (so we are using the latest version)";
-  rm -rf ./.work/jails/$LABEL/home/root/tools;
+  rm -rf ./.work/jails/$COBBLER_LABEL/home/root/tools;
   
   echo "Copying latest tools into jail"
-  cp -avr ./tools ./.work/jails/$LABEL/home/root;
+  cp -avr ./tools ./.work/jails/$COBBLER_LABEL/home/root;
   
   echo "Removing old nvm if it exists";
-  rm -rf ./.work/jails/$LABEL/home/root/.nvm;
+  rm -rf ./.work/jails/$COBBLER_LABEL/home/root/.nvm;
   
   echo "Retrieving vscode from Github";
-  git clone https://github.com/Microsoft/vscode.git ./.work/jails/$LABEL/home/root/vscode;
+  git clone https://github.com/Microsoft/vscode.git ./.work/jails/$COBBLER_LABEL/home/root/vscode;
 
   echo "Installing nvm into vscode";
-  git clone --depth 1 https://github.com/creationix/nvm.git ./.work/jails/$LABEL/home/root/vscode/.nvm;
+  git clone --depth 1 https://github.com/creationix/nvm.git ./.work/jails/$COBBLER_LABEL/home/root/vscode/.nvm;
   
   echo "Checking if cross-toolchain";
-  if [ "${CROSS_TOOLCHAIN}" == "true" ]; then
+  if [ "$COBBLER_CROSS_TOOLCHAIN" == "true" ]; then
   
       echo "Copying static qemu into jail";
-      cp /usr/bin/qemu-${QEMU_ARCH}-static ./.work/jails/$LABEL/usr/bin/;
+      cp /usr/bin/qemu-${QEMU_ARCH}-static ./.work/jails/$COBBLER_LABEL/usr/bin/;
       
       echo "Enabling ${QEMU_ARCH} binfmt support";
-      chroot ./.work/jails/$LABEL /usr/bin/qemu-${QEMU_ARCH}-static update-binfmts --enable qemu-${QEMU_ARCH};
+      chroot ./.work/jails/$COBBLER_LABEL /usr/bin/qemu-${QEMU_ARCH}-static update-binfmts --enable qemu-${QEMU_ARCH};
       
   fi;
   
@@ -68,12 +68,12 @@ if [ ! -d "./.work/jails/$LABEL" ]; then
   
 else
 
-  echo "Jail exists already for $LABEL";
+  echo "Jail exists already for $COBBLER_LABEL";
 
   echo "Remove tools from jail (so we can use the latest version)";
-  rm -rf ./.work/jails/$LABEL/home/root/tools;
+  rm -rf ./.work/jails/$COBBLER_LABEL/home/root/tools;
   
   echo "Copying latest tools into jail"
-  cp -avr ./tools ./.work/jails/$LABEL/home/root;
+  cp -avr ./tools ./.work/jails/$COBBLER_LABEL/home/root;
 
 fi;

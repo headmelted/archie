@@ -3,7 +3,7 @@
 architecture_packages="";
 need_update="false";
 
-if [[ ${ARCH} != "amd64" ]]; then
+if [[ $COBBLER_ARCH != "amd64" ]]; then
 
   echo "Checking installed foreign architectures";
   foreign_architecture_list=$(dpkg --print-foreign-architectures);
@@ -12,16 +12,16 @@ if [[ ${ARCH} != "amd64" ]]; then
 $foreign_architecture_list
 ";
 
-  if [[ $foreign_architecture_list != *"${ARCH}"* ]]; then
+  if [[ $foreign_architecture_list != *"$COBBLER_ARCH"* ]]; then
   
-    echo "Adding ${ARCH} architecture";
-    dpkg --add-architecture ${ARCH};
+    echo "Adding $COBBLER_ARCH architecture";
+    dpkg --add-architecture $COBBLER_ARCH;
     
   fi;
   
   echo "Adding architecture packages to install list";
-  architecture_packages="libc6-${ARCH}-cross libstdc++6-${ARCH}-cross gcc-${GNU_TRIPLET} g++-${GNU_TRIPLET} crossbuild-essential-${ARCH}";
-  echo "Adding: $architecture_packages";
+  architecture_packages="libc6-$COBBLER_ARCH-cross libstdc++6-$COBBLER_ARCH-cross gcc-${GNU_TRIPLET} g++-${GNU_TRIPLET} crossbuild-essential-$COBBLER_ARCH";
+  echo "Adding: $COBBLER_ARCHitecture_packages";
   
   need_update="true";
   
@@ -70,7 +70,7 @@ if [[ "$need_update" == "true" ]]; then
 fi;
   
 echo "Installing toolchain";
-apt install -y ${architecture_packages} mlocate software-properties-common xvfb wget git python curl zip p7zip-full libgtk2.0-0:${ARCH} libxkbfile-dev:${ARCH} libx11-dev:${ARCH} libxdmcp-dev:${ARCH} rpm graphicsmagick libwww-perl libxml-libxml-perl libxml-sax-expat-perl dpkg-dev perl libconfig-inifiles-perl libxml-simple-perl liblocale-gettext-perl libdpkg-perl libconfig-auto-perl libdebian-dpkgcross-perl ucf debconf dpkg-cross libdbus-1-3:${ARCH} libpcre3:${ARCH} libselinux1:${ARCH} libp11-kit0:${ARCH} libcomerr2:${ARCH} libk5crypto3:${ARCH} libkrb5-3:${ARCH} libpango-1.0-0:${ARCH} libpangocairo-1.0-0:${ARCH} libpangoft2-1.0-0:${ARCH} libxcursor1:${ARCH} libxfixes3:${ARCH} libfreetype6:${ARCH} libavahi-client3:${ARCH} libgssapi-krb5-2:${ARCH} libjpeg8:${ARCH}  libtiff5:${ARCH} fontconfig-config libgdk-pixbuf2.0-common libgdk-pixbuf2.0-0:${ARCH} libfontconfig1:${ARCH} libcups2:${ARCH} libcairo2:${ARCH} libc6-dev:${ARCH} libatk1.0-0:${ARCH} libx11-xcb-dev:${ARCH} libxtst6:${ARCH} libxss-dev:${ARCH} libgconf-2-4:${ARCH} libasound2:${ARCH} libnss3:${ARCH} zlib1g:${ARCH} zlib1g-dev qemu binfmt-support qemu-user-static;
+apt install -y ${architecture_packages} mlocate software-properties-common xvfb wget git python curl zip p7zip-full libgtk2.0-0:$COBBLER_ARCH libxkbfile-dev:$COBBLER_ARCH libx11-dev:$COBBLER_ARCH libxdmcp-dev:$COBBLER_ARCH rpm graphicsmagick libwww-perl libxml-libxml-perl libxml-sax-expat-perl dpkg-dev perl libconfig-inifiles-perl libxml-simple-perl liblocale-gettext-perl libdpkg-perl libconfig-auto-perl libdebian-dpkgcross-perl ucf debconf dpkg-cross libdbus-1-3:$COBBLER_ARCH libpcre3:$COBBLER_ARCH libselinux1:$COBBLER_ARCH libp11-kit0:$COBBLER_ARCH libcomerr2:$COBBLER_ARCH libk5crypto3:$COBBLER_ARCH libkrb5-3:$COBBLER_ARCH libpango-1.0-0:$COBBLER_ARCH libpangocairo-1.0-0:$COBBLER_ARCH libpangoft2-1.0-0:$COBBLER_ARCH libxcursor1:$COBBLER_ARCH libxfixes3:$COBBLER_ARCH libfreetype6:$COBBLER_ARCH libavahi-client3:$COBBLER_ARCH libgssapi-krb5-2:$COBBLER_ARCH libjpeg8:$COBBLER_ARCH  libtiff5:$COBBLER_ARCH fontconfig-config libgdk-pixbuf2.0-common libgdk-pixbuf2.0-0:$COBBLER_ARCH libfontconfig1:$COBBLER_ARCH libcups2:$COBBLER_ARCH libcairo2:$COBBLER_ARCH libc6-dev:$COBBLER_ARCH libatk1.0-0:$COBBLER_ARCH libx11-xcb-dev:$COBBLER_ARCH libxtst6:$COBBLER_ARCH libxss-dev:$COBBLER_ARCH libgconf-2-4:$COBBLER_ARCH libasound2:$COBBLER_ARCH libnss3:$COBBLER_ARCH zlib1g:$COBBLER_ARCH zlib1g-dev qemu binfmt-support qemu-user-static;
   
 echo "Symlinking libxkbfile.so";
 rm -rf /usr/lib/libxkbfile.so;
@@ -78,7 +78,7 @@ ln -s /usr/lib/${GNU_TRIPLET}/libxkbfile.so /usr/lib/libxkbfile.so;
   
 echo "Symlinking libstdc++.so.6";
 rm -rf /usr/lib/libstdc++.so.6;
-if [ "${CROSS_TOOLCHAIN}" == "true" ]; then
+if [ "$COBBLER_CROSS_TOOLCHAIN" == "true" ]; then
   ln -s /usr/lib/${GNU_TRIPLET}/libstdc++.so.6 /usr/lib/libstdc++.so.6;
 else
   ln -s /usr/${GNU_TRIPLET}/lib/libstdc++.so.6 /usr/lib/libstdc++.so.6;
@@ -114,7 +114,7 @@ ls /proc/sys/fs/;
 echo "Enabling binfmt_misc";
 echo 1 > /proc/sys/fs/binfmt_misc/status;
 
-if [[ ${ARCH} != "amd64" ]]; then
+if [[ $COBBLER_ARCH != "amd64" ]]; then
   echo "Enabling ${QEMU_ARCH} emulator";
   update-binfmts --enable qemu-${QEMU_ARCH};
 fi;

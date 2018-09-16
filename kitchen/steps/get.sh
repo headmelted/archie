@@ -12,16 +12,16 @@ echo "Temporarily exiting code directory to replace it";
 cd ..;
 
 echo "Remove .code folder if it exists"
-rm -rf $CODE_DIRECTORY;
+rm -rf $COBBLER_CODE_DIRECTORY;
 
 echo "Creating .code folder";
-mkdir $CODE_DIRECTORY;
+mkdir $COBBLER_CODE_DIRECTORY;
 
-echo "Retrieving code from git endpoint [$COBBLER_GIT_ENDPOINT] into [$CODE_DIRECTORY]";
-git clone $COBBLER_GIT_ENDPOINT $CODE_DIRECTORY;
+echo "Retrieving code from git endpoint [$COBBLER_GIT_ENDPOINT] into [$COBBLER_CODE_DIRECTORY]";
+git clone $COBBLER_GIT_ENDPOINT $COBBLER_CODE_DIRECTORY;
   
 echo "Setting current owner as owner of code folder";
-chown ${USER:=$(/usr/bin/id -run)}:$USER -R $CODE_DIRECTORY;
+chown ${USER:=$(/usr/bin/id -run)}:$USER -R $COBBLER_CODE_DIRECTORY;
 
 echo "Entering code directory";
-cd $CODE_DIRECTORY;
+cd $COBBLER_CODE_DIRECTORY;

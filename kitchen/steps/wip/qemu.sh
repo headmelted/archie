@@ -9,11 +9,11 @@ if [ ! -d "./.jail" ]; then
   echo "Reading proc";
   ls /proc/sys/fs/;
 
-  echo "Creating ${ARCH} jail";
+  echo "Creating $COBBLER_ARCH jail";
   mkdir ./.jail;
 
   echo "Creating debootstrap";
-  debootstrap --foreign --no-check-gpg --include=fakeroot,build-essential --arch=${ARCH} jessie ./.jail ${QEMU_ARCHIVE}
+  debootstrap --foreign --no-check-gpg --include=fakeroot,build-essential --arch=$COBBLER_ARCH jessie ./.jail ${QEMU_ARCHIVE}
 
   echo "Copying static qemu into jail";
   cp /usr/bin/qemu-${QEMU_ARCH}-static ./.jail/usr/bin/
