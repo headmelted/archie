@@ -172,9 +172,13 @@ fi;
 echo "Checking presence of NVM";
 . ./env/setup_nvm.sh;
 
-echo "Creating .builds folders if they do not exist";
+echo "Creating [/kitchen/.builds] folders if it does not exist";
 if [[ ! -d /kitchen/.builds ]]; then mkdir /kitchen/.builds; fi;
+
+echo "Creating [$COBBLER_BUILDS_DIRECTORY] folder if it does not exist";
 if [[ ! -d $COBBLER_BUILDS_DIRECTORY ]]; then mkdir $COBBLER_BUILDS_DIRECTORY; fi;
+
+echo "Creating [$COBBLER_CODE_DIRECTORY] folder if it does not exist";
 if [[ ! -d $COBBLER_CODE_DIRECTORY ]]; then mkdir $COBBLER_CODE_DIRECTORY; fi;
 
 echo "Ready to cook";
