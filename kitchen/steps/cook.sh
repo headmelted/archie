@@ -20,8 +20,8 @@ for i in "${@:1}"; do
     echo "Executing KITCHEN step [$i]";
     . /kitchen/steps/$i.sh;
   fi;
-  echo "Returning to root directory [$ROOT_DIRECTORY]";
-  cd $ROOT_DIRECTORY;
+  echo "Returning to root directory [$COBBLER_ROOT_DIRECTORY]";
+  cd $COBBLER_ROOT_DIRECTORY;
 done
 
 echo "All steps complete";
