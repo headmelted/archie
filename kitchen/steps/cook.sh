@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e;
 
-echo "Setting environment to [$COBBLER_ARCH] again, as we should now be inside the CI session."
-. ./env/linux/$COBBLER_ARCH.sh;
+echo "Setting environment";
+. ./env/linux/setup.sh;
 
 echo "Starting to cook";
 
