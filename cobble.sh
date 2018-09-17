@@ -127,10 +127,10 @@ echo "Updating package sources"
 apt-get update -yq;
 
 echo "Installing QEMU packages, so that binfmt_misc is available during architecture-specific package installs for pre- and post- install hooks";
-apt-get install -y qemu qemu-user-static binfmt-support debootstrap fakeroot qemu-system-$qemu_package_architecture;
+apt-get install -y qemu qemu-user-static qemu-user-binfmt binfmt-support debootstrap fakeroot qemu-system-$qemu_package_architecture;
 
 echo "QEMU support installed for:";
-update-binfmts --display;
+ls -l /proc/sys/fs/binfmt_misc;
 
 echo "Installing standard and dependency packages"
 apt-get install -y curl gnupg git qemu qemu-user-static binfmt-support debootstrap fakeroot qemu-system-$qemu_package_architecture pkg-config libsecret-1-dev libglib2.0-dev software-properties-common xvfb wget python curl zip p7zip-full rpm graphicsmagick libwww-perl libxml-libxml-perl libxml-sax-expat-perl \
