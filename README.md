@@ -1,8 +1,6 @@
-<p align="center">
-  <img src="https://github.com/headmelted/cobbler/raw/master/logo_128.png" alt="Cobbler logo"/>
-  <h1>Cobbler</h1>
-</p>
+![Cobbler logo](https://github.com/headmelted/cobbler/raw/master/logo_128.png)
 
+# Cobbler
 ## Easy cross-compilation and testing for busy developers
 
 _WARNING: THIS PROJECT IS STILL VERY MUCH A WORK-IN-PROGRESS AND SHOULD NOT BE USED FOR YOUR OWN PROJECTS YET. THERE'S A LOT OF PARTS MOVING AROUND. YE'VE BEEN WARNED!!_
