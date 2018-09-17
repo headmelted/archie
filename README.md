@@ -1,6 +1,10 @@
 ### WARNING: THIS PROJECT IS STILL VERY MUCH A WORK-IN-PROGRESS AND SHOULD NOT BE USED FOR YOUR OWN PROJECTS YET. THERE'S A LOT OF PARTS MOVING AROUND. YE'VE BEEN WARNED!!
 
-# Cobbler
+<p align="center">
+  <img src="https://github.com/headmelted/cobbler/raw/master/logo_128.png" alt="Cobbler logo"/>
+  <h1>Cobbler</h1>
+</p>
+
 ## Easy cross-compilation and testing for busy developers
 
 [![GitHub Stars](https://img.shields.io/github/stars/headmelted/cobbler.svg)](https://github.com/headmelted/cobbler/stargazers)
