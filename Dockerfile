@@ -1,4 +1,4 @@
-FROM ubuntu:cosmic
+FROM debian:stretch
 ARG DOCKER_TAG
 ENV COBBLER_ARCH=$DOCKER_TAG
 COPY kitchen /kitchen/
