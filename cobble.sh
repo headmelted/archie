@@ -3,8 +3,8 @@
 echo "Entering the kitchen";
 cd /kitchen;
 
-echo "Setting environment for $COBBLER_ARCH";
-. ./env/linux/$COBBLER_ARCH.sh;
+echo "Setting environment";
+. ./env/setup.sh;
 
 if [ "$COBBLER_ARCH" != "amd64" ]
 then
