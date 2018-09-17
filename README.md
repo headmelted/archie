@@ -3,6 +3,11 @@
 # Cobbler
 ## Easy cross-compilation and testing for busy developers
 
+![Docker Stars](https://img.shields.io/docker/stars/headmelted/cobbler.svg)
+![Docker Pulls](https://img.shields.io/docker/pulls/headmelted/cobbler.svg)
+![Docker Automated](https://img.shields.io/docker/automated/headmelted/cobbler.svg)
+![Docker Build](https://img.shields.io/docker/build/headmelted/cobbler.svg)
+
 Cobbler is a series of pre-configured Ubuntu images that are collectively intended to make compiling and testing code for multiple architectures as simple as possible.
 
 By using some sensible defaults, and several commonly used and well-supported tools, Cobbler's goal is to make supporting architectures such as ARM, PowerPC and SPARC as simple as building for Intel.
