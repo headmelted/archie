@@ -1,5 +1,9 @@
 #!/bin/bash
 
+mount binfmt_misc -t binfmt_misc /proc/sys/fs/binfmt_misc;
+echo 1 > /proc/sys/fs/binfmt_misc/status;
+exit;
+
 echo "Entering the kitchen";
 cd /kitchen;
 
