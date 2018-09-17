@@ -136,6 +136,9 @@ mkdir "$COBBLER_CLEANROOM_DIRECTORY";
 echo "Creating [$COBBLER_ARCH] jail at [$COBBLER_CLEANROOM_DIRECTORY]";
 debootstrap --arch=$COBBLER_ARCH --variant=minbase stretch $COBBLER_CLEANROOM_DIRECTORY;
 
+echo "Creating [$COBBLER_CLEANROOM_DIRECTORY/kitchen] for nested kitchen inside jail";
+mkdir "$COBBLER_CLEANROOM_DIRECTORY/kitchen"; 
+
 echo "Mounting kitchen scripts inside [$COBBLER_ARCH] jail"
 mount --bind /kitchen $COBBLER_CLEANROOM_DIRECTORY/kitchen;
 
