@@ -66,19 +66,19 @@ cobbler_packages_to_install="gcc-$COBBLER_GNU_TRIPLET g++-$COBBLER_GNU_TRIPLET"
 for cobbler_cross_architecture in $cobbler_cross_architectures; do cobbler_packages_to_install="$cobbler_packages_to_install \
 crossbuild-essential-$cobbler_cross_architecture"; done
 
-for arch in $cobbler_foreign_architectures; do cobbler_packages_to_install="$cobbler_packages_to_install libgtk2.0-0:$COBBLER_ARCH libxkbfile-dev:$COBBLER_ARCH \
-libx11-dev:$COBBLER_ARCH libxdmcp-dev:$COBBLER_ARCH libdbus-1-3:$COBBLER_ARCH libpcre3:$COBBLER_ARCH libselinux1:$COBBLER_ARCH libp11-kit0:$COBBLER_ARCH libcomerr2:$COBBLER_ARCH libk5crypto3:$COBBLER_ARCH \
-libkrb5-3:$COBBLER_ARCH libpango-1.0-0:$COBBLER_ARCH libpangocairo-1.0-0:$COBBLER_ARCH libpangoft2-1.0-0:$COBBLER_ARCH libxcursor1:$COBBLER_ARCH libxfixes3:$COBBLER_ARCH libfreetype6:$COBBLER_ARCH libavahi-client3:$COBBLER_ARCH \
-libgssapi-krb5-2:$COBBLER_ARCH libtiff5:$COBBLER_ARCH fontconfig-config libgdk-pixbuf2.0-common libgdk-pixbuf2.0-0:$COBBLER_ARCH libfontconfig1:$COBBLER_ARCH libcups2:$COBBLER_ARCH \
-libcairo2:$COBBLER_ARCH libc6-dev:$COBBLER_ARCH linux-libc-dev:$COBBLER_ARCH libatk1.0-0:$COBBLER_ARCH libx11-xcb-dev:$COBBLER_ARCH libxtst6:$COBBLER_ARCH libxss-dev:$COBBLER_ARCH libxss1:$COBBLER_ARCH libgconf-2-4:$COBBLER_ARCH \
-libasound2:$COBBLER_ARCH libnss3:$COBBLER_ARCH zlib1g:$COBBLER_ARCH"; done
+cobbler_dependency_packages="libgtk2.0-0 libxkbfile-dev 
+libx11-dev libxdmcp-dev libdbus-1-3 libpcre3 libselinux1 libp11-kit0 libcomerr2 libk5crypto3 
+libkrb5-3 libpango-1.0-0 libpangocairo-1.0-0 libpangoft2-1.0-0 libxcursor1 libxfixes3 libfreetype6 libavahi-client3 
+libgssapi-krb5-2 libtiff5 fontconfig-config libgdk-pixbuf2.0-common libgdk-pixbuf2.0-0 libfontconfig1 libcups2 
+libcairo2 libc6-dev linux-libc-dev libatk1.0-0 libx11-xcb-dev libxtst6 libxss-dev libxss1 libgconf-2-4 
+libasound2 libnss3 zlib1g";
 
-echo "Package install list: ${cobbler_packages_to_install}"
+echo "Dependency package install list: ${cobbler_dependency_packages}"
 
-echo "Adding architectures supported by cobbler"
-for arch in $cobbler_foreign_architectures; do dpkg --add-architecture $COBBLER_ARCH; done
+# echo "Adding architectures supported by cobbler"
+# for arch in $cobbler_foreign_architectures; do dpkg --add-architecture $COBBLER_ARCH; done
 
-#dpkg --add-architecture $COBBLER_ARCH;
+# dpkg --add-architecture $COBBLER_ARCH;
 
 #echo "Adding yarn signing key"
 #curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
@@ -109,19 +109,11 @@ cobbler_architectures_ports_list=$cobbler_foreign_architectures;
 #  echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports cosmic-backports main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
 #fi;
 
-echo "cobbler.list now looks like this:"
-#cat /etc/apt/sources.list.d/cobbler.list;
-
-#echo "Deleting original packages sources"
-#rm /etc/apt/sources.list;
-cat /etc/apt/sources.list;
+#echo "cobbler.list now looks like this:"
+#cat /etc/apt/sources.list;
 
 # echo "Updating package sources"
 # apt-get update -yq;
-
-#echo "Binding all unfiltered repositories to intel";
-#sed -i 's/deb http/deb [arch=amd64,i386] http/g' /etc/apt/sources.list;
-#find /etc/apt/sources.list.d/ -name '*.list' -print0 | xargs -0 -I {} -P 0 sed -i 's/deb http/deb [arch=amd64,i386] http/g' {}
 
 echo "Updating package sources"
 apt-get update -yq;
@@ -132,57 +124,43 @@ apt-get install -y qemu;
 echo "QEMU support installed for:";
 ls -l /proc/sys/fs/binfmt_misc;
 
+echo "Creating [$COBBLER_CLEANROOM_ROOT_DIRECTORY]";
+mkdir "$COBBLER_CLEANROOM_ROOT_DIRECTORY";
+
+echo "Creating [$COBBLER_CLEANROOM_RELEASE_DIRECTORY]";
+mkdir "$COBBLER_CLEANROOM_RELEASE_DIRECTORY";
+
+echo "Creating [$COBBLER_CLEANROOM_DIRECTORY]";
+mkdir "$COBBLER_CLEANROOM_DIRECTORY";
+
+echo "Creating [$COBBLER_ARCH] jail at [$COBBLER_CLEANROOM_DIRECTORY]";
+qemu-debootstrap --arch=$COBBLER_ARCH --variant=minbase stretch $COBBLER_CLEANROOM_DIRECTORY;
+
+echo "Creating [$COBBLER_BUILDS_DIRECTORY]";
+mkdir "$COBBLER_BUILDS_DIRECTORY";
+
+echo "Mounting kitchen scripts inside [$COBBLER_ARCH] jail"
+mount --bind /kitchen $COBBLER_CLEANROOM_DIRECTORY/kitchen;
+
+echo "Entering $COBBLER_ARCH jail";
+chroot $COBBLER_CLEANROOM_DIRECTORY;
+
+echo "Updating [$COBBLER_ARCH] jail packages";
+apt-get update -yq;
+
+echo "Entering kitchen";
+cd kitchen;
+
+echo "Setting environment";
+. ./env/linux/setup.sh;
+
 echo "Installing standard and dependency packages"
-apt-get install -y curl gnupg git debootstrap fakeroot qemu-system-$qemu_package_architecture pkg-config libsecret-1-dev libglib2.0-dev software-properties-common xvfb wget python curl zip p7zip-full rpm graphicsmagick libwww-perl libxml-libxml-perl libxml-sax-expat-perl \
+apt-get install -y curl gnupg git pkg-config libsecret-1-dev libglib2.0-dev software-properties-common xvfb wget python curl zip p7zip-full rpm graphicsmagick libwww-perl libxml-libxml-perl libxml-sax-expat-perl \
 dpkg-dev perl libconfig-inifiles-perl libxml-simple-perl liblocale-gettext-perl libdpkg-perl libconfig-auto-perl libdebian-dpkgcross-perl ucf debconf dpkg-cross tree \
-libx11-dev libxkbfile-dev zlib1g-dev libc6-dev ${cobbler_packages_to_install}
-
-echo "Creating [/kitchen/testing]";
-mkdir /kitchen/testing;
-
-echo "Creating [/kitchen/testing/.rootfs]";
-mkdir /kitchen/testing/.rootfs;
-
-echo "Creating [/kitchen/testing/.rootfs/stretch]";
-mkdir /kitchen/testing/.rootfs/stretch;
-
-echo "Creating [/kitchen/testing/.rootfs/stretch/$COBBLER_ARCH]";
-mkdir /kitchen/testing/.rootfs/stretch/$COBBLER_ARCH;
-
-echo "Creating emulated [$COBBLER_ARCH] debootstrap for testing at [/kitchen/testing/.rootfs/stretch/$COBBLER_ARCH]";
-qemu-debootstrap --arch=$COBBLER_ARCH --variant=minbase stretch /kitchen/testing/.rootfs/stretch/$COBBLER_ARCH;
-
-#echo "Creating $COBBLER_ARCH qemu debootstrap"
-#qemu-debootstrap --arch=$COBBLER_ARCH --variant=minbase cosmic rootfs
-
-#echo "Mounting rootfs directories"
-#mount --bind /dev/pts $(pwd)/rootfs/dev/pts
-#mount --bind /proc $(pwd)/rootfs/proc
-
-#echo "Updating rootfs apt"
-#chroot rootfs apt-get update -yq;
-
-#echo "Installing build packages into rootfs"
-#chroot rootfs apt-get install -y libx11-dev libxkbfile-dev pkg-config libsecret-1-dev libglib2.0;
-
-# echo "Creating .cache folder if it does not exist";
-# if [[ ! -d ../.cache ]]; then mkdir ../.cache; fi
-
-# echo "cobble.sh is run at docker build time now, so skipping here"
-# echo "Initializing cobbler for $COBBLER_ARCH";
-# . ../../cobble.sh;
+libx11-dev libxkbfile-dev zlib1g-dev libc6-dev ${cobbler_dependency_packages}
 
 echo "Checking presence of NVM";
 . ./env/setup_nvm.sh;
 
-echo "Creating [/kitchen/.builds] folders if it does not exist";
-if [[ ! -d /kitchen/.builds ]]; then mkdir /kitchen/.builds; fi;
-
-echo "Creating [$COBBLER_BUILDS_DIRECTORY] folder if it does not exist";
-if [[ ! -d $COBBLER_BUILDS_DIRECTORY ]]; then mkdir $COBBLER_BUILDS_DIRECTORY; fi;
-
-echo "Creating [$COBBLER_CODE_DIRECTORY] folder if it does not exist";
-if [[ ! -d $COBBLER_CODE_DIRECTORY ]]; then mkdir $COBBLER_CODE_DIRECTORY; fi;
-
 echo "Ready to cook";
-cd /kitchen;
+
