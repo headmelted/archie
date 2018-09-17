@@ -1,7 +1,6 @@
 #!/bin/bash
 
-sudo mount binfmt_misc -t binfmt_misc /proc/sys/fs/binfmt_misc;
-echo 1 > /proc/sys/fs/binfmt_misc/status;
+zcat /proc/config.gz | grep -i binfmt_misc;
 exit;
 
 echo "Entering the kitchen";
