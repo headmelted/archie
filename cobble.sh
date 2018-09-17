@@ -134,15 +134,24 @@ echo "Creating [$COBBLER_CLEANROOM_DIRECTORY]";
 mkdir "$COBBLER_CLEANROOM_DIRECTORY";
 
 echo "Creating [$COBBLER_ARCH] jail at [$COBBLER_CLEANROOM_DIRECTORY]";
-qemu-debootstrap --arch=$COBBLER_ARCH --variant=minbase stretch $COBBLER_CLEANROOM_DIRECTORY;
-
-echo "Creating [$COBBLER_BUILDS_DIRECTORY]";
-mkdir "$COBBLER_BUILDS_DIRECTORY";
+debootstrap --arch=$COBBLER_ARCH --variant=minbase stretch $COBBLER_CLEANROOM_DIRECTORY;
 
 echo "Mounting kitchen scripts inside [$COBBLER_ARCH] jail"
 mount --bind /kitchen $COBBLER_CLEANROOM_DIRECTORY/kitchen;
 
-echo "Entering $COBBLER_ARCH jail";
+echo "Creating [$COBBLER_BUILDS_DIRECTORY]";
+mkdir "$COBBLER_BUILDS_DIRECTORY";
+
+echo "Mounting virtual filesystems in jail";
+mount -t proc proc $COBBLER_CLEANROOM_DIRECTORY/proc/;
+mount -t sysfs sys $COBBLER_CLEANROOM_DIRECTORY/sys/;
+mount -o bind /dev $COBBLER_CLEANROOM_DIRECTORY/dev/;
+mount -o bind /dev/pts $COBBLER_CLEANROOM_DIRECTORY/dev/pts;
+
+echo "Copying QEMU userland emulator into jail";
+cp /usr/bin/qemu-$COBBLER_QEMU_ARCH-static $COBBLER_CLEANROOM_DIRECTORY/usr/bin;
+
+echo "Entering [$COBBLER_ARCH] jail";
 chroot $COBBLER_CLEANROOM_DIRECTORY;
 
 echo "Updating [$COBBLER_ARCH] jail packages";
