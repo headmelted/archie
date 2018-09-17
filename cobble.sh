@@ -139,17 +139,14 @@ if [ "$COBBLER_QEMU_TEST_METHOD" == "rootfs" ]; then
   echo "Creating [/kitchen/testing/.rootfs]";
   mkdir /kitchen/testing/.rootfs;
 
-  echo "Creating [/kitchen/testing/.rootfs/cosmic]";
-  mkdir /kitchen/testing/.rootfs/cosmic;
+  echo "Creating [/kitchen/testing/.rootfs/stretch]";
+  mkdir /kitchen/testing/.rootfs/stretch;
 
-  echo "Creating [/kitchen/testing/.rootfs/cosmic/$COBBLER_ARCH]";
-  mkdir /kitchen/testing/.rootfs/cosmic/$COBBLER_ARCH;
-  
-  #echo "Preparing binfmt-misc";
-  #modprobe binfmt_misc;
+  echo "Creating [/kitchen/testing/.rootfs/stretch/$COBBLER_ARCH]";
+  mkdir /kitchen/testing/.rootfs/stretch/$COBBLER_ARCH;
 
-  echo "Creating emulated [$COBBLER_ARCH] debootstrap for testing at [/kitchen/testing/.rootfs/cosmic/$COBBLER_ARCH]";
-  qemu-debootstrap --arch=$COBBLER_ARCH --variant=minbase cosmic /kitchen/testing/.rootfs/cosmic/$COBBLER_ARCH;
+  echo "Creating emulated [$COBBLER_ARCH] debootstrap for testing at [/kitchen/testing/.rootfs/stretch/$COBBLER_ARCH]";
+  qemu-debootstrap --arch=$COBBLER_ARCH --variant=minbase stretch /kitchen/testing/.rootfs/stretch/$COBBLER_ARCH;
 
 fi;
 
