@@ -66,6 +66,15 @@ cobbler_packages_to_install="gcc-$COBBLER_GNU_TRIPLET g++-$COBBLER_GNU_TRIPLET"
 for cobbler_cross_architecture in $cobbler_cross_architectures; do cobbler_packages_to_install="$cobbler_packages_to_install \
 crossbuild-essential-$cobbler_cross_architecture"; done
 
+echo "Updating package sources"
+apt-get update -yq;
+
+echo "Installing binfmt-support in isolation";
+apt-get install -y binfmt-support;
+
+echo "Installing additional Cobbler dependencies";
+apt-get install -y qemu qemu-user-static qemu-kvm debootstrap fakeroot $cobbler_packages_to_install;
+
 cobbler_dependency_packages="libgtk2.0-0 libxkbfile-dev 
 libx11-dev libxdmcp-dev libdbus-1-3 libpcre3 libselinux1 libp11-kit0 libcomerr2 libk5crypto3 
 libkrb5-3 libpango-1.0-0 libpangocairo-1.0-0 libpangoft2-1.0-0 libxcursor1 libxfixes3 libfreetype6 libavahi-client3 
@@ -114,12 +123,6 @@ cobbler_architectures_ports_list=$cobbler_foreign_architectures;
 
 # echo "Updating package sources"
 # apt-get update -yq;
-
-echo "Updating package sources"
-apt-get update -yq;
-
-echo "Installing Cobbler dependencies";
-apt-get install -y qemu qemu-user-static qemu-kvm binfmt-support debootstrap fakeroot gcc-$COBBLER_GNU_TRIPLET g++-$COBBLER_GNU_TRIPLET;
 
 echo "QEMU support installed for:";
 ls -l /proc/sys/fs/binfmt_misc;
