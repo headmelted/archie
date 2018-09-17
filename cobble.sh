@@ -167,24 +167,23 @@ export CC="$CC -L $COBBLER_CLEANROOM_DIRECTORY/usr/lib/$COBBLER_GNU_TRIPLET/";
 export CXX="$CXX -L $COBBLER_CLEANROOM_DIRECTORY/usr/lib/$COBBLER_GNU_TRIPLET/";
 
 echo "Entering [$COBBLER_ARCH] jail";
-chroot $COBBLER_CLEANROOM_DIRECTORY;
+chroot $COBBLER_CLEANROOM_DIRECTORY && \
 
-echo "Entering kitchen";
-cd /kitchen;
+echo "Entering kitchen" && \
+cd /kitchen && \
 
-echo "Setting environment";
-. ./env/linux/setup.sh;
+echo "Setting environment" && \
+. ./env/linux/setup.sh && \
 
-echo "Updating [$COBBLER_ARCH] jail packages";
-apt-get update -yq;
+echo "Updating [$COBBLER_ARCH] jail packages" && \
+apt-get update -yq && \
 
-echo "Installing standard and dependency packages"
+echo "Installing standard and dependency packages" && \
 apt-get install -y curl gnupg git pkg-config libsecret-1-dev libglib2.0-dev software-properties-common xvfb wget python curl zip p7zip-full rpm graphicsmagick libwww-perl libxml-libxml-perl libxml-sax-expat-perl \
 dpkg-dev perl libconfig-inifiles-perl libxml-simple-perl liblocale-gettext-perl libdpkg-perl libconfig-auto-perl libdebian-dpkgcross-perl ucf debconf dpkg-cross tree \
-libx11-dev libxkbfile-dev zlib1g-dev libc6-dev ${cobbler_dependency_packages};
+libx11-dev libxkbfile-dev zlib1g-dev libc6-dev ${cobbler_dependency_packages} && \
 
 echo "Exiting chroot environment";
-exit;
 
 echo "Entering jail directory (WITHOUT chroot)";
 cd kitchen;
