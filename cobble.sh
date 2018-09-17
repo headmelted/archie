@@ -154,6 +154,11 @@ mount -o bind /dev/pts $COBBLER_CLEANROOM_DIRECTORY/dev/pts;
 echo "Creating [$COBBLER_BUILDS_DIRECTORY]";
 mkdir "$COBBLER_BUILDS_DIRECTORY";
 
+echo "Listing /usr/bin:"
+echo "--------------------------------"
+ls /usr/bin
+echo "--------------------------------"
+
 echo "Copying QEMU userland emulator into jail";
 cp /usr/bin/qemu-$COBBLER_QEMU_ARCH-static $COBBLER_CLEANROOM_DIRECTORY/usr/bin;
 
