@@ -89,31 +89,32 @@ for arch in $cobbler_foreign_architectures; do dpkg --add-architecture $COBBLER_
 #echo "Adding emdebian signing key"
 #curl http://emdebian.org/tools/debian/emdebian-toolchain-archive.key | apt-key add -
 
-echo "Resetting ubuntu package lists"
+#echo "Resetting ubuntu package lists"
 #echo "deb http://emdebian.org/tools/debian/ unstable main" | tee /etc/apt/sources.list.d/cobbler.list;
-echo "deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ cosmic main universe multiverse restricted" | tee /etc/apt/sources.list.d/cobbler.list;
-echo "deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu/ cosmic-security main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
-echo "deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ cosmic-updates main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
-echo "deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ cosmic-backports main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
+#echo "deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ cosmic main universe multiverse restricted" | tee /etc/apt/sources.list.d/cobbler.list;
+#echo "deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu/ cosmic-security main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
+#echo "deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ cosmic-updates main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
+#echo "deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ cosmic-backports main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
 
 #cobbler_architectures_ports_list="${cobbler_foreign_architectures// /,}"
 
 cobbler_architectures_ports_list=$cobbler_foreign_architectures;
 
-echo "Checking for ports list [${cobbler_architectures_ports_list}]...";
-if [ -n "${cobbler_architectures_ports_list}" ]; then
-  echo "Adding ports list [${cobbler_architectures_ports_list}]...";
-  echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports cosmic main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
-  echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports cosmic-security main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
-  echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports cosmic-updates main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
-  echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports cosmic-backports main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
-fi;
+#echo "Checking for ports list [${cobbler_architectures_ports_list}]...";
+#if [ -n "${cobbler_architectures_ports_list}" ]; then
+#  echo "Adding ports list [${cobbler_architectures_ports_list}]...";
+#  echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports cosmic main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
+#  echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports cosmic-security main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
+#  echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports cosmic-updates main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
+#  echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports cosmic-backports main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
+#fi;
 
-echo "cobbler.list now looks like this:"
+#echo "cobbler.list now looks like this:"
 cat /etc/apt/sources.list.d/cobbler.list;
 
-echo "Deleting original packages sources"
-rm /etc/apt/sources.list;
+#echo "Deleting original packages sources"
+#rm /etc/apt/sources.list;
+cat /etc/apt/sources.list;
 
 echo "Updating package sources"
 apt-get update -yq;
