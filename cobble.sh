@@ -110,7 +110,7 @@ cobbler_architectures_ports_list=$cobbler_foreign_architectures;
 #fi;
 
 #echo "cobbler.list now looks like this:"
-cat /etc/apt/sources.list.d/cobbler.list;
+#cat /etc/apt/sources.list.d/cobbler.list;
 
 #echo "Deleting original packages sources"
 #rm /etc/apt/sources.list;
