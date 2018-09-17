@@ -1,8 +1,5 @@
 #!/bin/bash
 
-zcat /proc/config.gz | grep -i binfmt_misc;
-exit;
-
 echo "Entering the kitchen";
 cd /kitchen;
 
@@ -73,7 +70,11 @@ echo "Updating package sources"
 apt-get update -yq;
 
 echo "Installing additional Cobbler dependencies";
-apt-get install -y qemu qemu-user-static debootstrap fakeroot $cobbler_packages_to_install;
+apt-get install -y qemu qemu-user-static binfmt-support debootstrap;
+
+echo "Calling binfmts display";
+update-binfmts --display;
+exit;
 
 cobbler_dependency_packages="libgtk2.0-0 libxkbfile-dev 
 libx11-dev libxdmcp-dev libdbus-1-3 libpcre3 libselinux1 libp11-kit0 libcomerr2 libk5crypto3 
