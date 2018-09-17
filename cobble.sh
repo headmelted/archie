@@ -119,7 +119,7 @@ echo "Updating package sources"
 apt-get update -yq;
 
 echo "Installing Cobbler dependencies";
-apt-get install -y qemu qemu-user-static debootstrap fakeroot gcc-$COBBLER_GNU_TRIPLET g++-$COBBLER_GNU_TRIPLET;
+apt-get install -y qemu qemu-user-static qemu-kvm-extras-static binfmt-support debootstrap fakeroot gcc-$COBBLER_GNU_TRIPLET g++-$COBBLER_GNU_TRIPLET;
 
 echo "QEMU support installed for:";
 ls -l /proc/sys/fs/binfmt_misc;
@@ -138,6 +138,9 @@ debootstrap --arch=$COBBLER_ARCH --variant=minbase stretch $COBBLER_CLEANROOM_DI
 
 echo "Echoing log";
 cat /kitchen/cleanroom/stretch/arm64/debootstrap/debootstrap.log;
+
+echo "Copying QEMU userland emulator into jail";
+cp /usr/bin/qemu-$COBBLER_QEMU_ARCH-static $COBBLER_CLEANROOM_DIRECTORY/usr/bin;
 
 echo "Creating [$COBBLER_CLEANROOM_DIRECTORY/kitchen] for nested kitchen inside jail";
 mkdir "$COBBLER_CLEANROOM_DIRECTORY/kitchen"; 
@@ -158,9 +161,6 @@ echo "Listing /usr/bin:"
 echo "--------------------------------"
 ls /usr/bin
 echo "--------------------------------"
-
-echo "Copying QEMU userland emulator into jail";
-cp /usr/bin/qemu-$COBBLER_QEMU_ARCH-static $COBBLER_CLEANROOM_DIRECTORY/usr/bin;
 
 echo "Updating $CC AND $CXX to use [$COBBLER_ARCH] dependencies";
 export CC="$CC -L $COBBLER_CLEANROOM_DIRECTORY/usr/lib/$COBBLER_GNU_TRIPLET/";
