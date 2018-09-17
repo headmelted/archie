@@ -70,7 +70,7 @@ echo "Updating package sources"
 apt-get update -yq;
 
 echo "Installing additional Cobbler dependencies";
-apt-get install -y qemu qemu-user qemu-user-static qemu-kvm debootstrap fakeroot $cobbler_packages_to_install;
+apt-get install -y qemu qemu-user-static debootstrap fakeroot $cobbler_packages_to_install;
 
 cobbler_dependency_packages="libgtk2.0-0 libxkbfile-dev 
 libx11-dev libxdmcp-dev libdbus-1-3 libpcre3 libselinux1 libp11-kit0 libcomerr2 libk5crypto3 
@@ -148,14 +148,14 @@ cp /usr/bin/qemu-$COBBLER_QEMU_ARCH-static $COBBLER_CLEANROOM_DIRECTORY/usr/bin;
 echo "Creating [$COBBLER_CLEANROOM_DIRECTORY/kitchen] for nested kitchen inside jail";
 mkdir "$COBBLER_CLEANROOM_DIRECTORY/kitchen"; 
 
-echo "Mounting kitchen scripts inside [$COBBLER_ARCH] jail"
-mount --bind /kitchen $COBBLER_CLEANROOM_DIRECTORY/kitchen;
+# echo "Mounting kitchen scripts inside [$COBBLER_ARCH] jail"
+# mount --bind /kitchen $COBBLER_CLEANROOM_DIRECTORY/kitchen;
 
-echo "Mounting virtual filesystems in jail";
-mount -t proc proc $COBBLER_CLEANROOM_DIRECTORY/proc/;
-mount -t sysfs sys $COBBLER_CLEANROOM_DIRECTORY/sys/;
-mount -o bind /dev $COBBLER_CLEANROOM_DIRECTORY/dev/;
-mount -o bind /dev/pts $COBBLER_CLEANROOM_DIRECTORY/dev/pts;
+# echo "Mounting virtual filesystems in jail";
+# mount -t proc proc $COBBLER_CLEANROOM_DIRECTORY/proc/;
+# mount -t sysfs sys $COBBLER_CLEANROOM_DIRECTORY/sys/;
+# mount -o bind /dev $COBBLER_CLEANROOM_DIRECTORY/dev/;
+# mount -o bind /dev/pts $COBBLER_CLEANROOM_DIRECTORY/dev/pts;
 
 echo "Creating [$COBBLER_BUILDS_DIRECTORY]";
 mkdir "$COBBLER_BUILDS_DIRECTORY";
