@@ -133,45 +133,12 @@ mkdir "$COBBLER_CLEANROOM_RELEASE_DIRECTORY";
 echo "Creating [$COBBLER_CLEANROOM_DIRECTORY]";
 mkdir "$COBBLER_CLEANROOM_DIRECTORY";
 
-# echo "Mounting virtual filesystems in jail";
-# mount -t proc proc $COBBLER_CLEANROOM_DIRECTORY/proc/;
-# mount -t sysfs sys $COBBLER_CLEANROOM_DIRECTORY/sys/;
-# mount -o bind /dev $COBBLER_CLEANROOM_DIRECTORY/dev/;
-# mount -o bind /dev/pts $COBBLER_CLEANROOM_DIRECTORY/dev/pts;
-
-. ~/kitchen/steps/build_target_jail.sh "$COBBLER_CLEANROOM_DIRECTORY";
-
 echo "Creating [$COBBLER_BUILDS_DIRECTORY]";
 mkdir "$COBBLER_BUILDS_DIRECTORY";
 
 echo "Updating $CC AND $CXX to use [$COBBLER_ARCH] dependencies";
 export CC="$CC -L $COBBLER_CLEANROOM_DIRECTORY/usr/lib/$COBBLER_GNU_TRIPLET/";
 export CXX="$CXX -L $COBBLER_CLEANROOM_DIRECTORY/usr/lib/$COBBLER_GNU_TRIPLET/";
-
-echo "Entering [$COBBLER_ARCH] jail";
-chroot $COBBLER_CLEANROOM_DIRECTORY && \
-
-echo "Entering kitchen" && \
-cd /kitchen && \
-
-echo "Setting environment" && \
-. ./env/linux/setup.sh && \
-
-echo "Updating [$COBBLER_ARCH] jail packages" && \
-apt-get update -yq && \
-
-echo "Installing standard and dependency packages" && \
-apt-get install -y curl gnupg git pkg-config libsecret-1-dev libglib2.0-dev software-properties-common xvfb wget python curl zip p7zip-full rpm graphicsmagick libwww-perl libxml-libxml-perl libxml-sax-expat-perl \
-dpkg-dev perl libconfig-inifiles-perl libxml-simple-perl liblocale-gettext-perl libdpkg-perl libconfig-auto-perl libdebian-dpkgcross-perl ucf debconf dpkg-cross tree \
-libx11-dev libxkbfile-dev zlib1g-dev libc6-dev ${cobbler_dependency_packages} && \
-
-echo "Exiting chroot environment";
-
-echo "Entering jail directory (WITHOUT chroot)";
-cd kitchen;
-
-echo "Checking presence of NVM";
-. ./env/setup_nvm.sh;
 
 echo "Ready to cook";
 
