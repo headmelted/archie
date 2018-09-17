@@ -139,14 +139,14 @@ debootstrap --arch=$COBBLER_ARCH --variant=minbase stretch $COBBLER_CLEANROOM_DI
 echo "Mounting kitchen scripts inside [$COBBLER_ARCH] jail"
 mount --bind /kitchen $COBBLER_CLEANROOM_DIRECTORY/kitchen;
 
-echo "Creating [$COBBLER_BUILDS_DIRECTORY]";
-mkdir "$COBBLER_BUILDS_DIRECTORY";
-
 echo "Mounting virtual filesystems in jail";
 mount -t proc proc $COBBLER_CLEANROOM_DIRECTORY/proc/;
 mount -t sysfs sys $COBBLER_CLEANROOM_DIRECTORY/sys/;
 mount -o bind /dev $COBBLER_CLEANROOM_DIRECTORY/dev/;
 mount -o bind /dev/pts $COBBLER_CLEANROOM_DIRECTORY/dev/pts;
+
+echo "Creating [$COBBLER_BUILDS_DIRECTORY]";
+mkdir "$COBBLER_BUILDS_DIRECTORY";
 
 echo "Copying QEMU userland emulator into jail";
 cp /usr/bin/qemu-$COBBLER_QEMU_ARCH-static $COBBLER_CLEANROOM_DIRECTORY/usr/bin;
@@ -174,6 +174,9 @@ libx11-dev libxkbfile-dev zlib1g-dev libc6-dev ${cobbler_dependency_packages};
 
 echo "Exiting chroot environment";
 exit;
+
+echo "Entering jail directory (WITHOUT chroot)";
+cd kitchen;
 
 echo "Checking presence of NVM";
 . ./env/setup_nvm.sh;
