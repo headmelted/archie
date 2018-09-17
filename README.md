@@ -1,12 +1,12 @@
 ### WARNING: THIS PROJECT IS STILL VERY MUCH A WORK-IN-PROGRESS AND SHOULD NOT BE USED FOR YOUR OWN PROJECTS YET. THERE'S A LOT OF PARTS MOVING AROUND. YE'VE BEEN WARNED!!
 
 # Cobbler
+## Easy cross-compilation and testing for busy developers
 
 ![Docker Stars](https://img.shields.io/docker/stars/headmelted/cobbler.svg)
 ![Docker Pulls](https://img.shields.io/docker/pulls/headmelted/cobbler.svg)
 ![Docker Automated](https://img.shields.io/docker/automated/headmelted/cobbler.svg)
 ![Docker Build](https://img.shields.io/docker/build/headmelted/cobbler.svg)
-## Easy cross-compilation and testing for busy developers
 
 Cobbler is a series of pre-configured Ubuntu images that are collectively intended to make compiling and testing code for multiple architectures as simple as possible.
 
