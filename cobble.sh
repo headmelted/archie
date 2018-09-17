@@ -123,8 +123,8 @@ cat /etc/apt/sources.list;
 #sed -i 's/deb http/deb [arch=amd64,i386] http/g' /etc/apt/sources.list;
 #find /etc/apt/sources.list.d/ -name '*.list' -print0 | xargs -0 -I {} -P 0 sed -i 's/deb http/deb [arch=amd64,i386] http/g' {}
 
-#echo "Updating package sources"
-# apt-get update -yq;
+echo "Updating package sources"
+apt-get update -yq;
 
 echo "Installing QEMU packages, so that binfmt_misc is available during architecture-specific package installs for pre- and post- install hooks";
 apt-get install -y qemu qemu-user-static binfmt-support debootstrap fakeroot qemu-system-$qemu_package_architecture;
