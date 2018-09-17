@@ -4,7 +4,7 @@ echo "Entering the kitchen";
 cd /kitchen;
 
 echo "Setting environment";
-. ./env/setup.sh;
+. ./env/linux/setup.sh;
 
 if [ "$COBBLER_ARCH" != "amd64" ]
 then
