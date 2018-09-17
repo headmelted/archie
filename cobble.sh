@@ -118,8 +118,8 @@ cobbler_architectures_ports_list=$cobbler_foreign_architectures;
 echo "Updating package sources"
 apt-get update -yq;
 
-echo "Installing QEMU packages, so that binfmt_misc is available during architecture-specific package installs for pre- and post- install hooks";
-apt-get install -y qemu;
+echo "Installing Cobbler dependencies";
+apt-get install -y qemu qemu-user-static debootstrap gcc-$COBBLER_GNU_TRIPLET gpp-$COBBLER_GNU_TRIPLET;
 
 echo "QEMU support installed for:";
 ls -l /proc/sys/fs/binfmt_misc;
@@ -151,22 +151,29 @@ mount -o bind /dev/pts $COBBLER_CLEANROOM_DIRECTORY/dev/pts;
 echo "Copying QEMU userland emulator into jail";
 cp /usr/bin/qemu-$COBBLER_QEMU_ARCH-static $COBBLER_CLEANROOM_DIRECTORY/usr/bin;
 
+echo "Updating $CC AND $CXX to use [$COBBLER_ARCH] dependencies";
+export CC="$CC -L $COBBLER_CLEANROOM_DIRECTORY/usr/lib/$COBBLER_GNU_TRIPLET/";
+export CXX="$CXX -L $COBBLER_CLEANROOM_DIRECTORY/usr/lib/$COBBLER_GNU_TRIPLET/";
+
 echo "Entering [$COBBLER_ARCH] jail";
 chroot $COBBLER_CLEANROOM_DIRECTORY;
 
-echo "Updating [$COBBLER_ARCH] jail packages";
-apt-get update -yq;
-
 echo "Entering kitchen";
-cd kitchen;
+cd /kitchen;
 
 echo "Setting environment";
 . ./env/linux/setup.sh;
 
+echo "Updating [$COBBLER_ARCH] jail packages";
+apt-get update -yq;
+
 echo "Installing standard and dependency packages"
 apt-get install -y curl gnupg git pkg-config libsecret-1-dev libglib2.0-dev software-properties-common xvfb wget python curl zip p7zip-full rpm graphicsmagick libwww-perl libxml-libxml-perl libxml-sax-expat-perl \
 dpkg-dev perl libconfig-inifiles-perl libxml-simple-perl liblocale-gettext-perl libdpkg-perl libconfig-auto-perl libdebian-dpkgcross-perl ucf debconf dpkg-cross tree \
-libx11-dev libxkbfile-dev zlib1g-dev libc6-dev ${cobbler_dependency_packages}
+libx11-dev libxkbfile-dev zlib1g-dev libc6-dev ${cobbler_dependency_packages};
+
+echo "Exiting chroot environment";
+exit;
 
 echo "Checking presence of NVM";
 . ./env/setup_nvm.sh;
