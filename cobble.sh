@@ -69,11 +69,8 @@ crossbuild-essential-$cobbler_cross_architecture"; done
 echo "Updating package sources"
 apt-get update -yq;
 
-echo "Installing binfmt-support in isolation";
-apt-get install -y binfmt-support;
-
 echo "Installing additional Cobbler dependencies";
-apt-get install -y qemu qemu-user-static qemu-kvm debootstrap fakeroot $cobbler_packages_to_install;
+apt-get install -y qemu qemu-user qemu-user-static qemu-kvm debootstrap fakeroot $cobbler_packages_to_install;
 
 cobbler_dependency_packages="libgtk2.0-0 libxkbfile-dev 
 libx11-dev libxdmcp-dev libdbus-1-3 libpcre3 libselinux1 libp11-kit0 libcomerr2 libk5crypto3 
