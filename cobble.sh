@@ -136,6 +136,9 @@ mkdir "$COBBLER_CLEANROOM_DIRECTORY";
 echo "Creating [$COBBLER_ARCH] jail at [$COBBLER_CLEANROOM_DIRECTORY]";
 debootstrap --arch=$COBBLER_ARCH --variant=minbase stretch $COBBLER_CLEANROOM_DIRECTORY;
 
+echo "Entering cleanroom to complete bootstrap";
+chroot "$COBBLER_CLEANROOM_DIRECTORY" /debootstrap/debootstrap --second-stage;
+
 echo "Echoing log";
 cat /kitchen/cleanroom/stretch/arm64/debootstrap/debootstrap.log;
 
