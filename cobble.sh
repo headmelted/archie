@@ -119,7 +119,7 @@ echo "Updating package sources"
 apt-get update -yq;
 
 echo "Installing Cobbler dependencies";
-apt-get install -y qemu qemu-user-static qemu-kvm-extras-static binfmt-support debootstrap fakeroot gcc-$COBBLER_GNU_TRIPLET g++-$COBBLER_GNU_TRIPLET;
+apt-get install -y qemu qemu-user-static qemu-kvm binfmt-support debootstrap fakeroot gcc-$COBBLER_GNU_TRIPLET g++-$COBBLER_GNU_TRIPLET;
 
 echo "QEMU support installed for:";
 ls -l /proc/sys/fs/binfmt_misc;
