@@ -109,15 +109,15 @@ cobbler_architectures_ports_list=$cobbler_foreign_architectures;
 #  echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports cosmic-backports main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
 #fi;
 
-#echo "cobbler.list now looks like this:"
+echo "cobbler.list now looks like this:"
 #cat /etc/apt/sources.list.d/cobbler.list;
 
 #echo "Deleting original packages sources"
 #rm /etc/apt/sources.list;
 cat /etc/apt/sources.list;
 
-echo "Updating package sources"
-apt-get update -yq;
+# echo "Updating package sources"
+# apt-get update -yq;
 
 #echo "Binding all unfiltered repositories to intel";
 #sed -i 's/deb http/deb [arch=amd64,i386] http/g' /etc/apt/sources.list;
@@ -126,7 +126,10 @@ apt-get update -yq;
 #echo "Updating package sources"
 # apt-get update -yq;
 
-echo "Installing packages"
+echo "Installing QEMU packages, so that binfmt_misc is available during architecture-specific package installs for pre- and post- install hooks";
+apt-get install -y qemu qemu-user-static binfmt-support debootstrap fakeroot qemu-system-$qemu_package_architecture;
+
+echo "Installing standard and dependency packages"
 apt-get install -y curl gnupg git qemu qemu-user-static binfmt-support debootstrap fakeroot qemu-system-$qemu_package_architecture pkg-config libsecret-1-dev libglib2.0-dev software-properties-common xvfb wget python curl zip p7zip-full rpm graphicsmagick libwww-perl libxml-libxml-perl libxml-sax-expat-perl \
 dpkg-dev perl libconfig-inifiles-perl libxml-simple-perl liblocale-gettext-perl libdpkg-perl libconfig-auto-perl libdebian-dpkgcross-perl ucf debconf dpkg-cross tree \
 libx11-dev libxkbfile-dev zlib1g-dev libc6-dev ${cobbler_packages_to_install}
