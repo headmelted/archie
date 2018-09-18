@@ -11,16 +11,18 @@ _WARNING: THIS PROJECT IS STILL VERY MUCH A WORK-IN-PROGRESS AND SHOULD NOT BE U
 [![Docker Pulls](https://img.shields.io/docker/pulls/headmelted/cobbler.svg)](https://hub.docker.com/r/headmelted/cobbler/)
 [![Docker Build](https://img.shields.io/docker/build/headmelted/cobbler.svg)](https://hub.docker.com/r/headmelted/cobbler/builds/)
 
-### About Cobbler
+### What is Cobbler?
 Cobbler is a series of pre-configured Debian images that are collectively intended to make compiling and testing code for multiple architectures in a CI (Continuous Integration) setup as simple as possible.
 
 By using some sensible defaults, and several commonly used and well-supported tools, Cobbler's goal is to make compiling platform-agnostic code to architectures such as ARM, PowerPC and SPARC as simple as building for Intel.
 
 ### Who should use Cobbler?
-Certain projects are a better fit than others for the assumptions Cobbler makes.  Specifically, any code that relies heavily on architecture-specific calls is not likely to benefit much (if it all) from using Cobbler, whereas platform agnostic C\C++ code (or code in higher level languages with platform agnostic C\C++ dependencies) is likely to have much better results.
+Certain projects are a better fit than others for the assumptions Cobbler makes.  Specifically, any code that relies heavily on architecture-specific calls is will see limited benefit from using Cobbler, whereas platform-agnostic C\C++ code (or code in higher-level languages with platform-agnostic C\C++ dependencies) is likely to have much better results.
+
+It's expected that Cobbler should be able to compile fully platform-agnostic code to any target it supports verbatim, but any architecture-specific calls will need to be patched to support your target.  Cobbler can still help with migrating your project to support multiple architectures, but it won't be able to do this for you.
 
 ### How to get started
-Typically, the easiest way to get started with Cobbler is to first migrate your existing build script to building in Cobbler with the amd64 target.  Once your build scripts are correctly configured for Cobbler, targeting other architectures should be as simple as adding a target architecture from the table below to your CI configuration.
+Typically, the easiest way to get started with Cobbler is to first try to migrate your existing build script to building inside Cobbler with the amd64 target (i.e. an amd64 to amd64 build).  Once your scripts are correctly configured for Cobbler, and your project is compiling for amd64, targeting other architectures should be as simple as adding a target architecture from the Supported Architectures table to your configuration.
 
 ## Compilation
 ### Supported strategies
@@ -43,7 +45,7 @@ This strategy is also useful in scenarios where you need to be able to confirm t
 
 _An example of this is targeting (for example) the Raspberry Pi line of single-board computers.  It's possible (thanks to QEMU's excellent support for systme virtualization) to perform the compilation on a virtual version of a specific model of the Raspberry Pi (that matches the physical hardware as closely as possible) to confirm that your software can be compiled directly on the device, rather than just executed on it._
 
-### Supported architectures
+## Architecture Matrix
 There are effectively two lists of supported architectures for Cobbler. Compiling and testing of programs without dependendent packages (i.e. programs for which no dependencies need to be pulled from Debian repositories) is supported for the intersection of architectures of GCC and QEMU.
 
 As Cobbler is built on Debian Stretch, the architectures supported for those programs which have dependencies on standard packages within the repository mirror those supported by the operating system.  To clarify, the table below shows the state of support for different architectures within Cobbler.
