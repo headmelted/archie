@@ -10,5 +10,3 @@ export COBBLER_QEMU_ARCH="ppc64le";
 export COBBLER_ELECTRON_ARCH="";
 
 export VSCODE_ELECTRON_PLATFORM="";
-export CXX="powerpc64le-linux-gnu-g++";
-export CC="powerpc64le-linux-gnu-gcc";
