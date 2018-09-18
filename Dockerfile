@@ -5,4 +5,4 @@ COPY kitchen /root/kitchen/
 ADD cobble.sh /
 RUN /bin/bash -c '. /cobble.sh'
 RUN rm /cobble.sh
-ENTRYPOINT /root/kitchen/steps/cook.sh
+ENTRYPOINT /root/kitchen/steps/bootstrap.sh
