@@ -1,10 +1,8 @@
 #!/bin/bash
-
-echo "Entering the kitchen";
-cd /kitchen;
+set -e;
 
 echo "Setting environment";
-. ./env/linux/setup.sh;
+. ~/kitchen/env/linux/setup.sh;
 
 if [ "$COBBLER_ARCH" != "amd64" ]
 then
@@ -14,40 +12,6 @@ then
     cobbler_foreign_architectures="$COBBLER_ARCH";
   fi
 fi
-
-# if [ "$COBBLER_ARCH" == "arm64" ]
-# then
-#   cobbler_qemu_architectures="aarch64";
-# else
-#   cobbler_qemu_architectures="$COBBLER_ARCH";
-# fi
-
-# case $COBBLER_ARCH in
-# "amd64")
-#   cobbler_foreign_triplets="x86-64-linux-gnu";
-#   qemu_package_architecture="x86";
-#   ;;
-# "i386")
-#   cobbler_foreign_triplets="i686-linux-gnu";
-#   qemu_package_architecture="x86";
-#   ;;
-# "armhf")
-#   cobbler_foreign_triplets="arm-linux-gnueabihf";
-#   qemu_package_architecture="arm";
-#   ;;
-# "arm64")
-#   cobbler_foreign_triplets="aarch64-linux-gnu";
-#   qemu_package_architecture="arm";
-#   ;;
-# "ppc64el")
-#   cobbler_foreign_triplets="powerpc64le-linux-gnu";
-#   qemu_package_architecture="ppc";
-#   ;;
-# "s390x")
-#   cobbler_foreign_triplets="s390x-linux-gnu";
-#   qemu_package_architecture="s390x";
-#   ;;
-# esac
 
 echo "-------------------------------------------------------------"
 echo "| Environment Summary"
@@ -84,45 +48,11 @@ libasound2 libnss3 zlib1g";
 
 echo "Dependency package install list: ${cobbler_dependency_packages}"
 
-# echo "Adding architectures supported by cobbler"
-# for arch in $cobbler_foreign_architectures; do dpkg --add-architecture $COBBLER_ARCH; done
-
-# dpkg --add-architecture $COBBLER_ARCH;
-
 #echo "Adding yarn signing key"
 #curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 
 #echo "Adding yarn repository"
 #echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-
-#echo "Adding emdebian signing key"
-#curl http://emdebian.org/tools/debian/emdebian-toolchain-archive.key | apt-key add -
-
-#echo "Resetting ubuntu package lists"
-#echo "deb http://emdebian.org/tools/debian/ unstable main" | tee /etc/apt/sources.list.d/cobbler.list;
-#echo "deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ cosmic main universe multiverse restricted" | tee /etc/apt/sources.list.d/cobbler.list;
-#echo "deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu/ cosmic-security main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
-#echo "deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ cosmic-updates main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
-#echo "deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ cosmic-backports main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
-
-#cobbler_architectures_ports_list="${cobbler_foreign_architectures// /,}"
-
-cobbler_architectures_ports_list=$cobbler_foreign_architectures;
-
-#echo "Checking for ports list [${cobbler_architectures_ports_list}]...";
-#if [ -n "${cobbler_architectures_ports_list}" ]; then
-#  echo "Adding ports list [${cobbler_architectures_ports_list}]...";
-#  echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports cosmic main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
-#  echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports cosmic-security main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
-#  echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports cosmic-updates main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
-#  echo "deb [arch=$cobbler_architectures_ports_list] http://ports.ubuntu.com/ubuntu-ports cosmic-backports main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
-#fi;
-
-#echo "cobbler.list now looks like this:"
-#cat /etc/apt/sources.list;
-
-# echo "Updating package sources"
-# apt-get update -yq;
 
 echo "Creating [$COBBLER_CLEANROOM_ROOT_DIRECTORY]";
 mkdir "$COBBLER_CLEANROOM_ROOT_DIRECTORY";
