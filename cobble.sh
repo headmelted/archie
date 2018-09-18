@@ -45,14 +45,9 @@ apt-get install -y qemu qemu-user-static binfmt-support debootstrap;
 echo "Calling binfmts display";
 update-binfmts --display;
 
-cobbler_dependency_packages="libgtk2.0-0 libxkbfile-dev 
-libx11-dev libxdmcp-dev libdbus-1-3 libpcre3 libselinux1 libp11-kit0 libcomerr2 libk5crypto3 
-libkrb5-3 libpango-1.0-0 libpangocairo-1.0-0 libpangoft2-1.0-0 libxcursor1 libxfixes3 libfreetype6 libavahi-client3 
-libgssapi-krb5-2 libtiff5 fontconfig-config libgdk-pixbuf2.0-common libgdk-pixbuf2.0-0 libfontconfig1 libcups2 
-libcairo2 libc6-dev linux-libc-dev libatk1.0-0 libx11-xcb-dev libxtst6 libxss-dev libxss1 libgconf-2-4 
-libasound2 libnss3 zlib1g";
-
-echo "Dependency package install list: ${cobbler_dependency_packages}"
+echo "------------ DEPENDENCY PACKAGE INSTALL LIST ------------"
+echo ${COBBLER_DEPENDENCY_PACKAGES}
+echo "---------------------------------------------------------"
 
 #echo "Adding yarn signing key"
 #curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
