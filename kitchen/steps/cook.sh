@@ -4,8 +4,14 @@ set -e;
 echo "Setting environment";
 . ~/kitchen/env/linux/setup.sh;
 
-. ~/kitchen/steps/get.sh;
-. ~/kitchen/steps/patch.sh;
+echo "Checking for $COBBLER_GIT_ENDPOINT";
+if [ "$COBBLER_GIT_ENDPOINT" != "" ]; then
+  echo "Cobbler is pointed at a git endpoint";
+  . ~/kitchen/steps/get.sh;
+  . ~/kitchen/steps/patch.sh;
+else
+  echo "Cobbler is not pointed at a git endpoint, assuming the current project is the one to build";
+fi;
 
 . ~/kitchen/steps/prepare_build_jail.sh "$COBBLER_CLEANROOM_DIRECTORY";
 
@@ -16,25 +22,9 @@ echo "Starting to cook";
 
 echo "C compiler is ${CC}, C++ compiler is ${CXX}."
 
-echo "Entering code directory [~/kitchen/build/output/code]";
-cd ~/kitchen/build/output/code;
+echo "Entering code directory [~/kitchen/build/code]";
+cd ~/kitchen/build/code;
 
 . ~/kitchen/cobbler/build.sh;
-
-# echo "Preparing recipe";
-# for i in "${@:1}"; do
-#   echo "Entering code directory [~/kitchen/build/output/code]";
-#   cd ~/kitchen/build/output/code;
-#   echo "Executing step [$i]";
-#   if [[ -f /cobbler/steps/$i.sh ]]; then
-#     echo "Executing PROJECT step [$i]";
-#     . /cobbler/steps/$i.sh;
-#   else
-#     echo "Executing KITCHEN step [$i]";
-#     . /kitchen/steps/$i.sh;
-#   fi;
-#   echo "Returning to root directory [$COBBLER_CLEANROOM_ROOT_DIRECTORY]";
-#   cd $COBBLER_CLEANROOM_ROOT_DIRECTORY;
-# done
 
 echo "All steps complete";
