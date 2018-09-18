@@ -13,11 +13,6 @@ else
   echo "Cobbler is not pointed at a git endpoint, assuming the current project is the one to build";
 fi;
 
-. ~/kitchen/steps/prepare_build_jail.sh "$COBBLER_CLEANROOM_DIRECTORY";
-
-echo "Entering cleanroom (chroot)";
-chroot $COBBLER_CLEANROOM_DIRECTORY;
-
 echo "Starting to cook";
 
 echo "C compiler is ${CC}, C++ compiler is ${CXX}."
