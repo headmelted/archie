@@ -1,5 +1,9 @@
 #!/bin/bash
 set -e;
+
+echo "Marking kitchen scripts executable";
+chmod +x ~/kitchen/**/*;
+
 ~/kitchen/env/linux/setup.sh;
 
 cat <<EOF
