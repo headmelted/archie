@@ -10,6 +10,4 @@ export COBBLER_QEMU_ARCH='amd64';
 export COBBLER_ELECTRON_ARCH='x64';
 
 export VSCODE_ELECTRON_PLATFORM='amd64';
-export CXX='g++';
-export CC='gcc';
 export npm_config_target_arch='x64';
