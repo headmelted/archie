@@ -10,6 +10,4 @@ export COBBLER_QEMU_ARCH="arm";
 export COBBLER_ELECTRON_ARCH="arm";
 
 export VSCODE_ELECTRON_PLATFORM="arm";
-export CXX="arm-linux-gnueabihf-g++";
-export CC="arm-linux-gnueabihf-gcc";
 export npm_config_target_arch='armhf';
