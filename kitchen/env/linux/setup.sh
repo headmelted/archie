@@ -24,6 +24,12 @@ export npm_config_arch=x64;
 echo "Setting Cobbler environment for [$COBBLER_ARCH]"
 . ./env/linux/$COBBLER_ARCH.sh;
 
+echo "Setting compiler configuration for [$COBBLER_COMPILATION_METHOD]";
+if [ "$COBBLER_COMPILATION_METHOD" == "cross" ]; then
+  export CC="$COBBLER_GNU_TRIPLET-gcc -L $COBBLER_CLEANROOM_DIRECTORY/usr/lib/$COBBLER_GNU_TRIPLET/";
+  export CXX="$COBBLER_GNU_TRIPLET-g++ -L $COBBLER_CLEANROOM_DIRECTORY/usr/lib/$COBBLER_GNU_TRIPLET/";
+fi;
+
 echo "Setting TARGETCC and TARGETCXX to CC and CXX";
 export TARGETCC=$CC;
 export TARGETCXX=$CXX;
