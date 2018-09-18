@@ -36,7 +36,10 @@ crossbuild-essential-$cobbler_cross_architecture"; done
 echo "Updating package sources"
 apt-get update -yq;
 
-echo "Installing additional Cobbler dependencies";
+echo "Installing apt-utils in isolation";
+apt-get install -y apt-utils;
+
+echo "Installing base Cobbler dependencies";
 apt-get install -y qemu qemu-user-static binfmt-support debootstrap;
 
 echo "Calling binfmts display";
