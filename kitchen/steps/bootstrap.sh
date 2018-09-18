@@ -7,7 +7,7 @@ chmod +x ~/kitchen/env/linux/*.sh;
 echo "Marking kitchen steps scripts executable";
 chmod +x ~/kitchen/steps/*.sh;
 
-~/kitchen/env/linux/setup.sh;
+. ~/kitchen/env/linux/setup.sh;
 
 cat <<EOF
 
@@ -24,7 +24,7 @@ https://hub.docker.com/r/headmelted/cobbler
 
 EOF
 
-~/kitchen/env/linux/display.sh;
+. ~/kitchen/env/linux/display.sh;
 
 cat <<EOF
 ------------ DEPENDENCY PACKAGE INSTALL LIST ------------
@@ -32,7 +32,7 @@ ${COBBLER_DEPENDENCY_PACKAGES}
 ---------------------------------------------------------
 EOF
 
-~/kitchen/steps/prepare_build_jail.sh "$COBBLER_CLEANROOM_DIRECTORY";
+. ~/kitchen/steps/prepare_build_jail.sh "$COBBLER_CLEANROOM_DIRECTORY";
 
 echo "Starting compilation inside build jail";
-chroot "$COBBLER_CLEANROOM_DIRECTORY" ~/kitchen/steps/cook.sh
+chroot "$COBBLER_CLEANROOM_DIRECTORY" ~/kitchen/steps/cook.sh;
