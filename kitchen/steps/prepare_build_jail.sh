@@ -2,13 +2,13 @@
 set -e;
 
 # Call build_target_jail for the cleanroom
-. "$COBBLER_KITCHEN_DIRECTORY/steps/build_target_jail.sh" "$COBBLER_CLEANROOM_DIRECTORY";
+. "~/kitchen/steps/build_target_jail.sh" "$COBBLER_CLEANROOM_DIRECTORY";
 
 echo "Entering [$COBBLER_ARCH] jail";
 chroot $COBBLER_CLEANROOM_DIRECTORY \
 
 echo "Setting environment" && \
-. $COBBLER_KITCHEN_DIRECTORY/env/linux/setup.sh && \
+. /home/kitchen/env/linux/setup.sh && \
 
 echo "Updating [$COBBLER_ARCH] jail packages" && \
 apt-get update -yq && \
@@ -19,7 +19,7 @@ dpkg-dev perl libconfig-inifiles-perl libxml-simple-perl liblocale-gettext-perl 
 libx11-dev libxkbfile-dev zlib1g-dev libc6-dev ${COBBLER_DEPENDENCY_PACKAGES} && \
 
 echo "Checking presence of NVM" && \
-. $COBBLER_KITCHEN_DIRECTORY/env/setup_nvm.sh && \
+. /home/kitchen/env/setup_nvm.sh && \
 
 echo "Exiting chroot environment";
 
