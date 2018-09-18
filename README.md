@@ -22,6 +22,23 @@ Certain projects are a better fit than others for the assumptions Cobbler makes.
 ### How to get started
 Typically, the easiest way to get started with Cobbler is to first migrate your existing build script to building in Cobbler with the amd64 target.  Once your build scripts are correctly configured for Cobbler, targeting other architectures should be as simple as adding a target architecture from the table below to your CI configuration.
 
+## Compilation
+### Supported methods
+Cobbler supports three different compilation methods for the target architecture within a session, as explained below.
+
+#### cross
+The compilation is performed using amd64 GNU cross-compilers for the target architecture.  The $CC and $CXX environment variables, used commonly as aliases for gcc/g++, are remapped to include library paths specific to the target architecture.
+
+#### emulate
+The compilation is performed in a QEMU debootstrap of the target architecture. This is slower than using the cross method, but may be necessary in scenarios where compilation steps (or calls made by dependencies of the project during the build) are compiled for the target architecture.
+
+#### virtualize
+The compilation is performed in a virtualized QEMU system that is top-to-bottom running the target architecture.  This method has the highest compatibility as all build steps will be performed under the target architecture, 
+
+cross:      amd64 / patch CC / arm64
+emulate:    amd64 / qemu:arm64 / GCC
+virtualize: amd64 / qemu:system:arm64 / GCC
+
 ### Supported architectures
 There are effectively two lists of supported architectures for Cobbler. Compiling and testing of programs without dependendent packages (i.e. programs for which no dependencies need to be pulled from Debian repositories) is supported for the intersection of architectures of GCC and QEMU.
 
