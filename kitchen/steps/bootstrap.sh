@@ -9,28 +9,22 @@ chmod +x ~/kitchen/steps/*.sh;
 
 . ~/kitchen/env/linux/setup.sh;
 
-cat <<EOF
-
- ██████╗ ██████╗ ██████╗ ██████╗ ██╗     ███████╗██████╗ 
-██╔════╝██╔═══██╗██╔══██╗██╔══██╗██║     ██╔════╝██╔══██╗
-██║     ██║   ██║██████╔╝██████╔╝██║     █████╗  ██████╔╝
-██║     ██║   ██║██╔══██╗██╔══██╗██║     ██╔══╝  ██╔══██╗
-╚██████╗╚██████╔╝██████╔╝██████╔╝███████╗███████╗██║  ██║
- ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝
-$COBBLER_OS_DISTRIBUTION_NAME:$COBBLER_OS_RELEASE_NAME                                     v0.0.1
-
-https://github.com/headmelted/cobbler
-https://hub.docker.com/r/headmelted/cobbler
-
-EOF
+echo " ██████╗ ██████╗ ██████╗ ██████╗ ██╗     ███████╗██████╗ "
+echo "██╔════╝██╔═══██╗██╔══██╗██╔══██╗██║     ██╔════╝██╔══██╗"
+echo "██║     ██║   ██║██████╔╝██████╔╝██║     █████╗  ██████╔╝"
+echo "██║     ██║   ██║██╔══██╗██╔══██╗██║     ██╔══╝  ██╔══██╗"
+echo "╚██████╗╚██████╔╝██████╔╝██████╔╝███████╗███████╗██║  ██║"
+echo " ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝"
+echo "$COBBLER_OS_DISTRIBUTION_NAME:$COBBLER_OS_RELEASE_NAME                                     v0.0.1"
+echo ""
+echo "https://github.com/headmelted/cobbler"
+echo "https://hub.docker.com/r/headmelted/cobbler"
 
 . ~/kitchen/env/linux/display.sh;
 
-cat <<EOF
------------- DEPENDENCY PACKAGE INSTALL LIST ------------
-${COBBLER_DEPENDENCY_PACKAGES}
----------------------------------------------------------
-EOF
+echo "------------ DEPENDENCY PACKAGE INSTALL LIST ------------"
+echo "${COBBLER_DEPENDENCY_PACKAGES}"
+echo "---------------------------------------------------------"
 
 . ~/kitchen/steps/prepare_build_jail.sh "$COBBLER_CLEANROOM_DIRECTORY";
 
