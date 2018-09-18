@@ -19,13 +19,13 @@ fi
 echo "-------------------------------------------------------------"
 echo "| Environment Summary"
 echo "-------------------------------------------------------------"
-echo "| Target architecture: $COBBLER_ARCH"; 
-echo "| Non-native target architectures: $cobbler_foreign_architectures";
-echo "| Cross-compile architectures: $cobbler_cross_architectures";
-echo "| QEMU architectures: $COBBLER_QEMU_ARCH";
-echo "| QEMU system emulator set: qemu-system-$COBBLER_QEMU_PACKAGE_ARCH";
-echo "| C compilers (gcc-): $COBBLER_GNU_TRIPLET";
-echo "| C++ compilers (gpp-): $COBBLER_GNU_TRIPLET";
+echo "Target architecture: $COBBLER_ARCH"; 
+echo "Non-native target architectures: $cobbler_foreign_architectures";
+echo "Cross-compile architectures: $cobbler_cross_architectures";
+echo "QEMU architectures: $COBBLER_QEMU_ARCH";
+echo "QEMU system emulator set: qemu-system-$COBBLER_QEMU_PACKAGE_ARCH";
+echo "C compilers (gcc-): $COBBLER_GNU_TRIPLET";
+echo "C++ compilers (gpp-): $COBBLER_GNU_TRIPLET";
 echo "-------------------------------------------------------------"
 
 cobbler_packages_to_install="gcc-$COBBLER_GNU_TRIPLET g++-$COBBLER_GNU_TRIPLET"
@@ -68,9 +68,6 @@ mkdir "$COBBLER_CLEANROOM_RELEASE_DIRECTORY";
 
 echo "Creating [$COBBLER_CLEANROOM_DIRECTORY]";
 mkdir "$COBBLER_CLEANROOM_DIRECTORY";
-
-echo "Creating [$COBBLER_CLEANROOM_BUILDS_DIRECTORY]";
-mkdir "$COBBLER_CLEANROOM_BUILDS_DIRECTORY";
 
 echo "Updating $CC AND $CXX to use [$COBBLER_ARCH] dependencies";
 export CC="$CC -L $COBBLER_CLEANROOM_DIRECTORY/usr/lib/$COBBLER_GNU_TRIPLET/";
