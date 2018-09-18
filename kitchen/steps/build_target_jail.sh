@@ -2,7 +2,7 @@
 set -e;
 
 echo "Creating [$COBBLER_ARCH] jail at [$1]";
-mkdir "$1";
+mkdir -p "$1";
 
 if [ $COBBLER_ARCH == "amd64" ]; then
 
