@@ -24,12 +24,12 @@ Typically, the easiest way to get started with Cobbler is to first migrate your 
 
 ## Compilation
 ### Supported strategies
-Cobbler supports three different compilation strategies for a target architecture within a session, as explained below.
+Cobbler supports three different compilation strategies for a target architecture within a session, as explained below.  Each of these strategies are agnostic of the structure of code, such that you should be able to change the setting as needed without making changes to your own code.
 
 #### cross
 The compilation is performed using amd64 GNU cross-compilers for the target architecture.  When using this strategy, the dependency packages for the target architecture are installed, and linked explicitly during compilation.
 
-_This is the fastest compilation strategy (broadly similar to compiling directly to amd64 in the simplest cases), but may not play well with all dependencies of your project. During compilation, the $CC and $CXX variables commonly used to alias GCC are replaced to explicitly include linking of the supporting depdencies for the target architecture.  While this is often all you'll need for cross-compulation, you may experience format errors that are likely a sign of native code running in a dependency, and you'll need to choose another strategy._
+_This is the fastest compilation strategy (broadly similar to compiling directly to amd64 in the simplest cases), but may not play well with all dependencies of your project. During compilation, the $CC and $CXX variables commonly used to alias GCC are modified to explicitly include linking of the supporting depdencies for the target architecture.  While this is often all you'll need for cross-compilation, you may experience execution format errors that are likely a sign of native code running inside a dependency. This likely means you'll need to choose another strategy._
 
 #### emulate
 The compilation is performed in a QEMU debootstrap of the target architecture. This is slower than using the cross method, but increases compatibility by transparently emulating every call not made by the compiler.
@@ -38,6 +38,10 @@ _This strategy may be necessary in scenarios where compilation steps (or calls m
 
 #### virtualize
 The compilation is performed in a virtualized QEMU system that is running the target architecture top-to-bottom.  This strategy has the highest compatibility, as all build steps will be performed under the target architecture with it's native build of GCC, but at a significant performance cost due to the emulation overhead.
+
+This strategy is also useful in scenarios where you need to be able to confirm that your code can be compiled by downstream users with specific devices (e.g. specific niche processors, lower memory).
+
+_An example of this is targeting (for example) the Raspberry Pi line of single-board computers.  It's possible (thanks to QEMU's excellent support for systme virtualization) to perform the compilation on a virtual version of a specific model of the Raspberry Pi (that matches the physical hardware as closely as possible) to confirm that your software can be compiled directly on the device, rather than just executed on it._
 
 ### Supported architectures
 There are effectively two lists of supported architectures for Cobbler. Compiling and testing of programs without dependendent packages (i.e. programs for which no dependencies need to be pulled from Debian repositories) is supported for the intersection of architectures of GCC and QEMU.
