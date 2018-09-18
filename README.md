@@ -17,10 +17,10 @@ Cobbler is a series of pre-configured Debian images that are collectively intend
 By using some sensible defaults, and several commonly used and well-supported tools, Cobbler's goal is to make compiling platform-agnostic code to architectures such as ARM, PowerPC and SPARC as simple as building for Intel.
 
 ### Who should use Cobbler?
-Certain projects are a better fit than others for the assumptions Cobbler makes.  Specifically, any code that relies heavily on architecture-specific calls is not likely to benefit much (if it all) from using Cobbler, whereas platform agnostic C\C++ code (or code in higher level languages with C\C++ dependencies) is likely to have much better results.
+Certain projects are a better fit than others for the assumptions Cobbler makes.  Specifically, any code that relies heavily on architecture-specific calls is not likely to benefit much (if it all) from using Cobbler, whereas platform agnostic C\C++ code (or code in higher level languages with platform agnostic C\C++ dependencies) is likely to have much better results.
 
 ### How to get started
-Typically, the easiest route way to get started with Cobbler is to first prepare your project for building with the amd64 target.  Once your build scripts are correctly configured for Cobbler, targeting other architectures should be as simple as adding a couple of lines of configuration.
+Typically, the easiest way to get started with Cobbler is to first migrate your existing build script to building in Cobbler with the amd64 target.  Once your build scripts are correctly configured for Cobbler, targeting other architectures should be as simple as adding a target architecture from the table below to your CI configuration.
 
 ### Supported architectures
 There are effectively two lists of supported architectures for Cobbler. Compiling and testing of programs without dependendent packages (i.e. programs for which no dependencies need to be pulled from Debian repositories) is supported for the intersection of architectures of GCC and QEMU.
@@ -40,4 +40,6 @@ As Cobbler is built on Debian Stretch, the architectures supported for those pro
 | ppc64el       | POWER    | 64               | Cross         | Yes           | Yes           | Yes
 | s390x         | IBM Z    | 64               | Cross         | Yes           | Yes           | Yes
 
-_Note that the amd64 target does not involve cross-compilation, and simply maps the $CC and $CXX variables to GCC 4.9.  The target is included so that the same pattern can be followed for all architectures within Cobbler itself.  It's expected therefore that most projects using Cobbler will treat their build process agnostically of the underlying processor architecture of their target._
+_Note that the amd64 target does not involve cross-compilation, and simply maps the $CC and $CXX variables to directly to the x86_64 GCC compilers.  The target is included so that the same pattern can be followed for all architectures within Cobbler itself.  It's expected therefore that most projects using Cobbler will treat their build process agnostically of the underlying architecture of their target._
+
+
