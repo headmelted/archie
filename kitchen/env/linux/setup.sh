@@ -22,7 +22,7 @@ export HOSTCC='x86_64-linux-gnu-gcc';
 export npm_config_arch=x64;
 
 echo "Setting Cobbler environment for [$COBBLER_ARCH]"
-. ./env/linux/$COBBLER_ARCH.sh;
+. ~/kitchen/env/linux/$COBBLER_ARCH.sh;
 
 echo "Setting compiler configuration for [$COBBLER_COMPILATION_METHOD]";
 if [ "$COBBLER_COMPILATION_METHOD" == "cross" ]; then
