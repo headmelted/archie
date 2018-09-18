@@ -5,7 +5,7 @@ echo "Entering kitchen to setup Cobbler";
 cd /root/kitchen;
 
 echo "Marking all files in kitchen executable (this directory should contain scripts and executables only!)";
-chmod +x /root/kitchen**/*;
+chmod +x /root/kitchen/**/*;
 
 echo "Setting environment";
 . ./env/linux/setup.sh;
