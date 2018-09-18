@@ -1,8 +1,11 @@
 #!/bin/bash
 set -e;
 
+echo "Entering kitchen to setup Cobbler";
+cd /root/kitchen;
+
 echo "Setting environment";
-. ~/kitchen/env/linux/setup.sh;
+. ./env/linux/setup.sh;
 
 if [ "$COBBLER_ARCH" != "amd64" ]
 then
