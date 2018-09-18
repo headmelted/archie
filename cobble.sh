@@ -48,10 +48,6 @@ apt-get install -y qemu qemu-user-static binfmt-support debootstrap;
 # echo "Calling binfmts display";
 # update-binfmts --display;
 
-echo "------------ DEPENDENCY PACKAGE INSTALL LIST ------------"
-echo ${COBBLER_DEPENDENCY_PACKAGES}
-echo "---------------------------------------------------------"
-
 #echo "Adding yarn signing key"
 #curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 
