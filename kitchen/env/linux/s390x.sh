@@ -10,5 +10,3 @@ export COBBLER_QEMU_ARCH="s390x";
 export COBBLER_ELECTRON_ARCH="";
 
 export VSCODE_ELECTRON_PLATFORM="";
-export CXX="s390x-linux-gnu-g++";
-export CC="s390x-linux-gnu-gcc";
