@@ -2,7 +2,7 @@
 set -e;
 
 # Call build_target_jail for the cleanroom
-. "~/kitchen/steps/build_target_jail.sh" "$COBBLER_CLEANROOM_DIRECTORY";
+. /root/kitchen/steps/build_target_jail.sh "$COBBLER_CLEANROOM_DIRECTORY";
 
 echo "Entering [$COBBLER_ARCH] jail";
 chroot $COBBLER_CLEANROOM_DIRECTORY \
