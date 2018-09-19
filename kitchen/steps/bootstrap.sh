@@ -26,7 +26,5 @@ echo "------------ DEPENDENCY PACKAGE INSTALL LIST ------------"
 echo "${COBBLER_DEPENDENCY_PACKAGES}"
 echo "---------------------------------------------------------"
 
-. ~/kitchen/steps/prepare_build_jail.sh "$COBBLER_CLEANROOM_DIRECTORY";
-
 echo "Starting compilation inside build jail";
-chroot "$COBBLER_CLEANROOM_DIRECTORY" ~/kitchen/steps/cook.sh;
+. /root/kitchen/steps/cook.sh;
