@@ -12,8 +12,8 @@ mkdir "$COBBLER_CLEANROOM_DIRECTORY";
 
 if [ $COBBLER_ARCH == "amd64" || $COBBLER_STRATEGY != "emulate" ]; then
 
-  echo "QEMU not required, completing setup";
-  . /root/kitchen/steps/prepare_for_build.sh;
+  echo "QEMU not required, preparing environment";
+  . /root/kitchen/steps/prepare.sh;
 
 else
  
@@ -26,7 +26,7 @@ else
     cp /usr/bin/qemu-$COBBLER_QEMU_ARCH-static $COBBLER_CLEANROOM_DIRECTORY/usr/bin/;
 
     echo "Entering jail to complete setup";
-    . /root/kitchen/steps/jail.sh /home/kitchen/steps/prepare_for_build.sh;
+    . /root/kitchen/steps/jail.sh /home/kitchen/steps/prepare.sh;
 
   fi;
   
