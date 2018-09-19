@@ -44,28 +44,6 @@ apt-get install -y apt-utils;
 
 echo "Installing base Cobbler dependencies";
 apt-get install -y qemu qemu-user-static debootstrap proot;
- 
-echo "Using debootstrap to create jail"
-debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=minbase stretch cleanroom;
-
-if [ "$COBBLER_ARCH" != "amd64" ]; then
-
-  echo "Copying static QEMU for [$COBBLER_ARCH] into jail";
-  cp /usr/bin/qemu-$COBBLER_QEMU_ARCH-static ./cleanroom/usr/bin/;
-
-  echo "Setting PROOT_NO_SECCOMP to 1";
-  export PROOT_NO_SECCOMP=1;
-
-  echo "Entering jail (proot)";
-  proot -r ./cleanroom/ -q qemu-aarch64-static uname -a; # && /debootstrap/debootstrap --second-stage && echo "Jail ready, exiting.."';
-  
-fi;
-
-#echo "Adding yarn signing key"
-#curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-
-#echo "Adding yarn repository"
-#echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
 echo "Creating [$COBBLER_CLEANROOM_ROOT_DIRECTORY]";
 mkdir "$COBBLER_CLEANROOM_ROOT_DIRECTORY";
@@ -75,5 +53,21 @@ mkdir "$COBBLER_CLEANROOM_RELEASE_DIRECTORY";
 
 echo "Creating [$COBBLER_CLEANROOM_DIRECTORY]";
 mkdir "$COBBLER_CLEANROOM_DIRECTORY";
+ 
+echo "Using debootstrap --foreign to create rootfs for jail"
+debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=minbase $COBBLER_OS_RELEASE_NAME $COBBLER_CLEANROOM_DIRECTORY;
 
-echo "Ready to cook";
+if [ "$COBBLER_ARCH" != "amd64" ]; then
+
+  echo "Copying static QEMU for [$COBBLER_ARCH] into jail";
+  cp /usr/bin/qemu-$COBBLER_QEMU_ARCH-static $COBBLER_CLEANROOM_DIRECTORY/usr/bin/;
+
+fi;
+
+#echo "Adding yarn signing key"
+#curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+
+#echo "Adding yarn repository"
+#echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+
+echo "Cobbler ready for [$COBBLER_ARCH]";
