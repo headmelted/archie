@@ -5,15 +5,35 @@ echo "Setting environment";
 . ~/kitchen/env/linux/setup.sh;
 
 if [ "$COBBLER_STRATEGY" == "emulate" ]; then
+
   echo "We're in an emulated chroot, executing second stage debootstrap";
   /debootstrap/debootstrap --second-stage;
+
 fi;
 
 echo "Updating [$COBBLER_ARCH] jail packages";
 apt-get update -yq;
 
-echo "Installing standard and dependency packages";
-apt-get install -y curl gnupg git pkg-config libsecret-1-dev libglib2.0-dev software-properties-common xvfb wget python curl zip p7zip-full rpm graphicsmagick libwww-perl libxml-libxml-perl libxml-sax-expat-perl dpkg-dev perl libconfig-inifiles-perl libxml-simple-perl liblocale-gettext-perl libdpkg-perl libconfig-auto-perl libdebian-dpkgcross-perl ucf debconf dpkg-cross tree libx11-dev libxkbfile-dev zlib1g-dev libc6-dev ${COBBLER_DEPENDENCY_PACKAGES};
+if [ "$COBBLER_STRATEGY" == "cross" ]; then
+  
+  echo "Adding cross-compilation target of [$COBBLER_ARCH]";
+  dpkg --add-architecture $COBBLER_ARCH;
+  
+  packages_to_install="crossbuild-essential-$COBBLER_ARCH";
+  
+fi;
+
+echo "Preparing to install dependencies";
+
+for cobbler_dependency_package in $COBBLER_DEPENDENCY_PACKAGES; do
+  if [ "$COBBLER_STRATEGY" == "cross" ] || [ "$COBBLER_STRATEGY" == "hybrid" ]; then
+    $cobbler_dependency_package="$cobbler_dependency_package:$COBBLER_ARCH";
+  fi;
+  packages_to_install="$packages_to_install $cobbler_dependency_package";
+done;
+  
+echo "Installing dependency packages";
+apt-get install -y $packages_to_install;
 
 echo "Checking presence of NVM";
 . ~/kitchen/env/setup_nvm.sh;
