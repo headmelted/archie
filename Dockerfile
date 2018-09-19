@@ -1,6 +1,6 @@
 FROM debian:stretch
 ARG DOCKER_TAG
-ENV COBBLER_ARCH=$DOCKER_TAG
+ENV COBBLER_DOCKER_TAG=$DOCKER_TAG
 COPY kitchen /root/kitchen/
 ADD cobble.sh /
 RUN /bin/bash -c '. /cobble.sh'
