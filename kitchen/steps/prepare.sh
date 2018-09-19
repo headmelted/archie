@@ -19,6 +19,9 @@ if [ "$COBBLER_STRATEGY" == "cross" ]; then
   echo "Adding cross-compilation target of [$COBBLER_ARCH]";
   dpkg --add-architecture $COBBLER_ARCH;
   
+  echo "Updating APT";
+  apt-get update;
+  
   packages_to_install="crossbuild-essential-$COBBLER_ARCH";
   
 fi;
