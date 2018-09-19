@@ -1,2 +1,2 @@
 #!/bin/sh
-docker build --cap-add=sys_admin --build-arg DOCKER_TAG=$DOCKER_TAG -t $IMAGE_NAME .
+docker build --build-arg DOCKER_TAG=$DOCKER_TAG -t $IMAGE_NAME .
