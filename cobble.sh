@@ -43,26 +43,10 @@ echo "Installing apt-utils in isolation";
 apt-get install -y apt-utils;
 
 echo "Installing base Cobbler dependencies";
-apt-get install -y qemu qemu-user-static binfmt-support debootstrap;
-
-echo "Enabling QEMU support";
-update-binfmts --enable qemu-$COBBLER_QEMU_ARCH;
-
-echo "Calling binfmts display";
-update-binfmts --display;
-
-echo "Reading binfmt_misc";
-cat /proc/sys/fs/binfmt_misc/status;
-
-echo "Listing binfmt_misc directory";
-ls /proc/sys/fs/binfmt_misc/;
-tree /proc/sys/fs/binfmt_misc/;
-
-echo "Trying to enable binfmt_misc support";
-echo 1 > /proc/sys/fs/binfmt_misc/status;
+apt-get install -y qemu qemu-user-static debootstrap;
  
 echo "Using QEMU debootstrap to create jail"
-qemu-debootstrap --arch=$COBBLER_ARCH --variant=minbase stretch cleanroom;
+qemu-debootstrap --verbose --arch=$COBBLER_ARCH --variant=minbase stretch cleanroom;
 
 #echo "Adding yarn signing key"
 #curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
