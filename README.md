@@ -1,7 +1,7 @@
 ![Cobbler logo](https://github.com/headmelted/cobbler/raw/master/logo_128.png)
 
 # Cobbler
-## Easy cross-compilation and testing for busy developers
+## Simple cross-compilation for busy projects
 
 _WARNING: THIS PROJECT IS STILL VERY MUCH A WORK-IN-PROGRESS AND SHOULD NOT BE USED FOR YOUR OWN PROJECTS YET. THERE'S A LOT OF PARTS MOVING AROUND. YE'VE BEEN WARNED!!_
 
@@ -44,6 +44,22 @@ The compilation is performed in a virtualized QEMU system that is running the ta
 This strategy is also useful in scenarios where you need to be able to confirm that your code can be compiled by downstream users with specific devices (e.g. specific niche processors, lower memory).
 
 _An example of this is targeting (for example) the Raspberry Pi line of single-board computers.  It's possible (thanks to QEMU's excellent support for systme virtualization) to perform the compilation on a virtual version of a specific model of the Raspberry Pi (that matches the physical hardware as closely as possible) to confirm that your software can be compiled directly on the device, rather than just executed on it._
+
+### Convenience variables
+Cobbler sets a series of global variables inside each session that can be used to help with your builds.  The table below explains these variables, and gives some context as to expected use cases.  Note that most Cobbler globals are prefixed with *COBBLER_* so as to prevent conflicts with your own variables.  *The exception to this rule is where Cobbler intentionally overwrites global variables to make cross-compilation easier.  These variables, and the changes made, are shown below*.
+
+| Global                               | Description                                                                 |
+|--------------------------------------|-----------------------------------------------------------------------------|
+| $COBBLER_STRATEGY                    | The strategy of the current session (*cross*, *emulate* or *virtualize*)    |
+| $COBBLER_OS_DISTRIBUTION_NAME        | The Linux distribution Cobbler is running on (currently *debian*)           |
+| $COBBLER_OS_RELEASE_NAME             | The Linux release Cobbler is running on (currently *stretch-slim*)          |
+| $COBBLER_CLEANROOM_ROOT_DIRECTORY    | The directory in which the architecture-specific cleanrooms are placed      |
+| $COBBLER_CLEANROOM_RELEASE_DIRECTORY | A sub-directory of the cleanroom corresponding to the OS release            |
+| $COBBLER_CLEANROOM_DIRECTORY         | The directory of the cleanroom for the current session (if using *cross* or *emulate* strategies)    |
+| $COBBLER_KITCHEN_DIRECTORY | to follow |
+| $COBBLER_BUILD_DIRECTORY | to follow |
+| $COBBLER_OUTPUT_DIRECTORY | to follow |
+| $COBBLER_CODE_DIRECTORY | to follow |
 
 ## Architecture Matrix
 There are effectively two lists of supported architectures for Cobbler. Compiling and testing of programs without dependendent packages (i.e. programs for which no dependencies need to be pulled from Debian repositories) is supported for the intersection of architectures of GCC and QEMU.
