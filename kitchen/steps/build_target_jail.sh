@@ -1,22 +1,32 @@
 #!/bin/bash
 set -e;
+  
+echo "Creating [$COBBLER_CLEANROOM_ROOT_DIRECTORY]";
+mkdir "$COBBLER_CLEANROOM_ROOT_DIRECTORY";
 
-echo "Creating [$COBBLER_ARCH] jail at [$1]";
-mkdir -p "$1";
+echo "Creating [$COBBLER_CLEANROOM_RELEASE_DIRECTORY]";
+mkdir "$COBBLER_CLEANROOM_RELEASE_DIRECTORY";
+
+echo "Creating [$COBBLER_CLEANROOM_DIRECTORY]";
+mkdir "$COBBLER_CLEANROOM_DIRECTORY";
 
 if [ $COBBLER_ARCH == "amd64" ]; then
 
   echo "QEMU not required, ignoring jail request";
 
 else
+ 
+  echo "Using debootstrap --foreign to create rootfs for jail"
+  debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=minbase $COBBLER_OS_RELEASE_NAME $COBBLER_CLEANROOM_DIRECTORY;
 
-  echo "Using QEMU debootstrap to create jail"
-  qemu-debootstrap --arch=$COBBLER_ARCH --variant=minbase stretch "$1";
+  if [ "$COBBLER_ARCH" != "amd64" ]; then
 
-  echo "Copying QEMU userland emulator into jail";
-  cp /usr/bin/qemu-$COBBLER_QEMU_ARCH-static "$1/usr/bin";
+    echo "Copying static QEMU for [$COBBLER_ARCH] into jail";
+    cp /usr/bin/qemu-$COBBLER_QEMU_ARCH-static $COBBLER_CLEANROOM_DIRECTORY/usr/bin/;
+  
+    echo "Entering jail to complete setup";
+    . /root/kitchen/steps/jail.sh /home/kitchen/steps/build_target_jail_second_stage.sh;
 
-  echo "Mounting kitchen scripts inside [$COBBLER_ARCH] jail"
-  mount --bind ~/kitchen $1/home/kitchen;
-
+  fi;
+  
 fi;
