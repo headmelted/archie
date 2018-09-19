@@ -13,12 +13,7 @@ else
   echo "Cobbler is not pointed at a git endpoint, assuming the current project is the one to build";
 fi;
 
-echo "Starting to cook";
-echo "C compiler is ${CC}, C++ compiler is ${CXX}.";
-
-echo "Entering code directory [$COBBLER_CODE_DIRECTORY]";
-cd "$COBBLER_CODE_DIRECTORY";
-
-. ~/kitchen/cobbler/build.sh;
+echo "Entering jail to start build";
+. ~/kitchen/steps/jail.sh /home/kitchen/cobbler/build.sh;
 
 echo "All steps complete";
