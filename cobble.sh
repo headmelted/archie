@@ -53,8 +53,11 @@ if [ "$COBBLER_ARCH" != "amd64" ]; then
   echo "Copying static QEMU for [$COBBLER_ARCH] into jail";
   cp /usr/bin/qemu-$COBBLER_QEMU_ARCH-static ./cleanroom/usr/bin/;
 
+  echo "Setting PROOT_NO_SECCOMP to 1";
+  export PROOT_NO_SECCOMP=1;
+
   echo "Entering jail (proot)";
-  proot -R ./cleanroom -q qemu-$COBBLER_QEMU_ARCH /bin/bash -c 'echo "In jail, performing second stage debootstrap" && /debootstrap/debootstrap --second-stage && echo "Jail ready, exiting.."';
+  proot -R ./cleanroom -q qemu-$COBBLER_QEMU_ARCH echo "In jail, performing second stage debootstrap"; # && /debootstrap/debootstrap --second-stage && echo "Jail ready, exiting.."';
   
 fi;
 
