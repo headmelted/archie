@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Setting Cobbler environment for all architectures";
-export COBBLER_QEMU_TEST_METHOD=user;
+export COBBLER_QEMU_STRATEGY=user;
 export COBBLER_OS_DISTRIBUTION_NAME=debian;
 export COBBLER_OS_RELEASE_NAME=stretch;
 
