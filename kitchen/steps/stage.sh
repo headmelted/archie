@@ -10,7 +10,7 @@ mkdir "$COBBLER_CLEANROOM_RELEASE_DIRECTORY";
 echo "Creating [$COBBLER_CLEANROOM_DIRECTORY]";
 mkdir "$COBBLER_CLEANROOM_DIRECTORY";
 
-if [ $COBBLER_ARCH == "amd64" || $COBBLER_STRATEGY == "cross" ]; then
+if [ $COBBLER_ARCH == "amd64" ] || [ $COBBLER_STRATEGY == "cross" ]; then
 
   echo "QEMU not required, preparing environment";
   . /root/kitchen/steps/prepare.sh;
