@@ -52,23 +52,9 @@ if [ "$COBBLER_ARCH" != "amd64" ]; then
 
   echo "Copying static QEMU for [$COBBLER_ARCH] into jail";
   cp /usr/bin/qemu-$COBBLER_QEMU_ARCH-static ./cleanroom/usr/bin/;
-  
-  echo "Copying resolve.conf into jail";
-  cp /etc/resolv.conf ./cleanroom/etc
 
   echo "Entering jail (chroot)";
-  chroot ./cleanroom && \
-
-  echo "In jail, setting distro=stretch" && \
-  distro=stretch && \
-
-  echo "Exporting LANG" && \
-  export LANG=C && \
-
-  echo "Executing second stage of debootstrap" && \
-  /debootstrap/debootstrap --second-stage && \
-  
-  echo "Jail ready, exiting.."
+  chroot ./cleanroom /usr/bin/qemu-$COBBLER_QEMU_ARCH-static /bin/bash -c 'echo "In jail, performing second stage debootstrap" && /debootstrap/debootstrap --second-stage && echo "Jail ready, exiting.."';
   
 fi;
 
