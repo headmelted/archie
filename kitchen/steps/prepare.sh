@@ -30,7 +30,7 @@ fi;
 
 for cobbler_dependency_package in $COBBLER_TARGET_DEPENDENCIES; do
   if [ "$COBBLER_STRATEGY" == "cross" ] || [ "$COBBLER_STRATEGY" == "hybrid" ]; then
-    $cobbler_dependency_package="$cobbler_dependency_package:$COBBLER_ARCH";
+    cobbler_dependency_package="$cobbler_dependency_package:$COBBLER_ARCH";
   fi;
   packages_to_install="$packages_to_install $cobbler_dependency_package";
 done;
