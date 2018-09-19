@@ -1,9 +1,6 @@
 #!/bin/bash
 set -e;
 
-echo "find modprobe:";
-which modprobe;
-
 echo "Call modprobe";
 /sbin/modprobe binfmt_misc;
 exit;
