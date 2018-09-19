@@ -4,8 +4,10 @@ set -e;
 echo "Setting environment";
 . ~/kitchen/env/linux/setup.sh;
 
-echo "Executing second stage debootstrap";
-/debootstrap/debootstrap --second-stage;
+if [ "$COBBLER_STRATEGY" == "emulate" ]; then
+  echo "Executing second stage debootstrap";
+  /debootstrap/debootstrap --second-stage;
+fi;
 
 echo "Updating [$COBBLER_ARCH] jail packages";
 apt-get update -yq;
