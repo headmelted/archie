@@ -5,7 +5,7 @@ echo "Setting environment";
 . ~/kitchen/env/linux/setup.sh;
 
 if [ "$COBBLER_STRATEGY" == "emulate" ]; then
-  echo "Executing second stage debootstrap";
+  echo "We're in an emulated chroot, executing second stage debootstrap";
   /debootstrap/debootstrap --second-stage;
 fi;
 
@@ -18,4 +18,4 @@ apt-get install -y curl gnupg git pkg-config libsecret-1-dev libglib2.0-dev soft
 echo "Checking presence of NVM";
 . ~/kitchen/env/setup_nvm.sh;
 
-echo "Exiting chroot environment";
+echo "Environment prepared";
