@@ -1,6 +1,17 @@
 #!/bin/bash
 set -e;
 
+echo " ██████╗ ██████╗ ██████╗ ██████╗ ██╗     ███████╗██████╗ "
+echo "██╔════╝██╔═══██╗██╔══██╗██╔══██╗██║     ██╔════╝██╔══██╗"
+echo "██║     ██║   ██║██████╔╝██████╔╝██║     █████╗  ██████╔╝"
+echo "██║     ██║   ██║██╔══██╗██╔══██╗██║     ██╔══╝  ██╔══██╗"
+echo "╚██████╗╚██████╔╝██████╔╝██████╔╝███████╗███████╗██║  ██║"
+echo " ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝"
+echo "$COBBLER_OS_DISTRIBUTION_NAME:$COBBLER_OS_RELEASE_NAME                                     v0.0.1"
+echo ""
+echo "https://github.com/headmelted/cobbler"
+echo "https://hub.docker.com/r/headmelted/cobbler"
+
 echo "------------------ ENVIRONMENT DETAILS ------------------"
 echo "Target architecture: $COBBLER_ARCH"
 echo "Non-native target architectures: $cobbler_foreign_architectures"
