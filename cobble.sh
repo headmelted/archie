@@ -9,6 +9,7 @@ chmod +x /root/kitchen/**/*;
 
 echo "Setting environment";
 . ./env/linux/setup.sh;
+. ./env/linux/display.sh;
 
 if [ "$COBBLER_ARCH" != "amd64" ]
 then
@@ -18,18 +19,6 @@ then
     cobbler_foreign_architectures="$COBBLER_ARCH";
   fi
 fi
-
-echo "-------------------------------------------------------------"
-echo "| Environment Summary"
-echo "-------------------------------------------------------------"
-echo "Target architecture: $COBBLER_ARCH"; 
-echo "Non-native target architectures: $cobbler_foreign_architectures";
-echo "Cross-compile architectures: $cobbler_cross_architectures";
-echo "QEMU architectures: $COBBLER_QEMU_ARCH";
-echo "QEMU system emulator set: qemu-system-$COBBLER_QEMU_PACKAGE_ARCH";
-echo "C compilers (gcc-): $COBBLER_GNU_TRIPLET";
-echo "C++ compilers (gpp-): $COBBLER_GNU_TRIPLET";
-echo "-------------------------------------------------------------"
 
 cobbler_packages_to_install="gcc-$COBBLER_GNU_TRIPLET g++-$COBBLER_GNU_TRIPLET"
 
