@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Setting Cobbler environment for all architectures";
-export COBBLER_STRATEGY=user;
+export COBBLER_STRATEGY=cross;
 export COBBLER_OS_DISTRIBUTION_NAME=debian;
 export COBBLER_OS_RELEASE_NAME=stretch;
 
@@ -25,7 +25,7 @@ echo "Setting Cobbler environment for [$COBBLER_ARCH]"
 . ~/kitchen/env/linux/$COBBLER_ARCH.sh;
 
 echo "Setting compiler configuration for [$COBBLER_COMPILATION_METHOD]";
-if [ "$COBBLER_COMPILATION_METHOD" == "cross" ]; then
+if [ "$COBBLER_STRATEGY" == "cross" ]; then
   export CC="$COBBLER_GNU_TRIPLET-gcc -L $COBBLER_CLEANROOM_DIRECTORY/usr/lib/$COBBLER_GNU_TRIPLET/";
   export CXX="$COBBLER_GNU_TRIPLET-g++ -L $COBBLER_CLEANROOM_DIRECTORY/usr/lib/$COBBLER_GNU_TRIPLET/";
 fi;
@@ -33,5 +33,3 @@ fi;
 echo "Setting TARGETCC and TARGETCXX to CC and CXX";
 export TARGETCC=$CC;
 export TARGETCXX=$CXX;
-
-export PROOT_NO_SECCOMP=1;
