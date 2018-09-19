@@ -1,6 +1,6 @@
 #!/bin/bash
 
-COBBLER_TAG_SETTINGS=(${COBBLER_DOCKER_TAGS//;/ });
+COBBLER_TAG_SETTINGS=(${COBBLER_DOCKER_TAG//;/ });
 
 echo "Setting Cobbler environment for all architectures";
 export COBBLER_STRATEGY=${COBBLER_TAG_SETTINGS[0]};
