@@ -43,7 +43,7 @@ echo "Installing apt-utils in isolation";
 apt-get install -y apt-utils;
 
 echo "Installing base Cobbler dependencies";
-apt-get install -y qemu qemu-user-static debootstrap;
+apt-get install -y qemu qemu-user-static debootstrap proot;
  
 echo "Using debootstrap to create jail"
 debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=minbase stretch cleanroom;
@@ -53,8 +53,8 @@ if [ "$COBBLER_ARCH" != "amd64" ]; then
   echo "Copying static QEMU for [$COBBLER_ARCH] into jail";
   cp /usr/bin/qemu-$COBBLER_QEMU_ARCH-static ./cleanroom/usr/bin/;
 
-  echo "Entering jail (chroot)";
-  chroot ./cleanroom /usr/bin/qemu-$COBBLER_QEMU_ARCH-static /bin/bash -c 'echo "In jail, performing second stage debootstrap" && /debootstrap/debootstrap --second-stage && echo "Jail ready, exiting.."';
+  echo "Entering jail (proot)";
+  proot -R ./cleanroom -q qemu-$COBBLER_QEMU_ARCH /bin/bash -c 'echo "In jail, performing second stage debootstrap" && /debootstrap/debootstrap --second-stage && echo "Jail ready, exiting.."';
   
 fi;
 
