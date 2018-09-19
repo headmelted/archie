@@ -43,7 +43,7 @@ echo "Installing apt-utils in isolation";
 apt-get install -y apt-utils;
 
 echo "Installing base Cobbler dependencies";
-apt-get install -y qemu qemu-user-static debootstrap module-init-tools;
+apt-get install -y qemu qemu-user-static debootstrap kmod;
 
 echo "Call modprobe";
 /sbin/modprobe binfmt_misc;
