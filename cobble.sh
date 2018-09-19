@@ -51,6 +51,9 @@ update-binfmts --display;
 echo "Enabling QEMU support";
 update-binfmts --enable qemu-$COBBLER_QEMU_ARCH-static;
 
+echo "Using QEMU debootstrap to create jail"
+qemu-debootstrap --arch=$COBBLER_ARCH --variant=minbase stretch cleanroom;
+
 #echo "Adding yarn signing key"
 #curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 
