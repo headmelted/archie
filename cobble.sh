@@ -25,17 +25,7 @@ cobbler_packages_to_install="gcc-$COBBLER_GNU_TRIPLET g++-$COBBLER_GNU_TRIPLET"
 for cobbler_cross_architecture in $cobbler_cross_architectures; do cobbler_packages_to_install="$cobbler_packages_to_install \
 crossbuild-essential-$cobbler_cross_architecture"; done
 
-echo "Updating package sources"
-apt-get update -yq;
-
-echo "Installing apt-utils in isolation";
-apt-get install -y apt-utils;
-
-echo "Installing base Cobbler dependencies";
-apt-get install -y qemu qemu-user-static debootstrap proot;
-
-echo "Create the jail";
-. ./steps/build_target_jail.sh;
+. ./steps/stage.sh;
 
 #echo "Adding yarn signing key"
 #curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
