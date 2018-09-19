@@ -43,13 +43,34 @@ echo "Installing apt-utils in isolation";
 apt-get install -y apt-utils;
 
 echo "Installing base Cobbler dependencies";
-apt-get install -y qemu qemu-user-static debootstrap kmod;
-
-echo "Call modprobe";
-/sbin/modprobe binfmt_misc;
+apt-get install -y qemu qemu-user-static debootstrap;
  
-echo "Using QEMU debootstrap to create jail"
-qemu-debootstrap --verbose --arch=$COBBLER_ARCH --variant=minbase stretch cleanroom;
+echo "Using debootstrap to create jail"
+debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=minbase stretch cleanroom;
+
+if [ "$COBBLER_ARCH" != "amd64" ]; then
+
+  echo "Copying static QEMU for [$COBBLER_ARCH] into jail";
+  cp /usr/bin/qemu-$COBBLER_ARCH-static ./cleanroom/usr/bin/;
+  
+  echo "Copying resolve.conf into jail";
+  cp /etc/resolv.conf ./cleanroom/etc
+
+  echo "Entering jail (chroot)";
+  chroot ./cleanroom && \
+
+  echo "In jail, setting distro=stretch" && \
+  distro=stretch && \
+
+  echo "Exporting LANG" && \
+  export LANG=C && \
+
+  echo "Executing second stage of debootstrap" && \
+  /debootstrap/debootstrap --second-stage && \
+  
+  echo "Jail ready, exiting.."
+  
+fi;
 
 #echo "Adding yarn signing key"
 #curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
