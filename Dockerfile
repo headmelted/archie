@@ -1,6 +1,6 @@
 FROM debian:stretch
 ARG DOCKER_TAG
-ENV COBBLER_DOCKER_TAG=$DOCKER_TAG;
+ENV COBBLER_DOCKER_TAG=$DOCKER_TAG
 ENV COBBLER_INSTALL_DEPENDENCIES_AT_BUILD="true"
 ENV COBBLER_HOST_DEPENDENCIES="curl gnupg pkg-config libsecret-1-dev libglib2.0-dev software-properties-common \
 xvfb wget python curl zip p7zip-full rpm graphicsmagick libwww-perl libxml-libxml-perl libxml-sax-expat-perl \
