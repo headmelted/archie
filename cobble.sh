@@ -45,11 +45,11 @@ apt-get install -y apt-utils;
 echo "Installing base Cobbler dependencies";
 apt-get install -y qemu qemu-user-static binfmt-support debootstrap;
 
+echo "Enabling QEMU support";
+update-binfmts --enable qemu-$COBBLER_QEMU_ARCH;
+
 echo "Calling binfmts display";
 update-binfmts --display;
-
-echo "Enabling QEMU support";
-update-binfmts --enable qemu-$COBBLER_QEMU_ARCH-static;
 
 echo "Using QEMU debootstrap to create jail"
 qemu-debootstrap --arch=$COBBLER_ARCH --variant=minbase stretch cleanroom;
