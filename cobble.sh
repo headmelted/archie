@@ -51,7 +51,7 @@ debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=minbase stretch c
 if [ "$COBBLER_ARCH" != "amd64" ]; then
 
   echo "Copying static QEMU for [$COBBLER_ARCH] into jail";
-  cp /usr/bin/qemu-$COBBLER_ARCH-static ./cleanroom/usr/bin/;
+  cp /usr/bin/qemu-$COBBLER_QEMU_ARCH-static ./cleanroom/usr/bin/;
   
   echo "Copying resolve.conf into jail";
   cp /etc/resolv.conf ./cleanroom/etc
