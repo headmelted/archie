@@ -1,10 +1,6 @@
 #!/bin/bash
 set -e;
 
-echo "Call modprobe";
-/sbin/modprobe binfmt_misc;
-exit;
-
 echo "Entering kitchen to setup Cobbler";
 cd /root/kitchen;
 
@@ -47,7 +43,10 @@ echo "Installing apt-utils in isolation";
 apt-get install -y apt-utils;
 
 echo "Installing base Cobbler dependencies";
-apt-get install -y qemu qemu-user-static debootstrap;
+apt-get install -y qemu qemu-user-static debootstrap module-init-tools;
+
+echo "Call modprobe";
+/sbin/modprobe binfmt_misc;
  
 echo "Using QEMU debootstrap to create jail"
 qemu-debootstrap --verbose --arch=$COBBLER_ARCH --variant=minbase stretch cleanroom;
