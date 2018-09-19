@@ -45,8 +45,11 @@ apt-get install -y apt-utils;
 echo "Installing base Cobbler dependencies";
 apt-get install -y qemu qemu-user-static binfmt-support debootstrap;
 
-# echo "Calling binfmts display";
-# update-binfmts --display;
+echo "Calling binfmts display";
+update-binfmts --display;
+
+echo "Enabling QEMU support";
+update-binfmts --enable qemu-$COBBLER_QEMU_ARCH-static;
 
 #echo "Adding yarn signing key"
 #curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
