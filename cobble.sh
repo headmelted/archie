@@ -57,7 +57,7 @@ if [ "$COBBLER_ARCH" != "amd64" ]; then
   export PROOT_NO_SECCOMP=1;
 
   echo "Entering jail (proot)";
-  proot -r ./cleanroom echo "In jail, performing second stage debootstrap"; # && /debootstrap/debootstrap --second-stage && echo "Jail ready, exiting.."';
+  proot -r ./cleanroom/ -q qemu-aarch64-static uname -a; # && /debootstrap/debootstrap --second-stage && echo "Jail ready, exiting.."';
   
 fi;
 
