@@ -34,24 +34,8 @@ apt-get install -y apt-utils;
 echo "Installing base Cobbler dependencies";
 apt-get install -y qemu qemu-user-static debootstrap proot;
 
-echo "Creating [$COBBLER_CLEANROOM_ROOT_DIRECTORY]";
-mkdir "$COBBLER_CLEANROOM_ROOT_DIRECTORY";
-
-echo "Creating [$COBBLER_CLEANROOM_RELEASE_DIRECTORY]";
-mkdir "$COBBLER_CLEANROOM_RELEASE_DIRECTORY";
-
-echo "Creating [$COBBLER_CLEANROOM_DIRECTORY]";
-mkdir "$COBBLER_CLEANROOM_DIRECTORY";
- 
-echo "Using debootstrap --foreign to create rootfs for jail"
-debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=minbase $COBBLER_OS_RELEASE_NAME $COBBLER_CLEANROOM_DIRECTORY;
-
-if [ "$COBBLER_ARCH" != "amd64" ]; then
-
-  echo "Copying static QEMU for [$COBBLER_ARCH] into jail";
-  cp /usr/bin/qemu-$COBBLER_QEMU_ARCH-static $COBBLER_CLEANROOM_DIRECTORY/usr/bin/;
-
-fi;
+echo "Create the jail";
+. ./steps/build_target_jail.sh;
 
 #echo "Adding yarn signing key"
 #curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
