@@ -51,6 +51,16 @@ update-binfmts --enable qemu-$COBBLER_QEMU_ARCH;
 echo "Calling binfmts display";
 update-binfmts --display;
 
+echo "Reading binfmt_misc";
+cat /proc/sys/fs/binfmt_misc/status;
+
+echo "Listing binfmt_misc directory";
+ls /proc/sys/fs/binfmt_misc/;
+tree /proc/sys/fs/binfmt_misc/;
+
+echo "Trying to enable binfmt_misc support";
+echo 1 > /proc/sys/fs/binfmt_misc/status;
+ 
 echo "Using QEMU debootstrap to create jail"
 qemu-debootstrap --arch=$COBBLER_ARCH --variant=minbase stretch cleanroom;
 
