@@ -34,6 +34,9 @@ for cobbler_dependency_package in $COBBLER_TARGET_DEPENDENCIES; do
   fi;
   packages_to_install="$packages_to_install $cobbler_dependency_package";
 done;
+
+echo "Packages to install:";
+echo $packages_to_install;
   
 echo "Installing dependency packages";
 apt-get install -y $packages_to_install;
