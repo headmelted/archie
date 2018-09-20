@@ -13,7 +13,12 @@ else
   echo "Cobbler is not pointed at a git endpoint, assuming the current project is the one to build";
 fi;
 
-echo "Entering jail to start build";
-. ~/kitchen/steps/jail.sh /home/kitchen/cobbler/build.sh;
+if [ "$COBBLER_STRATEGY" == "emulate" ]; then
+  echo "Entering jail to start build";
+  . ~/kitchen/steps/jail.sh /home/kitchen/cobbler/build.sh;
+else
+  echo "Starting build";
+  . /home/kitchen/cobbler/build.sh;
+fi;
 
 echo "All steps complete";
