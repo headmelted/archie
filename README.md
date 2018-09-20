@@ -12,23 +12,23 @@ _WARNING: THIS PROJECT IS STILL VERY MUCH A WORK-IN-PROGRESS AND SHOULD NOT BE U
 [![Docker Build](https://img.shields.io/docker/build/headmelted/cobbler.svg)](https://hub.docker.com/r/headmelted/cobbler/builds/)
 
 ### What is Cobbler?
-Cobbler is a series of pre-configured Debian Stretch containers that are collectively intended to make porting, compiling and testing code for multiple architectures in a CI (Continuous Integration) setup as simple as possible.
+Cobbler is a series of pre-configured Debian Stretch docker containers that are collectively intended to make porting, compiling and testing code written for GNU compilers on multiple architectures as simple as possible.
 
-By using some sensible defaults, and several commonly used and well-supported tools, Cobbler's goal is to make compiling platform-agnostic code to architectures such as ARM, PowerPC and SPARC as simple as building for Intel.
+By using some sensible defaults, and several commonly used and well-supported tools, Cobbler's goal is to make compiling platform-agnostic code in several languages to architectures such as ARM, PowerPC and SPARC as simple as building for Intel.
 
 ### Who should use Cobbler?
-Certain projects are a better fit than others for the assumptions Cobbler makes.  Specifically, any code that relies heavily on architecture-specific calls is will see limited benefit from using Cobbler, whereas platform-agnostic C\C++ code (or code in higher-level languages with platform-agnostic C\C++ dependencies) is likely to have much better results.
+Certain projects are a better fit than others for the assumptions Cobbler makes.  Specifically, any code that relies heavily on architecture-specific calls is will see limited benefit from using Cobbler, whereas platform-agnostic code (or code with platform-agnostic native dependencies) is likely to have much better results.
 
-It's expected that Cobbler should be able to compile fully platform-agnostic code to any target it supports verbatim, but any architecture-specific calls will need to be patched to support your target.  Cobbler can still help with migrating your project to support multiple architectures, but it won't be able to do this for you.
+It's expected that Cobbler should be able to compile fully platform-agnostic code to any target it supports without any changes, but any architecture-specific calls in your code will need to be patched to support your target.  In these cases, Cobbler can still help with migrating your project to support multiple architectures, but it isn't a silver bullet for deeply architecture-dependent code.
 
 ### How to get started
-Typically, the easiest way to get started with Cobbler is to first try to migrate your existing build script to building inside Cobbler with the amd64 target (i.e. an amd64 to amd64 build).  Once your scripts are correctly configured for Cobbler, and your project is compiling for amd64, targeting other architectures should be as simple as adding a target architecture from the Supported Architectures table to your configuration.
+Typically, the easiest way to get started with Cobbler is to first try to migrate your existing build script to building inside Cobbler with the **amd64** target (i.e. an **amd64** to **amd64** build).  Once your scripts are correctly configured for Cobbler, and your project is compiling successfully for **amd64**, targeting other architectures should be as simple as adding a different target architecture from the Supported Architectures table to your configuration.
 
 ### Strategies
-Cobbler supports three different strategies for working with a target architecture within a session, as explained below.  Each of these strategies are agnostic of the structure of code, such that you should be able to change the setting as needed without making changes to your own code.
+Cobbler supports three different strategies for working with a target architecture within a session, as explained below.  Each of these strategies are agnostic as to the structure of your code, such that you should be able to change the setting as required by your project without making changes to your own code.
 
 #### cross
-The session is executed using amd64 GNU cross-compilers for the target architecture.  When using this strategy, the dependency packages for the target architecture are installed, and linked explicitly during compilation.
+The session is executed using **amd64** GNU cross-compilers for the target architecture.  When using this strategy, the dependency packages for the target architecture are installed, and linked explicitly during compilation.
 
 _This is the fastest strategy for compilation (broadly equivalent in performance to compiling directly to amd64 in the simplest cases), but may not play well with all dependencies of your project. During compilation, the $CC and $CXX variables commonly used to alias GCC are modified to explicitly include linking of the supporting dependencies for the target architecture.  While this is often all you'll need for cross-compilation, you may experience execution format errors that are likely a sign of native code (specific to the *target* architecture) trying to run during installation of a dependency. If this happens you'll need to choose another strategy._
 
@@ -51,7 +51,7 @@ _This strategy is most useful in scenarios where you need to be able to confirm 
 #### Variables
 Cobbler sets a series of global variables inside each session that can be used to help with your builds.  The table below explains these variables, and gives some context as to what each one means.  Note that Cobbler globals are always prefixed with *COBBLER_* so as to prevent conflicts with your own variables **except** in limited instances where Cobbler intentionally overwrites global variables to make cross-compilation easier, these variables are in **bold**.
 
-| Global                               | Description                                                               | cross | hybrid | emulate | virtualize | bindings
+| Global                               | Description                                                               | cross | hybrid | emulate | virtualize | CI bindings
 |--------------------------------------|---------------------------------------------------------------------------|-------|--------|---------|------------|-------
 | $COBBLER_ARCH                        | The target architecture of the current session                            | yes   | yes    | yes     | yes        | yes
 | $COBBLER_STRATEGY                    | The strategy of the current session                                       | yes   | yes    | yes     | yes        | yes
@@ -66,7 +66,7 @@ Cobbler sets a series of global variables inside each session that can be used t
 #### Architecture
 There are effectively two lists of supported architectures for Cobbler. Compiling and testing of programs without dependendent packages (i.e. programs for which no dependencies need to be pulled from Debian repositories) is supported for the intersection of architectures of GCC and QEMU.
 
-As Cobbler is built on Debian Stretch, the architectures supported for those programs which have dependencies on standard packages within the repository mirror those supported by the operating system.  To clarify, the table below shows the state of support for different architectures within Cobbler.
+As Cobbler is built on Debian Stretch, the architectures supported for those programs which have dependencies on standard packages within the repository mirror those supported by the operating system.  To clarify, the table below shows the state of support for different architectures within Cobbler, and the level of support that's available in terms of APT packages for that architecture.
 
 | Architecture  | Family   | Bit width        | cross   | hybrid  | emulate | virtualize | packages 
 |---------------|----------|------------------|---------|---------|---------|------------|----------
