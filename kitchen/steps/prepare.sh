@@ -53,7 +53,4 @@ tree $HOME;
 echo "Tilde:";
 tree ~/;
 
-echo "Creating [$COBBLER_CODE_DIRECTORY] directory";
-mkdir $COBBLER_CODE_DIRECTORY;
-
 echo "Environment prepared";
