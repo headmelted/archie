@@ -1,14 +1,5 @@
 #!/bin/bash
 set -e;
-  
-echo "Creating [$COBBLER_CLEANROOM_ROOT_DIRECTORY]";
-mkdir "$COBBLER_CLEANROOM_ROOT_DIRECTORY";
-
-echo "Creating [$COBBLER_CLEANROOM_RELEASE_DIRECTORY]";
-mkdir "$COBBLER_CLEANROOM_RELEASE_DIRECTORY";
-
-echo "Creating [$COBBLER_CLEANROOM_DIRECTORY]";
-mkdir "$COBBLER_CLEANROOM_DIRECTORY";
 
 if [ $COBBLER_ARCH == "amd64" ] || [ $COBBLER_STRATEGY == "cross" ]; then
 
@@ -18,6 +9,15 @@ if [ $COBBLER_ARCH == "amd64" ] || [ $COBBLER_STRATEGY == "cross" ]; then
 else
 
   if [ $COBBLER_STRATEGY == "emulate" ]; then
+  
+    echo "Creating [$COBBLER_CLEANROOM_ROOT_DIRECTORY]";
+    mkdir "$COBBLER_CLEANROOM_ROOT_DIRECTORY";
+
+    echo "Creating [$COBBLER_CLEANROOM_RELEASE_DIRECTORY]";  
+    mkdir "$COBBLER_CLEANROOM_RELEASE_DIRECTORY";
+
+    echo "Creating [$COBBLER_CLEANROOM_DIRECTORY]";
+    mkdir "$COBBLER_CLEANROOM_DIRECTORY";
 
     echo "Updating package sources"
     apt-get update -yq;
