@@ -47,4 +47,10 @@ apt-get install -y $packages_to_install;
 echo "Checking presence of NVM";
 . ~/kitchen/env/setup_nvm.sh;
 
+echo "Creating [$COBBLER_BUILD_DIRECTORY] directory";
+mkdir $COBBLER_BUILD_DIRECTORY;
+
+echo "Creating [$COBBLER_CODE_DIRECTORY] directory";
+mkdir COBBLER_CODE_DIRECTORY;
+
 echo "Environment prepared";
