@@ -2,10 +2,10 @@
 set -e;
 
 echo "Entering kitchen to setup Cobbler";
-cd /root/kitchen;
+cd ~/kitchen;
 
 echo "Marking all files in kitchen executable (this directory should contain scripts and executables only!)";
-chmod +x /root/kitchen/**/*;
+chmod +x ~/kitchen/**/*;
 
 echo "Setting environment";
 . ./env/linux/setup.sh;
