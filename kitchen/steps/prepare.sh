@@ -11,7 +11,7 @@ if [ "$COBBLER_STRATEGY" == "emulate" ]; then
 
 fi;
 
-echo "Updating [$COBBLER_ARCH] jail packages";
+echo "Updating [$COBBLER_ARCH] packages";
 apt-get update -yq;
 
 if [ "$COBBLER_STRATEGY" == "cross" ]; then
