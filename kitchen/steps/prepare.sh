@@ -42,10 +42,16 @@ echo "Packages to install:";
 echo $packages_to_install;
   
 echo "Installing dependency packages";
-apt-get install -y $packages_to_install;
+apt-get install -y tree $packages_to_install;
 
 echo "Checking presence of NVM";
 . ~/kitchen/env/setup_nvm.sh;
+
+echo "Home [$HOME] structure:";
+tree $HOME;
+
+echo "Tilde:";
+tree ~/;
 
 echo "Creating [$COBBLER_BUILD_DIRECTORY] directory";
 mkdir $COBBLER_BUILD_DIRECTORY;
