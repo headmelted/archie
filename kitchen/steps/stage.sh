@@ -4,7 +4,7 @@ set -e;
 if [ $COBBLER_ARCH == "amd64" ] || [ $COBBLER_STRATEGY == "cross" ]; then
 
   echo "QEMU not required, preparing environment";
-  . /root/kitchen/steps/prepare.sh;
+  . ~/kitchen/steps/prepare.sh;
 
 else
 
@@ -28,21 +28,17 @@ else
     echo "Installing base Cobbler dependencies";
     apt-get install -y qemu qemu-user-static debootstrap proot;
  
-    echo "Using debootstrap --foreign to create rootfs for jail"
+    echo "Using debootstrap --foreign to create rootfs for [$COBBLER_ARCH] jail"
     debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=minbase $COBBLER_OS_RELEASE_NAME $COBBLER_CLEANROOM_DIRECTORY;
 
     echo "Creating kitchen directory inside cleanroom user /home";
     mkdir $COBBLER_CLEANROOM_DIRECTORY/home/kitchen;
 
-    if [ "$COBBLER_ARCH" != "amd64" ]; then
+    echo "Copying static QEMU for [$COBBLER_QEMU_ARCH] into [$COBBLER_ARCH] jail";
+    cp /usr/bin/qemu-$COBBLER_QEMU_ARCH-static $COBBLER_CLEANROOM_DIRECTORY/usr/bin/;
 
-      echo "Copying static QEMU for [$COBBLER_ARCH] into jail";
-      cp /usr/bin/qemu-$COBBLER_QEMU_ARCH-static $COBBLER_CLEANROOM_DIRECTORY/usr/bin/;
-
-      echo "Entering jail to complete setup";
-      . /root/kitchen/steps/jail.sh /home/kitchen/steps/prepare.sh;
-
-    fi;
+    echo "Entering [$COBBLER_ARCH] jail to complete setup";
+    . ~/kitchen/steps/jail.sh /home/kitchen/steps/prepare.sh;
   
   else
   
