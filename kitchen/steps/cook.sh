@@ -15,8 +15,8 @@ fi;
 
 if [ "$COBBLER_STRATEGY" == "emulate" ]; then
   echo "Entering jail to start build in new bash shell";
-  . ~/kitchen/steps/jail.sh /bin/bash -c "eval '$COBBLER_SCRIPT'";
+  . ~/kitchen/steps/jail.sh /bin/bash -c ". /home/cobbler/$COBBLER_SCRIPT.sh";
 else
   echo "Starting build in new bash shell";
-  /bin/bash -c "eval '$COBBLER_SCRIPT'";
+  /bin/bash -c ". /root/cobbler/$COBBLER_SCRIPT.sh";
 fi;
