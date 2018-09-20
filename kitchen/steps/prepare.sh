@@ -47,10 +47,6 @@ apt-get install -y tree $packages_to_install;
 echo "Checking presence of NVM";
 . ~/kitchen/env/setup_nvm.sh;
 
-echo "Home [$HOME] structure:";
-tree $HOME;
-
-echo "Tilde:";
-tree ~/;
+echo "[$HOME] is where the ♥ is";
 
 echo "Environment prepared";
