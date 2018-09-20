@@ -44,9 +44,6 @@ echo $packages_to_install;
 echo "Installing dependency packages";
 apt-get install -y tree $packages_to_install;
 
-echo "Checking presence of NVM";
-. ~/kitchen/env/setup_nvm.sh;
-
 echo "[$HOME] is where the ♥ is";
 
 echo "Environment prepared";
