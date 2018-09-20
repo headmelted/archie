@@ -14,11 +14,11 @@ else
 fi;
 
 if [ "$COBBLER_STRATEGY" == "emulate" ]; then
-  echo "Entering jail to start build";
-  . ~/kitchen/steps/jail.sh /home/kitchen/cobbler/build.sh;
+  echo "Entering jail to start build in new bash shell";
+  . ~/kitchen/steps/jail.sh /home/kitchen/cobbler/execute.sh;
 else
-  echo "Starting build";
-  . /home/kitchen/cobbler/build.sh;
+  echo "Starting build in new bash shell";
+  /home/kitchen/cobbler/execute.sh;
 fi;
 
 echo "All steps complete";
