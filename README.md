@@ -49,7 +49,7 @@ _This strategy is most useful in scenarios where you need to be able to confirm 
 
 ### Support matrix
 #### Variables
-Cobbler sets a series of global variables inside each session that can be used to help with your builds.  The table below explains these variables, and gives some context as to what each one means.  Note that Cobbler globals are always prefixed with *COBBLER_* so as to prevent conflicts with your own variables _except_ in limited instances where Cobbler intentionally overwrites global variables to make cross-compilation easier.
+Cobbler sets a series of global variables inside each session that can be used to help with your builds.  The table below explains these variables, and gives some context as to what each one means.  Note that Cobbler globals are always prefixed with *COBBLER_* so as to prevent conflicts with your own variables **except** in limited instances where Cobbler intentionally overwrites global variables to make cross-compilation easier, these variables are in **bold**.
 
 | Global                               | Description                                                               | cross | hybrid | emulate | virtualize | bindings
 |--------------------------------------|---------------------------------------------------------------------------|-------|--------|---------|------------|-------
@@ -68,17 +68,17 @@ There are effectively two lists of supported architectures for Cobbler. Compilin
 
 As Cobbler is built on Debian Stretch, the architectures supported for those programs which have dependencies on standard packages within the repository mirror those supported by the operating system.  To clarify, the table below shows the state of support for different architectures within Cobbler.
 
-| Architecture  | Family   | Bit width        | cross   | hybrid  | emulate | virtualize | packages |
-|---------------|----------|------------------|---------|---------|---------|------------|----------|
-| i386          | x86      | 32               | yes     | yes     | yes     | yes        | all      |
-| amd64         | x86      | 64               | faked * | yes     | yes     | yes        | all      |
-| armel         | ARM      | 32               | yes     | yes     | yes     | yes        | all      |
-| armhf         | ARM      | 32 _(hard fp)_   | yes     | yes     | yes     | yes        | all      |
-| arm64         | ARM      | 64               | yes     | yes     | yes     | yes        | all      |
-| mips          | MIPS     | 32 _(be)_        | yes     | yes     | yes     | yes        | all      |
-| mipsel        | MIPS     | 32 _(le)_        | yes     | yes     | yes     | yes        | all      |
-| mips64        | MIPS     | 64               | yes     | yes     | yes     | yes        | all      |
-| ppc64el       | POWER    | 64               | yes     | yes     | yes     | yes        | all      |
-| s390x         | IBM Z    | 64               | yes     | yes     | yes     | yes        | all      |
+| Architecture  | Family   | Bit width        | cross   | hybrid  | emulate | virtualize | packages 
+|---------------|----------|------------------|---------|---------|---------|------------|----------
+| i386          | x86      | 32               | yes     | yes     | yes     | yes        | all      
+| amd64         | x86      | 64               | faked * | yes     | yes     | yes        | all      
+| armel         | ARM      | 32               | yes     | yes     | yes     | yes        | all      
+| armhf         | ARM      | 32 _(hard fp)_   | yes     | yes     | yes     | yes        | all      
+| arm64         | ARM      | 64               | yes     | yes     | yes     | yes        | all      
+| mips          | MIPS     | 32 _(be)_        | yes     | yes     | yes     | yes        | all      
+| mipsel        | MIPS     | 32 _(le)_        | yes     | yes     | yes     | yes        | all      
+| mips64        | MIPS     | 64               | yes     | yes     | yes     | yes        | all      
+| ppc64el       | POWER    | 64               | yes     | yes     | yes     | yes        | all      
+| s390x         | IBM Z    | 64               | yes     | yes     | yes     | yes        | all      
 
 *\* The amd64 target does not actually involve cross-compilation, and simply maps directly to the x86_64 GCC compilers.  The target is included so that the the developer's build process can treat amd64 as agnostically as other architectures in Cobbler.
