@@ -31,6 +31,9 @@ else
     echo "Using debootstrap --foreign to create rootfs for jail"
     debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=minbase $COBBLER_OS_RELEASE_NAME $COBBLER_CLEANROOM_DIRECTORY;
 
+    echo "Creating kitchen directory inside cleanroom user /home";
+    mkdir $COBBLER_CLEANROOM_DIRECTORY/home/kitchen;
+
     if [ "$COBBLER_ARCH" != "amd64" ]; then
 
       echo "Copying static QEMU for [$COBBLER_ARCH] into jail";
