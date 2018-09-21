@@ -30,13 +30,17 @@ echo "Setting compiler configuration for [$COBBLER_STRATEGY]";
 export CC="$COBBLER_GNU_TRIPLET-gcc";
 export CXX="$COBBLER_GNU_TRIPLET-g++";
 
+COBBLER_CROSS_LIB_PATH="/usr/lib/$COBBLER_GNU_TRIPLET";
+
 if [ $COBBLER_STRATEGY == "cross" ]; then
-  export CC="$CC -L /usr/lib/$COBBLER_GNU_TRIPLET/";
-  export CXX="$CXX -L /usr/lib/$COBBLER_GNU_TRIPLET/";
+  export CC="$CC -L $COBBLER_CROSS_LIB_PATH/";
+  export CXX="$CXX -L $COBBLER_CROSS_LIB_PATH/";
+  export PKG_CONFIG_PATH="/usr/share/pkgconfig:$COBBLER_CROSS_LIB_PATH/pkgconfig";
 else
   if [ "$COBBLER_STRATEGY" == "hybrid" ]; then
-    export CC="$CC -L $COBBLER_CLEANROOM_DIRECTORY/usr/lib/$COBBLER_GNU_TRIPLET/";
-    export CXX="$CXX --sysroot=$COBBLER_CLEANROOM_DIRECTORY -L $COBBLER_CLEANROOM_DIRECTORY/usr/lib/$COBBLER_GNU_TRIPLET/";
+    export CC="$CC -L $COBBLER_CLEANROOM_DIRECTORY$COBBLER_CROSS_LIB_PATH/";
+    export CXX="$CXX --sysroot=$COBBLER_CLEANROOM_DIRECTORY -L $COBBLER_CLEANROOM_DIRECTORY$COBBLER_CROSS_LIB_PATH/";
+    export PKG_CONFIG_PATH="$COBBLER_CLEANROOM_DIRECTORY/usr/share/pkgconfig:$COBBLER_CLEANROOM_DIRECTORY$COBBLER_CROSS_LIB_PATH/pkgconfig";
   fi;
 fi;
 
