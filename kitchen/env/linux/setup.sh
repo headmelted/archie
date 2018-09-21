@@ -36,7 +36,7 @@ if [ $COBBLER_STRATEGY == "cross" ]; then
   linkage_list="-L $COBBLER_CROSS_LIB_PATH";
   pkg_config_path="/usr/share/pkgconfig:$COBBLER_CROSS_LIB_PATH/pkgconfig";
   for package in $COBBLER_TARGET_DEPENDENCIES; do
-    linkage_list="$linkage_list -I/usr/lib/$COBBLER_GNU_TRIPLET/$package/include -I/usr/include/$package -I/usr/include/$COBBLER_GNU_TRIPLET"
+    linkage_list="$linkage_list -I/usr/lib/$COBBLER_GNU_TRIPLET/$package/include -I/usr/include/$COBBLER_GNU_TRIPLET"
   done
 else
   if [ "$COBBLER_STRATEGY" == "hybrid" ]; then
