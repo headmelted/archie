@@ -20,7 +20,6 @@ export COBBLER_CODE_DIRECTORY=~/code;
 echo "Setting compile-time helpers";
 export HOSTCXX='x86_64-linux-gnu-g++';
 export HOSTCC='x86_64-linux-gnu-gcc';
-export npm_config_arch=x64;
 
 echo "Setting Cobbler environment for [$COBBLER_ARCH]"
 . ~/kitchen/env/linux/$COBBLER_ARCH.sh;
