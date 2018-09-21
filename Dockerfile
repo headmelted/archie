@@ -1,4 +1,7 @@
 FROM debian:stretch
+ARG DOCKER_TAG	
+ENV COBBLER_DOCKER_TAG=$DOCKER_TAG	
+ENV COBBLER_INSTALL_DEPENDENCIES_AT_BUILD="true"
 ENV COBBLER_HOST_DEPENDENCIES="git curl gnupg pkg-config software-properties-common \
 xvfb wget python curl zip p7zip-full rpm  libwww-perl libxml-libxml-perl libxml-sax-expat-perl \
 dpkg-dev perl libconfig-inifiles-perl libxml-simple-perl liblocale-gettext-perl libdpkg-perl libconfig-auto-perl \
