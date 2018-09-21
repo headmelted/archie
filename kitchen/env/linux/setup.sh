@@ -61,7 +61,6 @@ echo "Setting TARGETCC and TARGETCXX to CC and CXX";
 export TARGETCC=$CC;
 export TARGETCXX=$CXX;
 
-
 echo "CC is [$COBBLER_GNU_TRIPLET-gcc]";
 echo "CXX is [$COBBLER_GNU_TRIPLET-g++]";
 
