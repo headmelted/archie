@@ -21,8 +21,8 @@ if [ "$COBBLER_STRATEGY" == "cross" ]; then
   
   echo "Updating APT";
   apt-get update;
-  
-  if [ "$COBBLER_ARCH" != "amd64" ]; then packages_to_install="crossbuild-essential-$COBBLER_ARCH"; fi;
+ 
+  if [ "$COBBLER_ARCH" != "amd64" ] && [ "$COBBLER_ARCH" != "i386" ]; then packages_to_install="crossbuild-essential-$COBBLER_ARCH"; fi;
   
 fi;
 
