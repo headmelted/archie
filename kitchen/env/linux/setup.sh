@@ -1,10 +1,10 @@
 #!/bin/bash
 
-#COBBLER_TAG_SETTINGS=(${COBBLER_DOCKER_TAG//-/ });
+COBBLER_TAG_SETTINGS=(${COBBLER_DOCKER_TAG//-/ });
 
-#echo "Setting Cobbler strategy and arch from tag";
-#export COBBLER_STRATEGY=${COBBLER_TAG_SETTINGS[0]};
-#export COBBLER_ARCH=${COBBLER_TAG_SETTINGS[1]};
+echo "Setting Cobbler strategy and arch from tag";
+export COBBLER_STRATEGY=${COBBLER_TAG_SETTINGS[0]};
+export COBBLER_ARCH=${COBBLER_TAG_SETTINGS[1]};
 
 echo "Setting Cobbler environment for all architectures";
 export COBBLER_OS_DISTRIBUTION_NAME=debian;
