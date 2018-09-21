@@ -27,23 +27,44 @@ echo "Setting Cobbler environment for [$COBBLER_ARCH]"
 
 echo "Setting compiler configuration for [$COBBLER_STRATEGY]";
 
-export CC="$COBBLER_GNU_TRIPLET-gcc";
-export CXX="$COBBLER_GNU_TRIPLET-g++";
-
 COBBLER_CROSS_LIB_PATH="/usr/lib/$COBBLER_GNU_TRIPLET";
 
+pkg_config_path=""
+linkage_list=""
+
 if [ $COBBLER_STRATEGY == "cross" ]; then
-  export CC="$CC -L $COBBLER_CROSS_LIB_PATH/";
-  export CXX="$CXX -L $COBBLER_CROSS_LIB_PATH/";
-  export PKG_CONFIG_PATH="/usr/share/pkgconfig:$COBBLER_CROSS_LIB_PATH/pkgconfig";
+  linkage_list="-L $COBBLER_CROSS_LIB_PATH/";
+  pkg_config_path="/usr/share/pkgconfig:$COBBLER_CROSS_LIB_PATH/pkgconfig";
+  for package in $COBBLER_TARGET_DEPENDENCIES; do
+    linkage_list="$linkage_list -I/usr/include/$package -I/usr/include/$package -I/usr/lib/$COBBLER_GNU_TRIPLET/$package/include"
+  done
 else
   if [ "$COBBLER_STRATEGY" == "hybrid" ]; then
-    export CC="$CC -L $COBBLER_CLEANROOM_DIRECTORY$COBBLER_CROSS_LIB_PATH/";
-    export CXX="$CXX --sysroot=$COBBLER_CLEANROOM_DIRECTORY -L $COBBLER_CLEANROOM_DIRECTORY$COBBLER_CROSS_LIB_PATH/";
-    export PKG_CONFIG_PATH="$COBBLER_CLEANROOM_DIRECTORY/usr/share/pkgconfig:$COBBLER_CLEANROOM_DIRECTORY$COBBLER_CROSS_LIB_PATH/pkgconfig";
+    linkage_list="--sysroot=$COBBLER_CLEANROOM_DIRECTORY -L $COBBLER_CLEANROOM_DIRECTORY$COBBLER_CROSS_LIB_PATH/"
+    pkg_config_path="$COBBLER_CLEANROOM_DIRECTORY/usr/share/pkgconfig:$COBBLER_CLEANROOM_DIRECTORY$COBBLER_CROSS_LIB_PATH/pkgconfig";
+    for package in $COBBLER_TARGET_DEPENDENCIES; do
+      linkage_list=" -I$COBBLER_CLEANROOM_DIRECTORY/usr/include/$package -I$COBBLER_CLEANROOM_DIRECTORY/usr/include/$package -I$COBBLER_CLEANROOM_DIRECTORY/usr/lib/$COBBLER_GNU_TRIPLET/$package/include"
+    done
+  else
+    echo "TODO: OTHER STRATEGY LINKING";
   fi;
 fi;
+
+echo "Setting CC and CXX with linking for [$COBBLER_STRATEGY]";
+export CC="$COBBLER_GNU_TRIPLET-gcc $linkage_list";
+export CXX="$COBBLER_GNU_TRIPLET-g++ $linkage_list";
+
+echo "Setting package config path";
+export PKG_CONFIG_PATH=$pkg_config_path;
 
 echo "Setting TARGETCC and TARGETCXX to CC and CXX";
 export TARGETCC=$CC;
 export TARGETCXX=$CXX;
+
+
+echo "CC is [$COBBLER_GNU_TRIPLET-gcc]";
+echo "CXX is [$COBBLER_GNU_TRIPLET-g++]";
+
+echo "Linking Options ----------------------------------------------"
+echo $linkage_list;
+echo "--------------------------------------------------------------"
