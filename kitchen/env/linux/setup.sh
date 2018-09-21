@@ -17,10 +17,6 @@ echo "Setting code and output paths";
 export COBBLER_OUTPUT_DIRECTORY=~/output;
 export COBBLER_CODE_DIRECTORY=~/code;
 
-echo "Setting compile-time helpers";
-export HOSTCXX='x86_64-linux-gnu-g++';
-export HOSTCC='x86_64-linux-gnu-gcc';
-
 echo "Setting Cobbler environment for [$COBBLER_ARCH]"
 . ~/kitchen/env/linux/$COBBLER_ARCH.sh;
 
@@ -62,6 +58,16 @@ export PKG_CONFIG_PATH=$pkg_config_path;
 echo "Setting TARGETCC and TARGETCXX to CC and CXX";
 export TARGETCC=$CC;
 export TARGETCXX=$CXX;
+ 
+if [ $COBBLER_STRATEGY == "cross" ]; then
+  echo "Setting HOSTCC and HOSTCXX to x86_64 for cross";
+  export HOSTCC='x86_64-linux-gnu-gcc';
+  export HOSTCXX='x86_64-linux-gnu-g++';
+else
+  echo "Setting HOSTCC and HOSTCXX to CC and CXX";
+  export HOSTCC=$CC;
+  export HOSTCXX=$CXX;
+fi;
 
 echo "CC is [$COBBLER_GNU_TRIPLET-gcc]";
 echo "CXX is [$COBBLER_GNU_TRIPLET-g++]";
