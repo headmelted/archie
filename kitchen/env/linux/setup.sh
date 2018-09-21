@@ -24,6 +24,9 @@ export HOSTCC='x86_64-linux-gnu-gcc';
 echo "Setting Cobbler environment for [$COBBLER_ARCH]"
 . ~/kitchen/env/linux/$COBBLER_ARCH.sh;
 
+echo "Matching npm_config_arch to npm_config_target_arch. THIS MAY BE WRONG - CONTACT ME IF THIS IS THE CASE."
+export npm_config_arch=$npm_config_target_arch;
+
 echo "Setting compiler configuration for [$COBBLER_STRATEGY]";
 
 COBBLER_CROSS_LIB_PATH="/usr/lib/$COBBLER_GNU_TRIPLET";
