@@ -26,9 +26,18 @@ echo "Setting Cobbler environment for [$COBBLER_ARCH]"
 . ~/kitchen/env/linux/$COBBLER_ARCH.sh;
 
 echo "Setting compiler configuration for [$COBBLER_STRATEGY]";
-if [ "$COBBLER_STRATEGY" == "cross" ]; then
-  export CC="$COBBLER_GNU_TRIPLET-gcc -L $COBBLER_CLEANROOM_DIRECTORY/usr/lib/$COBBLER_GNU_TRIPLET/";
-  export CXX="$COBBLER_GNU_TRIPLET-g++ -L $COBBLER_CLEANROOM_DIRECTORY/usr/lib/$COBBLER_GNU_TRIPLET/";
+
+export CC="$COBBLER_GNU_TRIPLET-gcc";
+export CXX="$COBBLER_GNU_TRIPLET-g++";
+
+if [ $COBBLER_STRATEGY == "cross" ]; then
+  export CC="$CC -L /usr/lib/$COBBLER_GNU_TRIPLET/";
+  export CXX="$CXX -L /usr/lib/$COBBLER_GNU_TRIPLET/";
+else
+  if [ "$COBBLER_STRATEGY" == "hybrid" ]; then
+    export CC="$CC -L $COBBLER_CLEANROOM_DIRECTORY/usr/lib/$COBBLER_GNU_TRIPLET/";
+    export CXX="$CXX --sysroot=$COBBLER_CLEANROOM_DIRECTORY -L $COBBLER_CLEANROOM_DIRECTORY/usr/lib/$COBBLER_GNU_TRIPLET/";
+  fi;
 fi;
 
 echo "Setting TARGETCC and TARGETCXX to CC and CXX";
