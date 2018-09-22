@@ -51,8 +51,19 @@ else
 fi;
 
 echo "Setting CC and CXX with linking for [$COBBLER_STRATEGY]";
-export CC="$COBBLER_GNU_TRIPLET-gcc $linkage_list";
-export CXX="$COBBLER_GNU_TRIPLET-g++ $linkage_list";
+if [ "$COBBLER_ARCH" == "i386" ]; then
+  cc_compiler="x86_64-linux-gnu-gcc -m32";
+  cxx_compiler="x86_64-linux-gnu-g++ -m32";
+else
+  cc_compiler="$COBBLER_GNU_TRIPLET-gcc";
+  cxx_compiler="$COBBLER_GNU_TRIPLET-g++";
+fi;
+
+echo "CC is [$cc_compiler]";
+echo "CXX is [$cxx_compiler]";
+
+export CC="$cc_compiler $linkage_list";
+export CXX="$cxx_compiler $linkage_list";
 
 echo "Setting package config path";
 export PKG_CONFIG_PATH=$pkg_config_path;
@@ -70,9 +81,6 @@ else
   export HOSTCC=$CC;
   export HOSTCXX=$CXX;
 fi;
-
-echo "CC is [$COBBLER_GNU_TRIPLET-gcc]";
-echo "CXX is [$COBBLER_GNU_TRIPLET-g++]";
 
 echo "Linking Options ----------------------------------------------"
 echo $linkage_list;
