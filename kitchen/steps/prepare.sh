@@ -13,7 +13,7 @@ else
 
   if [ "$COBBLER_STRATEGY" == "hybrid" ] ; then
     echo "Using hybrid strategy, attempt to enter jail to execute second stage debootstrap";
-    ~/kitchen/steps/jail.sh /debootstrap/debootstrap --second-stage;
+    . ~/kitchen/steps/jail.sh /debootstrap/debootstrap --second-stage;
   fi;
 
 fi;
