@@ -12,7 +12,7 @@ echo "Staging for [$COBBLER_STRATEGY]";
     apt-get install -y apt-utils;
 
     echo "Installing base Cobbler dependencies";
-    apt-get install -y qemu qemu-user-static debootstrap fakeroot;
+    apt-get install -y qemu qemu-user-static debootstrap fakeroot fakechroot;
     
     echo "Creating [$COBBLER_CLEANROOM_ROOT_DIRECTORY]";
     mkdir "$COBBLER_CLEANROOM_ROOT_DIRECTORY";
