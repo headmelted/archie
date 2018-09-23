@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e;
 
 COBBLER_TAG_SETTINGS=(${COBBLER_DOCKER_TAG//-/ });
 
