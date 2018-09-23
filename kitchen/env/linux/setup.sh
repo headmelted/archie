@@ -15,11 +15,7 @@ echo "Setting Cobbler environment for [$COBBLER_ARCH]"
 . ~/kitchen/env/linux/$COBBLER_ARCH.sh;
 
 echo "Setting cleanroom paths";
-if [ $COBBLER_STRATEGY == "hybrid" ]; then
-  export COBBLER_CLEANROOM_ROOT_DIRECTORY=/etc/qemu-binfmt/$COBBLER_QEMU_PACKAGE_ARCH/cleanroom;
-else
-  export COBBLER_CLEANROOM_ROOT_DIRECTORY=/root/kitchen/cleanroom;
-fi;
+export COBBLER_CLEANROOM_ROOT_DIRECTORY=/root/kitchen/cleanroom;
 
 export COBBLER_CLEANROOM_RELEASE_DIRECTORY=$COBBLER_CLEANROOM_ROOT_DIRECTORY/$COBBLER_OS_RELEASE_NAME;
 export COBBLER_CLEANROOM_DIRECTORY=$COBBLER_CLEANROOM_RELEASE_DIRECTORY/$COBBLER_ARCH;
