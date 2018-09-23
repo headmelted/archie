@@ -3,7 +3,7 @@ set -e;
 
 echo "Staging for [$COBBLER_STRATEGY]";
 
-  if [ "$COBBLER_STRATEGY" -eq "hybrid" ] || [ "$COBBLER_STRATEGY" -eq "emulate" ] ; then
+  if [ "$COBBLER_STRATEGY" == "hybrid" ] || [ "$COBBLER_STRATEGY" === "emulate" ] ; then
   
     echo "Creating [$COBBLER_CLEANROOM_ROOT_DIRECTORY]";
     mkdir "$COBBLER_CLEANROOM_ROOT_DIRECTORY";
@@ -34,7 +34,7 @@ echo "Staging for [$COBBLER_STRATEGY]";
   
   fi;
   
-if [ "$COBBLER_STRATEGY" -eq "emulate"] ; then
+if [ "$COBBLER_STRATEGY" == "emulate"] ; then
 
     echo "Entering [$COBBLER_ARCH] jail to complete setup";
     . ~/kitchen/steps/jail.sh /home/kitchen/steps/prepare.sh;
