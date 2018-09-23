@@ -34,7 +34,7 @@ echo "Staging for [$COBBLER_STRATEGY]";
   
   fi;
   
-if [ "$COBBLER_STRATEGY" == "emulate"] ; then
+if [ "$COBBLER_STRATEGY" == "emulate" ] ; then
 
     echo "Entering [$COBBLER_ARCH] jail to complete setup";
     . ~/kitchen/steps/jail.sh /home/kitchen/steps/prepare.sh;
