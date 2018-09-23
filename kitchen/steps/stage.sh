@@ -4,15 +4,6 @@ set -e;
 echo "Staging for [$COBBLER_STRATEGY]";
 
   if [ "$COBBLER_STRATEGY" == "hybrid" ] || [ "$COBBLER_STRATEGY" == "emulate" ] ; then
-  
-    echo "Creating [$COBBLER_CLEANROOM_ROOT_DIRECTORY]";
-    mkdir "$COBBLER_CLEANROOM_ROOT_DIRECTORY";
-
-    echo "Creating [$COBBLER_CLEANROOM_RELEASE_DIRECTORY]";  
-    mkdir "$COBBLER_CLEANROOM_RELEASE_DIRECTORY";
-
-    echo "Creating [$COBBLER_CLEANROOM_DIRECTORY]";
-    mkdir "$COBBLER_CLEANROOM_DIRECTORY";
 
     echo "Updating package sources"
     apt-get update -yq;
@@ -22,6 +13,15 @@ echo "Staging for [$COBBLER_STRATEGY]";
 
     echo "Installing base Cobbler dependencies";
     apt-get install -y qemu qemu-user-static debootstrap;
+    
+    echo "Creating [$COBBLER_CLEANROOM_ROOT_DIRECTORY]";
+    mkdir "$COBBLER_CLEANROOM_ROOT_DIRECTORY";
+
+    echo "Creating [$COBBLER_CLEANROOM_RELEASE_DIRECTORY]";  
+    mkdir "$COBBLER_CLEANROOM_RELEASE_DIRECTORY";
+
+    echo "Creating [$COBBLER_CLEANROOM_DIRECTORY]";
+    mkdir "$COBBLER_CLEANROOM_DIRECTORY";
  
     echo "Using debootstrap --foreign to create rootfs for [$COBBLER_ARCH] jail"
     debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=minbase $COBBLER_OS_RELEASE_NAME $COBBLER_CLEANROOM_DIRECTORY;
