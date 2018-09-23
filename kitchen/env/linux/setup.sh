@@ -10,11 +10,6 @@ echo "Setting Cobbler environment for all architectures";
 export COBBLER_OS_DISTRIBUTION_NAME=debian;
 export COBBLER_OS_RELEASE_NAME=stretch;
 
-echo "Setting cleanroom paths";
-export COBBLER_CLEANROOM_ROOT_DIRECTORY=/root/kitchen/cleanroom;
-export COBBLER_CLEANROOM_RELEASE_DIRECTORY=$COBBLER_CLEANROOM_ROOT_DIRECTORY/$COBBLER_OS_RELEASE_NAME;
-export COBBLER_CLEANROOM_DIRECTORY=$COBBLER_CLEANROOM_RELEASE_DIRECTORY/$COBBLER_ARCH;
-
 echo "Setting code and output paths";
 export COBBLER_OUTPUT_DIRECTORY=~/output;
 export COBBLER_CODE_DIRECTORY=~/code;
