@@ -34,9 +34,7 @@ if [ "$COBBLER_STRATEGY" == "cross" ]; then
 fi;
 
 echo "Preparing to install dependencies";
-if [ "$COBBLER_STRATEGY" == "cross" ] || [ "$COBBLER_STRATEGY" == "emulate" ] || [ "$COBBLER_STRATEGY" == "virtualize" ]; then
-  packages_to_install="$packages_to_install $COBBLER_HOST_DEPENDENCIES";
-fi;
+packages_to_install="$packages_to_install $COBBLER_HOST_DEPENDENCIES";
 
 for cobbler_dependency_package in $COBBLER_TARGET_DEPENDENCIES; do
   if [ "$COBBLER_STRATEGY" == "cross" ] || [ "$COBBLER_STRATEGY" == "hybrid" ]; then
