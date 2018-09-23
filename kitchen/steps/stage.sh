@@ -1,7 +1,9 @@
 #!/bin/bash
 set -e;
 
-  if [ "$COBBLER_STRATEGY" -eq "hybrid"] || [ "$COBBLER_STRATEGY" -eq "emulate" ] ; then
+echo "Staging for [$COBBLER_STRATEGY]";
+
+  if [ "$COBBLER_STRATEGY" -eq "hybrid" ] || [ "$COBBLER_STRATEGY" -eq "emulate" ] ; then
   
     echo "Creating [$COBBLER_CLEANROOM_ROOT_DIRECTORY]";
     mkdir "$COBBLER_CLEANROOM_ROOT_DIRECTORY";
