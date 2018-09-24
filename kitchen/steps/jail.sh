@@ -6,7 +6,7 @@
 echo "Chroot is at: $(which chroot) lets see";
 
 echo "Entering [$COBBLER_ARCH] cleanroom ($COBBLER_CLEANROOM_DIRECTORY) to debug fakeroot";
-fakechroot fakeroot /usr/sbin/chroot $COBBLER_CLEANROOM_DIRECTORY /usr/bin/qemu-$COBBLER_QEMU_ARCH-static -d ~/kitchen/qemu.log readelf -d /bin/bash;
+fakechroot fakeroot /usr/sbin/chroot $COBBLER_CLEANROOM_DIRECTORY /usr/bin/qemu-$COBBLER_QEMU_ARCH-static -D ~/kitchen/qemu.log readelf -d /bin/bash;
 
 echo "QEMU log:"
 cat ~/kitchen/qemu.log
