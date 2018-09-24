@@ -12,7 +12,7 @@ echo "Staging for [$COBBLER_STRATEGY]";
     apt-get install -y apt-utils;
 
     echo "Installing base Cobbler dependencies";
-    apt-get install -y qemu qemu-user-static debootstrap fakechroot fakeroot tree;
+    apt-get install -y qemu qemu-user-static debootstrap fakechroot fakeroot binfmt-support;
     
     echo "Creating [$COBBLER_CLEANROOM_ROOT_DIRECTORY]";
     mkdir "$COBBLER_CLEANROOM_ROOT_DIRECTORY";
@@ -31,6 +31,9 @@ echo "Staging for [$COBBLER_STRATEGY]";
     
     echo "Manually installing qemu-$QEMU_ARCH binfmt";
     mv ~/kitchen/qemu-binfmts/$QEMU_ARCH /usr/share/binfmts/qemu-arm;
+    
+    echo "Installing binfmt-support";
+    update-binfmts --import;
 
     echo "Creating kitchen directory inside cleanroom user /home";
     mkdir $COBBLER_CLEANROOM_DIRECTORY/home/kitchen;
