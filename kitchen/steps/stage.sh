@@ -29,6 +29,9 @@ echo "Staging for [$COBBLER_STRATEGY]";
     echo "Copying static QEMU for [$COBBLER_QEMU_ARCH] into [$COBBLER_ARCH] jail";
     cp /usr/bin/qemu-$COBBLER_QEMU_ARCH-static $COBBLER_CLEANROOM_DIRECTORY/usr/bin/;
     
+    echo "Attempting to setup binfmt support inside jail";
+    fakechroot fakeroot chroot /tmp/sid apt-get install -q hello
+    
     echo "Creating kitchen directory inside cleanroom user /home";
     mkdir $COBBLER_CLEANROOM_DIRECTORY/home/kitchen;
   
