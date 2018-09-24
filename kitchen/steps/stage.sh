@@ -12,7 +12,7 @@ echo "Staging for [$COBBLER_STRATEGY]";
     apt-get install -y apt-utils;
 
     echo "Installing base Cobbler dependencies";
-    apt-get install -y qemu qemu-user-static debootstrap fakeroot fakechroot;
+    apt-get install -y qemu qemu-user-static debootstrap;
     
     echo "Creating [$COBBLER_CLEANROOM_ROOT_DIRECTORY]";
     mkdir "$COBBLER_CLEANROOM_ROOT_DIRECTORY";
@@ -23,14 +23,8 @@ echo "Staging for [$COBBLER_STRATEGY]";
     echo "Creating [$COBBLER_CLEANROOM_DIRECTORY]";
     mkdir "$COBBLER_CLEANROOM_DIRECTORY";
     
-    echo "Start fakechroot";
-    fakechroot;
-    
-    echo "Start fakeroot":
-    fakeroot;
- 
     echo "Using debootstrap --foreign to create rootfs for [$COBBLER_ARCH] jail"
-    debootstrap --foreign --verbose --arch=$COBBLER_ARCH --exclude dhcp3-server,dhcp3-server-ldap --variant=fakechroot $COBBLER_OS_RELEASE_NAME $COBBLER_CLEANROOM_DIRECTORY;
+    debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=minbase $COBBLER_OS_RELEASE_NAME $COBBLER_CLEANROOM_DIRECTORY;
 
     echo "Creating kitchen directory inside cleanroom user /home";
     mkdir $COBBLER_CLEANROOM_DIRECTORY/home/kitchen;
