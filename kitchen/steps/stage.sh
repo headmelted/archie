@@ -27,13 +27,13 @@ echo "Staging for [$COBBLER_STRATEGY]";
     fakeroot debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=minbase $COBBLER_OS_RELEASE_NAME $COBBLER_CLEANROOM_DIRECTORY;
 
     echo "Copying static QEMU for [$COBBLER_QEMU_ARCH] into [$COBBLER_ARCH] jail";
-    cp /usr/bin/qemu-$COBBLER_QEMU_ARCH-static $COBBLER_CLEANROOM_DIRECTORY/usr/bin/;
+    cp ~/kitchen/resin-io-qemu/qemu-$COBBLER_QEMU_ARCH-static $COBBLER_CLEANROOM_DIRECTORY/usr/bin/;
     
-    echo "Displaying binfmts";
-    update-binfmts --display;
+    #echo "Displaying binfmts";
+    #update-binfmts --display;
     
-    echo "Enabling binfmts";
-    update-binfmts --enable qemu-$COBBLER_QEMU_ARCH-static;
+    #echo "Enabling binfmts";
+    #update-binfmts --enable qemu-$COBBLER_QEMU_ARCH-static;
     
     #echo "Manually installing qemu-$COBBLER_QEMU_ARCH binfmt";
     #mv ~/kitchen/qemu-binfmts/$COBBLER_QEMU_ARCH /usr/share/binfmts/qemu-$COBBLER_QEMU_ARCH;
