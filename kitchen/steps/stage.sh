@@ -12,7 +12,7 @@ echo "Staging for [$COBBLER_STRATEGY]";
     apt-get install -y apt-utils;
 
     echo "Installing base Cobbler dependencies";
-    apt-get install -y qemu qemu-user-static debootstrap fakechroot fakeroot;
+    apt-get install -y qemu qemu-user-static debootstrap fakechroot fakeroot tree;
     
     echo "Creating [$COBBLER_CLEANROOM_ROOT_DIRECTORY]";
     mkdir "$COBBLER_CLEANROOM_ROOT_DIRECTORY";
@@ -28,6 +28,9 @@ echo "Staging for [$COBBLER_STRATEGY]";
 
     echo "Copying static QEMU for [$COBBLER_QEMU_ARCH] into [$COBBLER_ARCH] jail";
     cp /usr/bin/qemu-$COBBLER_QEMU_ARCH-static $COBBLER_CLEANROOM_DIRECTORY/usr/bin/;
+    
+    echo "Cleanroom structure:";
+    tree $COBBLER_CLEANROOM_DIRECTORY;
     
     echo "Registering static QEMU in binfmts inside jail";
     echo ':arm:M::\x7fELF\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x28\x00:\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff:/usr/bin/qemu-arm-static:' > $COBBLER_CLEANROOM_DIRECTORY/proc/sys/fs/binfmt_misc/register;
