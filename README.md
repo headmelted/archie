@@ -1,7 +1,7 @@
 ![Cobbler logo](https://github.com/headmelted/cobbler/raw/master/logo_128.png)
 
 # Cobbler
-## Simple cross-compilation for busy projects
+## Simpler cross-compilation and testing for busy developers
 
 _WARNING: THIS PROJECT IS STILL VERY MUCH A WORK-IN-PROGRESS AND SHOULD NOT BE USED FOR YOUR OWN PROJECTS YET. THERE'S A LOT OF PARTS MOVING AROUND. YE'VE BEEN WARNED!!_
 
