@@ -26,8 +26,8 @@ echo "Staging for [$COBBLER_STRATEGY]";
     echo "Using debootstrap --foreign to create rootfs for [$COBBLER_ARCH] jail"
     fakeroot debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=minbase $COBBLER_OS_RELEASE_NAME $COBBLER_CLEANROOM_DIRECTORY;
 
-    echo "Copying static QEMU for [$COBBLER_QEMU_ARCH] into [$COBBLER_ARCH] jail";
-    cp ~/kitchen/resin-io-qemu/qemu-$COBBLER_QEMU_ARCH-static $COBBLER_CLEANROOM_DIRECTORY/usr/bin/;
+    echo "Copying static QEMU (using the Resin.IO patched version - ToDo: ADD REFERENCE IN README) for [$COBBLER_QEMU_ARCH] into [$COBBLER_ARCH] jail";
+    cp ~/kitchen/qemu-$COBBLER_QEMU_ARCH-static $COBBLER_CLEANROOM_DIRECTORY/usr/bin/;
     
     #echo "Displaying binfmts";
     #update-binfmts --display;
