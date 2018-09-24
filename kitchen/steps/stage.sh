@@ -24,7 +24,7 @@ echo "Staging for [$COBBLER_STRATEGY]";
     mkdir "$COBBLER_CLEANROOM_DIRECTORY";
  
     echo "Using debootstrap --foreign to create rootfs for [$COBBLER_ARCH] jail"
-    debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=minbase $COBBLER_OS_RELEASE_NAME $COBBLER_CLEANROOM_DIRECTORY;
+    debootstrap --foreign --verbose --arch=$COBBLER_ARCH --exclude dhcp3-server,dhcp3-server-ldap --variant=fakechroot $COBBLER_OS_RELEASE_NAME $COBBLER_CLEANROOM_DIRECTORY;
 
     echo "Creating kitchen directory inside cleanroom user /home";
     mkdir $COBBLER_CLEANROOM_DIRECTORY/home/kitchen;
