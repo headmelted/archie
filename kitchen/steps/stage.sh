@@ -29,7 +29,7 @@ echo "Staging for [$COBBLER_STRATEGY]";
     echo "Copying static QEMU (using the Resin.IO patched version - ToDo: ADD REFERENCE IN README) for [$COBBLER_QEMU_ARCH] into [$COBBLER_ARCH] jail";
     cp ~/kitchen/qemu-$COBBLER_QEMU_ARCH-static $COBBLER_CLEANROOM_DIRECTORY/usr/bin/;
     
-    echo "Marking static qemu as executable";
+    echo "Marking static [$COBBLER_CLEANROOM_DIRECTORY/usr/bin/qemu-$COBBLER_QEMU_ARCH-static] as executable";
     chmod +x $COBBLER_CLEANROOM_DIRECTORY/usr/bin/qemu-$COBBLER_QEMU_ARCH-static;
     
     #echo "Displaying binfmts";
