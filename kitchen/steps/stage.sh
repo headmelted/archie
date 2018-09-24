@@ -29,8 +29,8 @@ echo "Staging for [$COBBLER_STRATEGY]";
     echo "Copying static QEMU for [$COBBLER_QEMU_ARCH] into [$COBBLER_ARCH] jail";
     cp /usr/bin/qemu-$COBBLER_QEMU_ARCH-static $COBBLER_CLEANROOM_DIRECTORY/usr/bin/;
     
-    echo "Manually installing qemu-$QEMU_ARCH binfmt";
-    mv ~/kitchen/qemu-binfmts/$QEMU_ARCH /usr/share/binfmts/qemu-arm;
+    echo "Manually installing qemu-$COBBLER_QEMU_ARCH binfmt";
+    mv ~/kitchen/qemu-binfmts/$COBBLER_QEMU_ARCH /usr/share/binfmts/qemu-$COBBLER_QEMU_ARCH;
     
     echo "Installing binfmt-support";
     update-binfmts --import;
