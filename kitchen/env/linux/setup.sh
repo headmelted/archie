@@ -18,10 +18,7 @@ echo "Setting QEMU_EXECVE flag to allow QEMU to intercept execve() calls without
 export QEMU_EXECVE=1;
 
 echo "Setting cleanroom paths";
-export COBBLER_CLEANROOM_ROOT_DIRECTORY=/root/kitchen/cleanroom;
-
-export COBBLER_CLEANROOM_RELEASE_DIRECTORY=$COBBLER_CLEANROOM_ROOT_DIRECTORY/$COBBLER_OS_RELEASE_NAME;
-export COBBLER_CLEANROOM_DIRECTORY=$COBBLER_CLEANROOM_RELEASE_DIRECTORY/$COBBLER_ARCH;
+export COBBLER_CLEANROOM_DIRECTORY=/root/jail;
 
 echo "Setting code and output paths";
 export COBBLER_OUTPUT_DIRECTORY=~/output;
