@@ -11,8 +11,7 @@ branches:
     - master
 
 env:
-  - COBBLER_DOCKER_TAG=hybrid-armhf
-  - COBBLER_HOME=$(pwd)
+  - COBBLER_DOCKER_TAG=hybrid-armhf COBBLER_HOME=$(pwd)
     
 notifications:
   email: false
