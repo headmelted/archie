@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e;
 
+echo "Setting COBBLER_HOME";
+export $COBBLER_HOME=$(pwd);
+
 echo "Setting environment";
 . ~/kitchen/env/linux/setup.sh;
 
