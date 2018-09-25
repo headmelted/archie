@@ -13,6 +13,7 @@ libgssapi-krb5-2 libtiff5 fontconfig-config libgdk-pixbuf2.0-common libgdk-pixbu
 libcairo2 libc6-dev linux-libc-dev libatk1.0-0 libx11-xcb-dev libxtst6 libxss-dev libxss1 libgconf-2-4 \
 libasound2 libnss3 zlib1g libx11-dev libxkbfile-dev zlib1g-dev"
 COPY kitchen /root/kitchen/
+COPY rootfs /root/jail/
 ADD cobble.sh /
 RUN /bin/bash -c '. /cobble.sh'
 RUN rm /cobble.sh
