@@ -20,7 +20,7 @@ script:
   - echo "Current environment is:"
   - pwd
   - echo "Current home is:"
-  - $COBBLER_HOME
+  - echo $COBBLER_HOME
   - echo "Setting Cobbler environment";
   - . ./kitchen/env/linux/setup.sh;
   - echo "Installing base Cobbler dependencies";
