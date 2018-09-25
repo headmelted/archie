@@ -4,19 +4,21 @@ set -e;
 echo "Setting environment";
 . ~/kitchen/env/linux/setup.sh;
 
-if [ "$COBBLER_STRATEGY" == "emulate" ] ; then
+#if [ "$COBBLER_STRATEGY" == "emulate" ] ; then
 
-  echo "We're in an emulated chroot, executing second stage debootstrap";
-  /debootstrap/debootstrap --second-stage;
+  #echo "We're in an emulated chroot, executing second stage debootstrap";
+  #/debootstrap/debootstrap --second-stage;
   
-else
+#else
 
-  if [ "$COBBLER_STRATEGY" == "hybrid" ] ; then
-    echo "Using hybrid strategy, attempt to enter jail to execute second stage debootstrap";
-    . ~/kitchen/steps/jail.sh /debootstrap/debootstrap --second-stage;
-  fi;
+#  if [ "$COBBLER_STRATEGY" == "hybrid" ] ; then
+  
+#    echo "Using hybrid strategy, attempt to enter jail to execute second stage debootstrap";
+#    . ~/kitchen/steps/jail.sh /debootstrap/debootstrap --second-stage;
+    
+#  fi;
 
-fi;
+#fi;
 
 if [ "$COBBLER_STRATEGY" == "cross" ] || [ "$COBBLER_STRATEGY" == "hybrid" ] ; then
   
@@ -24,11 +26,11 @@ if [ "$COBBLER_STRATEGY" == "cross" ] || [ "$COBBLER_STRATEGY" == "hybrid" ] ; t
   dpkg --add-architecture $COBBLER_ARCH;
  
   if [ "$COBBLER_ARCH" != "amd64" ] && [ "$COBBLER_ARCH" != "i386" ] ; then packages_to_install="crossbuild-essential-$COBBLER_ARCH"; fi;
+ 
+  echo "Updating $[COBBLER_ARCH] packages";
+  apt-get update -yq;
   
 fi;
-
-echo "Updating $[COBBLER_ARCH] packages";
-apt-get update -yq;
 
 echo "Preparing to install dependencies";
 packages_to_install="$packages_to_install $COBBLER_HOST_DEPENDENCIES";
