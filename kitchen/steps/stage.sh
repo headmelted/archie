@@ -48,3 +48,6 @@ echo "Staging for [$COBBLER_STRATEGY]";
     mkdir $COBBLER_CLEANROOM_DIRECTORY/home/kitchen;
   
   fi;
+  
+  echo "Making sure bootstrap_prepare.sh is executable for next stage";
+  chmod +x /root/kitchen/steps/bootstrap_prepare.sh;
