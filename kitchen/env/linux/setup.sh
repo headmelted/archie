@@ -12,7 +12,7 @@ export COBBLER_OS_DISTRIBUTION_NAME=debian;
 export COBBLER_OS_RELEASE_NAME=stretch;
 
 echo "Setting Cobbler environment for [$COBBLER_ARCH]"
-. ~/kitchen/env/linux/$COBBLER_ARCH.sh;
+. $COBBLER_HOME/kitchen/env/linux/$COBBLER_ARCH.sh;
 
 echo "Setting QEMU_EXECVE flag to allow QEMU to intercept execve() calls without binfmt_misc";
 export QEMU_EXECVE=1;
