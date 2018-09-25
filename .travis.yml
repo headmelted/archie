@@ -30,7 +30,7 @@ script:
   - echo "Using debootstrap --foreign to create rootfs for [$COBBLER_ARCH] jail"
   - fakeroot debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=minbase stretch rootfs;
   - echo "Entering [$COBBLER_ARCH] cleanroom (proot) to execute second stage of debootstrap";
-  - proot -b /root/kitchen:/home/kitchen -b /proc rootfs -q qemu-$COBBLER_QEMU_ARCH-static /debootstrap/debootstrap --second-stage;
+  - proot -b $COBBLER_HOME/kitchen:/home/kitchen -b /proc rootfs -q qemu-$COBBLER_QEMU_ARCH-static /debootstrap/debootstrap --second-stage;
 #  - echo "Performing first stage image build";
 #  - sudo bash -c 'export IMAGE_NAME=headmelted/cobbler:hybrid-arm64 && export DOCKER_TAG=hybrid-arm64 && . ./hooks/build';
 #  - echo "Running docker with elevated privileges to complete cleanroom preparation (requires minimum SYS_PTRACE for proot)";
