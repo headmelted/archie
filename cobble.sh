@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e;
 
+echo "Setting COBBLER_HOME";
+export $COBBLER_HOME=$(pwd);
+
 echo "Entering kitchen to setup Cobbler";
 cd ~/kitchen;
 
