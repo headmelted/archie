@@ -12,7 +12,7 @@ echo "Staging for [$COBBLER_STRATEGY]";
     apt-get install -y apt-utils;
 
     echo "Installing base Cobbler dependencies";
-    apt-get install -y debootstrap fakechroot fakeroot proot;
+    apt-get install -y debootstrap fakechroot fakeroot proot qemu qemu-$COBBLER_QEMU_PACKAGE_ARCH-static;
     
     echo "Creating [$COBBLER_CLEANROOM_ROOT_DIRECTORY]";
     mkdir "$COBBLER_CLEANROOM_ROOT_DIRECTORY";
@@ -26,8 +26,11 @@ echo "Staging for [$COBBLER_STRATEGY]";
     echo "Using debootstrap --foreign to create rootfs for [$COBBLER_ARCH] jail"
     fakeroot debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=minbase $COBBLER_OS_RELEASE_NAME $COBBLER_CLEANROOM_DIRECTORY;
 
-    echo "Copying static QEMU (using the Resin.IO patched version - ToDo: ADD REFERENCE IN README) for [$COBBLER_QEMU_ARCH] into [$COBBLER_ARCH] jail";
-    cp ~/kitchen/qemu-$COBBLER_QEMU_ARCH-static $COBBLER_CLEANROOM_DIRECTORY/usr/bin/;
+    #echo "Copying static QEMU (using the Resin.IO patched version - ToDo: ADD REFERENCE IN README) for [$COBBLER_QEMU_ARCH] into [$COBBLER_ARCH] jail";
+    #cp ~/kitchen/qemu-$COBBLER_QEMU_ARCH-static $COBBLER_CLEANROOM_DIRECTORY/usr/bin/;
+   
+    echo "Copying static QEMU for [$COBBLER_QEMU_ARCH] into [$COBBLER_ARCH] jail";
+    cp /usr/bin/qemu-$COBBLER_QEMU_ARCH-static $COBBLER_CLEANROOM_DIRECTORY/usr/bin/;
     
     echo "Marking static [$COBBLER_CLEANROOM_DIRECTORY/usr/bin/qemu-$COBBLER_QEMU_ARCH-static] as executable";
     chmod +x $COBBLER_CLEANROOM_DIRECTORY/usr/bin/qemu-$COBBLER_QEMU_ARCH-static;
