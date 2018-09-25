@@ -36,7 +36,7 @@ echo "Preparing to install dependencies";
 packages_to_install="$packages_to_install $COBBLER_HOST_DEPENDENCIES";
 
 for cobbler_dependency_package in $COBBLER_TARGET_DEPENDENCIES; do
-  if [ "$COBBLER_STRATEGY" == "cross" ] || [ "$COBBLER_STRATEGY" == "hybrid" ] ; then
+  if [ "$COBBLER_STRATEGY" == "cross" ] ; then
     cobbler_dependency_package="$cobbler_dependency_package:$COBBLER_ARCH";
   fi;
   packages_to_install="$packages_to_install $cobbler_dependency_package";
@@ -45,8 +45,13 @@ done;
 echo "Packages to install:";
 echo $packages_to_install;
   
-echo "Installing dependency packages";
-apt-get install -y tree $packages_to_install;
+if [ "$COBBLER_STRATEGY" == "cross" ] || [ "$COBBLER_STRATEGY" == "virtualize" ] ; then
+  echo "Installing dependency packages";
+  apt-get install -y $packages_to_install;
+else
+  echo "Installing dependency packages in jail for [$COBBLER_ARCH]";
+  . ~/kitchen/steps/jail.sh apt-get install -y $packages_to_install;
+fi;
 
 echo "[$HOME] is where the ♥ is";
 
