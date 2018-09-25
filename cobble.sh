@@ -2,7 +2,7 @@
 set -e;
 
 echo "Setting COBBLER_HOME";
-export COBBLER_HOME=$(pwd);
+export COBBLER_HOME=$HOME;
 
 echo "COBBLER_HOME is $COBBLER_HOME";
 
