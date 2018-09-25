@@ -1,8 +1,5 @@
 #!/bin/bash
 set -e;
-  
-echo "Setting COBBLER_HOME";
-export $COBBLER_HOME=$(pwd);
 
 if [ "$COBBLER_STRATEGY" == "emulate" ] ; then
 
