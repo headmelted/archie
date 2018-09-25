@@ -14,4 +14,4 @@ chmod +x ~/kitchen/steps/*.sh;
 . ~/kitchen/env/linux/display.sh;
 
 echo "Starting compilation inside build jail";
-. /root/kitchen/steps/cook.sh;
+. ~/kitchen/steps/cook.sh;
