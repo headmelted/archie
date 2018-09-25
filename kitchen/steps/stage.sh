@@ -3,7 +3,7 @@ set -e;
 
 echo "Staging for [$COBBLER_STRATEGY]";
 
-  if [ "$COBBLER_STRATEGY" == "hybrid" ] || [ "$COBBLER_STRATEGY" == "emulate" ] ; then
+ # if [ "$COBBLER_STRATEGY" == "hybrid" ] || [ "$COBBLER_STRATEGY" == "emulate" ] ; then
 
     #echo "Updating package sources"
     #apt-get update -yq;
@@ -50,7 +50,7 @@ echo "Staging for [$COBBLER_STRATEGY]";
     #echo "Creating kitchen directory inside cleanroom user /home";
     #mkdir $COBBLER_CLEANROOM_DIRECTORY/home/kitchen;
   
-  fi;
+  #fi;
   
   echo "Making sure bootstrap_prepare.sh is executable for next stage";
   chmod +x /root/kitchen/steps/bootstrap_prepare.sh;
