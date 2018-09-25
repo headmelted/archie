@@ -11,7 +11,7 @@ branches:
     - master
 
 env:
-  - COBBLER_ARCH=armhf
+  - COBBLER_DOCKER_TAG=hybrid-armhf
     
 notifications:
   email: false
