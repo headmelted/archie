@@ -17,11 +17,10 @@ script:
   - echo "Performing first stage image build";
   - sudo bash -c 'export IMAGE_NAME=headmelted/cobbler:hybrid-arm64 && export DOCKER_TAG=hybrid-arm64 && . ./hooks/build';
   - echo "Running docker with elevated privileges to complete cleanroom preparation (requires minimum SYS_PTRACE for proot)";
-  - sudo docker run -it \
+  - docker run -it \
     --security-opt apparmor:unconfined \
     --cap-add SYS_ADMIN \
     --entrypoint "/bin/bash -c '. /root/kitchen/steps/bootstrap-prepare.sh'" \
-    --build-arg DOCKER_TAG=$DOCKER_TAG \
     -v $(pwd)/cobbler:/root/cobbler \
     headmelted/cobbler:hybrid-arm64;
   
