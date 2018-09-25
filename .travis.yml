@@ -30,7 +30,7 @@ script:
   - echo "Using debootstrap --foreign to create rootfs for [$COBBLER_ARCH] jail"
   - fakeroot debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=minbase stretch rootfs;
   - echo "Entering [$COBBLER_ARCH] cleanroom (proot) to execute second stage of debootstrap";
-  - sudo proot -b /dev -b /proc -b /sys -b $COBBLER_HOME/kitchen:/home/kitchen -q qemu-$COBBLER_QEMU_ARCH-static rootfs uname -a && dpkg --configure -a && apt-get update -yq;
+  - sudo proot -b /dev -b /proc -b /sys -b $COBBLER_HOME/kitchen:/home/kitchen -q qemu-$COBBLER_QEMU_ARCH-static rootfs uname -a && sudo dpkg --configure -a && sudo apt-get update -yq;
   - echo "Performing first stage image build";
   - sudo bash -c "export IMAGE_NAME=headmelted/cobbler:$COBBLER_DOCKER_TAG && export DOCKER_TAG=$COBBLER_DOCKER_TAG && . ./hooks/build";
   
