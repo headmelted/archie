@@ -1,13 +1,13 @@
 #!/bin/bash
 set -e;
 
-#echo "Entering [$COBBLER_ARCH] cleanroom (proot) to execute command";
-#proot -b /root/kitchen:/home/kitchen -R $COBBLER_CLEANROOM_DIRECTORY -q qemu-$COBBLER_QEMU_ARCH-static "$@";
+echo "Entering [$COBBLER_ARCH] cleanroom (proot) to execute command";
+proot -b /root/kitchen:/home/kitchen -R $COBBLER_CLEANROOM_DIRECTORY -q qemu-$COBBLER_QEMU_ARCH-static "$@";
 
-echo "Chroot is at: $(which chroot) lets see";
+#echo "Chroot is at: $(which chroot) lets see";
 
-echo "Testing fakechroot at ($COBBLER_CLEANROOM_DIRECTORY)";
-fakechroot fakeroot chroot $COBBLER_CLEANROOM_DIRECTORY /usr/bin/qemu-$COBBLER_QEMU_ARCH-static -L $COBBLER_CLEANROOM_DIRECTORY pwd;
+#echo "Testing fakechroot at ($COBBLER_CLEANROOM_DIRECTORY)";
+#fakechroot fakeroot chroot $COBBLER_CLEANROOM_DIRECTORY /usr/bin/qemu-$COBBLER_QEMU_ARCH-static -L $COBBLER_CLEANROOM_DIRECTORY pwd;
 
 #echo "Entering [$COBBLER_ARCH] cleanroom ($COBBLER_CLEANROOM_DIRECTORY) to debug fakeroot";
 #fakechroot fakeroot chroot $COBBLER_CLEANROOM_DIRECTORY /usr/bin/qemu-$COBBLER_QEMU_ARCH-static -L $COBBLER_CLEANROOM_DIRECTORY -D ~/kitchen/qemu.log readelf -d /bin/bash
