@@ -37,4 +37,7 @@ script:
   - sudo bash -c "export IMAGE_NAME=headmelted/cobbler:$COBBLER_DOCKER_TAG && export DOCKER_TAG=$COBBLER_DOCKER_TAG && . ./hooks/build";
   
 after_success:
-  - echo "pushed";
+  - echo "Logging into docker hub";
+  - docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD;
+  - echo "Pushing image to docker hub";
+  - docker push headmelted/cobbler:$COBBLER_DOCKER_TAG;
