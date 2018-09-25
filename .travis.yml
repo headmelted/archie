@@ -14,7 +14,7 @@ notifications:
   email: false
 
 script:
-  - sudo bash -c 'export IMAGE_NAME=headmelted/cobbler:hybrid-arm64 && . ./hooks/build';
+  - sudo bash -c 'export IMAGE_NAME=headmelted/cobbler:hybrid-arm64 && export DOCKER_TAG=hybrid-arm64 && . ./hooks/build';
   
 after_success:
   - echo "pushed";
