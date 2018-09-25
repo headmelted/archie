@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e;
   
+echo "Setting COBBLER_HOME";
+export $COBBLER_HOME=$(pwd);
+
 if [ "$COBBLER_STRATEGY" == "emulate" ] ; then
 
     echo "Entering [$COBBLER_ARCH] jail to complete setup";
