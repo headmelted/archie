@@ -1,0 +1,20 @@
+sudo: required
+dist: trusty
+language: generic
+services:
+  - docker
+cache:
+  directories:
+  - .cache
+branches:
+  only:
+    - master
+    
+notifications:
+  email: false
+
+script:
+  - sudo bash -c 'export IMAGE_NAME=headmelted/cobbler && . ./hooks/build';
+  
+after_success:
+  - echo "pushed";
