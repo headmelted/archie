@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e;
 
+echo "Setting COBBLER_HOME";
+export $COBBLER_HOME=$(pwd);
+
 echo "Marking kitchen env scripts executable";
 chmod +x ~/kitchen/env/linux/*.sh;
 
