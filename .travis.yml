@@ -10,15 +10,29 @@ branches:
   only:
     - master
 
+env:
+  - COBBLER_ARCH=armhf
     
 notifications:
   email: false
 
 script:
-  - echo "Performing first stage image build";
-  - sudo bash -c 'export IMAGE_NAME=headmelted/cobbler:hybrid-arm64 && export DOCKER_TAG=hybrid-arm64 && . ./hooks/build';
-  - echo "Running docker with elevated privileges to complete cleanroom preparation (requires minimum SYS_PTRACE for proot)";
-  - docker run -it --security-opt apparmor:unconfined --cap-add SYS_ADMIN --entrypoint "/root/kitchen/steps/bootstrap_prepare.sh" -v ${pwd}/cobbler:/root/cobbler headmelted/cobbler:hybrid-arm64;
+  - echo "Current environment is:"
+  - pwd
+  - echo "Setting Cobbler environment";
+  - . ./kitchen/env/linux/setup.sh;
+  - echo "Installing base Cobbler dependencies";
+  - apt-get install -y debootstrap fakechroot fakeroot proot qemu qemu-user-static;
+  - echo "Creating rootfs";
+  - mkdir rootfs;
+  - echo "Using debootstrap --foreign to create rootfs for [$COBBLER_ARCH] jail"
+  - fakeroot debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=minbase stretch rootfs;
+  - echo "Entering [$COBBLER_ARCH] cleanroom (proot) to execute second stage of debootstrap";
+  - proot -b /root/kitchen:/home/kitchen -R rootfs -q qemu-$COBBLER_QEMU_ARCH-static /debootstrap/debootstrap --second-stage;
+#  - echo "Performing first stage image build";
+#  - sudo bash -c 'export IMAGE_NAME=headmelted/cobbler:hybrid-arm64 && export DOCKER_TAG=hybrid-arm64 && . ./hooks/build';
+#  - echo "Running docker with elevated privileges to complete cleanroom preparation (requires minimum SYS_PTRACE for proot)";
+#  - docker run -it --security-opt apparmor:unconfined --cap-add SYS_ADMIN --entrypoint "/root/kitchen/steps/bootstrap_prepare.sh" -v ${pwd}/cobbler:/root/cobbler headmelted/cobbler:hybrid-arm64;
   
 after_success:
   - echo "pushed";
