@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/vsts/pipelines/languages/docker
 
 jobs:
-- job: 'Build Cobbler for $COBBLER_DOCKER_TAG'
+- job: 'Build Cobbler for hybrid-armhf'
   pool:
     vmImage: 'Ubuntu 16.04'
   variables:
