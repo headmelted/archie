@@ -8,14 +8,8 @@ echo "Setting Cobbler environment";
 echo "Installing base Cobbler dependencies";
 sudo apt-get install -y debootstrap fakechroot fakeroot proot qemu qemu-user-static;
 
-#echo "Creating rootfs";
-#mkdir rootfs;
-
 echo "Using debootstrap --foreign to create rootfs for [$COBBLER_ARCH] jail"
 fakeroot debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=minbase stretch rootfs;
-
-#echo "Creating kitchen directory inside cleanroom user /home";
-#mkdir rootfs/home/kitchen;
 
 echo "Injecting APT sources list";
 mv sources.list rootfs/etc/apt/;
@@ -23,7 +17,13 @@ mv sources.list rootfs/etc/apt/;
 echo "Reading rootfs sources list";
 cat rootfs/etc/apt/sources.list;
 
+echo "Copying static QEMU (using the Resin.IO patched version - ToDo: ADD REFERENCE IN README) for [$COBBLER_QEMU_ARCH] into [$COBBLER_ARCH] jail";
+cp ./kitchen/qemu-$COBBLER_QEMU_ARCH-static rootfs/usr/bin/;
+    
+echo "Marking static [rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static] as executable";
+chmod +x rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static;
+
 #echo "Entering [$COBBLER_ARCH] cleanroom (proot) to execute second stage of debootstrap";
 #sudo proot -b $COBBLER_HOME/kitchen:/kitchen -q qemu-$COBBLER_QEMU_ARCH-static -R rootfs uname -a && sudo dpkg --configure -a && sudo apt-get update -yq;
 
-sudo fakechroot fakeroot chroot rootfs ./kitchen/qemu-arm-static /bin/bash -c "uname -a"
+sudo fakechroot fakeroot chroot rootfs /usr/bin/qemu-$COBBLER_QEMU_ARCH-static /bin/bash -c "uname -a"
