@@ -29,6 +29,9 @@ if [ "$COBBLER_STRATEGY" == "cross" ] || [ "$COBBLER_STRATEGY" == "hybrid" ] ; t
   
   echo "Adding cross-compilation target of [$COBBLER_ARCH]";
   dpkg --add-architecture $COBBLER_ARCH;
+  
+  echo "Listing apt sources":
+  apt-cache policy;
  
   if [ "$COBBLER_ARCH" != "amd64" ] && [ "$COBBLER_ARCH" != "i386" ] ; then
     packages_to_install="crossbuild-essential-$COBBLER_ARCH";
