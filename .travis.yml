@@ -17,7 +17,6 @@ notifications:
   email: false
 
 script:
-  - cat /etc/apt/sources.list;
   - echo "Current environment is:"
   - pwd
   - echo "Current home is:"
@@ -34,6 +33,8 @@ script:
   - mkdir rootfs/home/kitchen;
   - echo "Injecting APT sources list";
   - mv sources.list rootfs/etc/apt/;
+  - echo "Reading rootfs sources list";
+  - cat rootfs/etc/apt/sources.list;
   - echo "Entering [$COBBLER_ARCH] cleanroom (proot) to execute second stage of debootstrap";
   - sudo proot -b /dev -b /proc -b /sys -b $COBBLER_HOME/kitchen:/home/kitchen -q qemu-$COBBLER_QEMU_ARCH-static rootfs uname -a && sudo dpkg --configure -a && sudo apt-get update -yq;
   - echo "Performing first stage image build";
