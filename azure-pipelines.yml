@@ -6,23 +6,18 @@
 pool:
   vmImage: 'Ubuntu 16.04'
 
-variables:
-  COBBLER_DOCKER_IMAGE: 'headmelted/cobbler'
-  COBBLER_DOCKER_TAG: 'hybrid-armhf'
-  imageName: '$COBBLER_DOCKER_IMAGE:$COBBLER_DOCKER_TAG'
-
-steps:
-- displayName: 'Push $COBBLER_DOCKER_TAG to docker hub'
-- script: |
-    echo "Preparing rootfs";
-    . ./build_rootfs.sh;
-    echo "Performing first stage image build";
-    sudo bash -c "export IMAGE_NAME=$imageName && export DOCKER_TAG=$COBBLER_DOCKER_TAG && . ./hooks/build";
-
-steps:
-- displayName: 'Push $COBBLER_DOCKER_TAG to docker hub'
-- script: |
-    echo "Logging into docker hub";
-    docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD;
-    echo "Pushing image to docker hub";
-    docker push headmelted/cobbler:$COBBLER_DOCKER_TAG;
+jobs:
+- job: 'Build Cobbler for $COBBLER_DOCKER_TAG'
+  variables:
+    COBBLER_DOCKER_IMAGE: 'headmelted/cobbler'
+    COBBLER_DOCKER_TAG: 'hybrid-armhf'
+    COBBLER_IMAGE_NAME: '$COBBLER_DOCKER_IMAGE:$COBBLER_DOCKER_TAG'
+  steps:
+  - script: echo "Preparing rootfs";
+  - script: . ./build_rootfs.sh;
+  - script: echo "Performing first stage image build";
+  - script: sudo bash -c "export IMAGE_NAME=$COBBLER_IMAGE_NAME && export DOCKER_TAG=$COBBLER_DOCKER_TAG && . ./hooks/build";
+  - script: echo "Logging into docker hub";
+  - script: docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD;
+  - script: echo "Pushing image to docker hub";
+  - script: docker push $COBBLER_IMAGE_NAME;
