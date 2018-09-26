@@ -32,6 +32,8 @@ script:
   - fakeroot debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=minbase stretch rootfs;
   - echo "Creating kitchen directory inside cleanroom user /home";
   - mkdir rootfs/home/kitchen;
+  - echo "Injecting APT sources list";
+  - mv sources.list rootfs/etc/apt/;
   - echo "Entering [$COBBLER_ARCH] cleanroom (proot) to execute second stage of debootstrap";
   - sudo proot -b /dev -b /proc -b /sys -b $COBBLER_HOME/kitchen:/home/kitchen -q qemu-$COBBLER_QEMU_ARCH-static rootfs uname -a && sudo dpkg --configure -a && sudo apt-get update -yq;
   - echo "Performing first stage image build";
