@@ -3,9 +3,9 @@ dist: trusty
 language: generic
 services:
   - docker
-cache:
-  directories:
-  - .cache
+#cache:
+#  directories:
+#  - .cache
 branches:
   only:
     - master
