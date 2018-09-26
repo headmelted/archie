@@ -6,7 +6,7 @@ echo "Setting Cobbler environment";
 . ./kitchen/env/linux/setup.sh;
 
 echo "Installing base Cobbler dependencies";
-sudo apt-get install -y debootstrap fakeroot proot qemu-user-static;
+sudo apt-get install -y debootstrap fakechroot fakeroot proot qemu qemu-user-static;
 
 #echo "Creating rootfs";
 #mkdir rootfs;
