@@ -26,4 +26,4 @@ chmod +x rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static;
 #echo "Entering [$COBBLER_ARCH] cleanroom (proot) to execute second stage of debootstrap";
 #sudo proot -b $COBBLER_HOME/kitchen:/kitchen -q qemu-$COBBLER_QEMU_ARCH-static -R rootfs uname -a && sudo dpkg --configure -a && sudo apt-get update -yq;
 
-sudo fakechroot fakeroot chroot rootfs /usr/bin/qemu-$COBBLER_QEMU_ARCH-static /bin/bash -c "uname -a"
+sudo fakechroot fakeroot chroot rootfs /usr/bin/qemu-$COBBLER_QEMU_ARCH-static uname -a
