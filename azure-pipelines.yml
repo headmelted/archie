@@ -12,13 +12,14 @@ jobs:
     COBBLER_DOCKER_TAG: 'hybrid-armhf'
     COBBLER_IMAGE_NAME: '$COBBLER_DOCKER_IMAGE:$COBBLER_DOCKER_TAG'
   steps:
-  - script: |
+  - displayName: 'Prepare rootfs for ($COBBLER_DOCKER_TAG)'
+    script: |
       echo "Preparing rootfs";
       . ./build_rootfs.sh;
       echo "Performing first stage image build";
       sudo bash -c "export IMAGE_NAME=$COBBLER_IMAGE_NAME && export DOCKER_TAG=$COBBLER_DOCKER_TAG && . ./hooks/build";
-    displayName: 'Prepare rootfs for ($COBBLER_DOCKER_TAG)'
-  - script: |
+  - displayName: 'Prepare rootfs for ($COBBLER_DOCKER_TAG)'
+    script: |
       echo "Logging into docker hub";
       docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD;
       echo "Pushing image to docker hub";
