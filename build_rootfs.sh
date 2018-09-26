@@ -14,8 +14,8 @@ mkdir rootfs;
 echo "Using debootstrap --foreign to create rootfs for [$COBBLER_ARCH] jail"
 fakeroot debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=minbase stretch rootfs;
 
-echo "Creating kitchen directory inside cleanroom user /home";
-mkdir rootfs/home/kitchen;
+#echo "Creating kitchen directory inside cleanroom user /home";
+#mkdir rootfs/home/kitchen;
 
 echo "Injecting APT sources list";
 mv sources.list rootfs/etc/apt/;
