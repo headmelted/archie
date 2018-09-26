@@ -23,5 +23,7 @@ mv sources.list rootfs/etc/apt/;
 echo "Reading rootfs sources list";
 cat rootfs/etc/apt/sources.list;
 
-echo "Entering [$COBBLER_ARCH] cleanroom (proot) to execute second stage of debootstrap";
-sudo proot -b $COBBLER_HOME/kitchen:/kitchen -q qemu-$COBBLER_QEMU_ARCH-static -R rootfs uname -a && sudo dpkg --configure -a && sudo apt-get update -yq;
+#echo "Entering [$COBBLER_ARCH] cleanroom (proot) to execute second stage of debootstrap";
+#sudo proot -b $COBBLER_HOME/kitchen:/kitchen -q qemu-$COBBLER_QEMU_ARCH-static -R rootfs uname -a && sudo dpkg --configure -a && sudo apt-get update -yq;
+
+sudo fakechroot fakeroot chroot rootfs ./kitchen/qemu-arm-static /bin/bash -c "uname -a"
