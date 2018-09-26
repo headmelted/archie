@@ -8,8 +8,8 @@ echo "Setting Cobbler environment";
 echo "Installing base Cobbler dependencies";
 sudo apt-get install -y debootstrap fakeroot proot qemu-user-static;
 
-echo "Creating rootfs";
-mkdir rootfs;
+#echo "Creating rootfs";
+#mkdir rootfs;
 
 echo "Using debootstrap --foreign to create rootfs for [$COBBLER_ARCH] jail"
 fakeroot debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=minbase stretch rootfs;
