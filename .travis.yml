@@ -17,6 +17,8 @@ notifications:
   email: false
 
 script:
+  - cat /etc/apt/sources.list;
+  - exit
   - echo "Current environment is:"
   - pwd
   - echo "Current home is:"
