@@ -6,8 +6,6 @@
 pool:
   vmImage: 'Ubuntu 16.04'
 
-jobs:
-- job: 'Build Cobbler for $COBBLER_DOCKER_TAG'
   variables:
     COBBLER_DOCKER_IMAGE: 'headmelted/cobbler'
     COBBLER_DOCKER_TAG: 'hybrid-armhf'
