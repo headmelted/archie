@@ -12,7 +12,7 @@ variables:
   imageName: '$COBBLER_DOCKER_IMAGE:$COBBLER_DOCKER_TAG'
 
 steps:
-- displayName: 'Push $COBBLER_DOCKER_TAG to docker hub';
+- displayName: 'Push $COBBLER_DOCKER_TAG to docker hub'
 - script: |
     echo "Preparing rootfs";
     . ./build_rootfs.sh;
