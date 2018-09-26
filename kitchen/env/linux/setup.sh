@@ -17,6 +17,9 @@ echo "Setting Cobbler environment for [$COBBLER_ARCH]"
 echo "Setting QEMU_EXECVE flag to allow QEMU to intercept execve() calls without binfmt_misc";
 export QEMU_EXECVE=1;
 
+echo "Disabling SECCOMP for proot";
+export PROOT_NO_SECCOMP=1
+
 echo "Setting cleanroom paths";
 export COBBLER_CLEANROOM_DIRECTORY=/root/jail;
 
