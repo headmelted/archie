@@ -1,9 +1,9 @@
 #!/bin/bash
 set -e;
 
-if [ ${COBBLER_QEMU_INTERCEPTION_MODE} == "proot" ] ; then
+if [ "${COBBLER_QEMU_INTERCEPTION_MODE}" == "proot" ] ; then
   cobbler_qemu_dependencies="proot";
-elif [ ${COBBLER_QEMU_INTERCEPTION_MODE} == "execve" ] ; then
+elif [ "${COBBLER_QEMU_INTERCEPTION_MODE}" == "execve" ] ; then
   cobbler_qemu_dependencies="fakechroot fakeroot";
 else
   cobbler_qemu_dependencies=""; # binfmt_misc and virtualize
