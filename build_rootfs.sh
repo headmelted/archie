@@ -41,10 +41,11 @@ echo "Marking static [rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static] as executab
 chmod +x rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static;
 
 echo "Manually setting up debootstrap";
-sudo fakechroot fakeroot chroot rootfs dpkg --add-architecture $COBBLER_ARCH;
+#sudo fakechroot fakeroot chroot rootfs dpkg --add-architecture $COBBLER_ARCH;
+sudo fakechroot fakeroot chroot rootfs /debootstrap/debootstrap --second-stage;
 
-echo "Configuring dpkg"
-sudo fakechroot fakeroot chroot rootfs dpkg --configure -a;
+#echo "Configuring dpkg"
+#sudo fakechroot fakeroot chroot rootfs dpkg --configure -a;
 
-echo "Updating APT";
-sudo fakechroot fakeroot chroot rootfs apt-get update -yq;
+#echo "Updating APT";
+#sudo fakechroot fakeroot chroot rootfs apt-get update -yq;
