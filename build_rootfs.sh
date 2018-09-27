@@ -23,8 +23,23 @@ cp ./kitchen/qemu-$COBBLER_QEMU_ARCH-static rootfs/usr/bin/;
 echo "Marking static [rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static] as executable";
 chmod +x rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static;
 
+qwrap_path=rootfs/usr/bin/qwrap_${COBBLER_QEMU_ARCH}.sh
+
+echo "Writing QEMU bash wrapper to ${qwrap_path}";
+cat > ${qwrap_path} << endmsg
+#!/usr/bin/qemu-${COBBLER_QEMU_ARCH}-static /bin/bash
+echo "Executing command using QEMU shell";
+"$@"
+endmsg
+
+echo "Marking ${qwrap_path} as executable";
+chmod +x ${qwrap_path};
+
+echo "Contents of ${qwrap_path}";
+cat ${qwrap_path};
+
 #echo "Entering [$COBBLER_ARCH] cleanroom (proot) to execute second stage of debootstrap";
 #sudo proot -b $COBBLER_HOME/kitchen:/kitchen -q qemu-$COBBLER_QEMU_ARCH-static -R rootfs uname -a && sudo dpkg --configure -a && sudo apt-get update -yq;
 
-sudo ./rootfs/usr/bin/qemu-arm-static -L rootfs uname -a
- fakechroot fakeroot chroot rootfs /usr/bin/qemu-$COBBLER_QEMU_ARCH-static uname -a
+#sudo ./rootfs/usr/bin/qemu-arm-static -L rootfs uname -a
+fakechroot fakeroot chroot rootfs qwrap_${COBBLER_QEMU_ARCH} uname -a
