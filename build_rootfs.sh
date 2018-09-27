@@ -44,6 +44,7 @@ chmod +x rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static;
 #sudo proot -b $COBBLER_HOME/kitchen:/kitchen -q qemu-$COBBLER_QEMU_ARCH-static -R rootfs uname -a && sudo dpkg --configure -a && sudo apt-get update -yq;
 
 #sudo ./rootfs/usr/bin/qemu-arm-static -L rootfs uname -a
-sudo chroot rootfs /debootstrap/debootstrap --second-stage;
+#sudo chroot rootfs /debootstrap/debootstrap --second-stage;
+DEBOOTSTRAP_DIR=rootfs/debootstrap sudo debootstrap --second-stage --second-stage-target=rootfs
 
 docker images;
