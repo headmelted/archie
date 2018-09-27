@@ -11,6 +11,9 @@ sudo apt-get install -y debootstrap fakechroot fakeroot proot qemu qemu-user-sta
 echo "Using debootstrap --foreign to create rootfs for [$COBBLER_ARCH] jail"
 fakeroot debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=minbase stretch rootfs;
 
+echo "Checking binfmts";
+update-binfmts --display;
+
 echo "Injecting APT sources list";
 mv sources.list rootfs/etc/apt/;
 
