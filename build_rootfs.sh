@@ -1,12 +1,14 @@
+#!/bin/bash
+set -e;
 
-echo "Setting Cobbler home to build folder for building rootfs"
-COBBLER_HOME=$(pwd)
+echo "Setting Cobbler home to build folder for building rootfs";
+COBBLER_HOME=$(pwd);
 
 echo "Setting Cobbler environment";
 . ./kitchen/env/linux/setup.sh;
 
-echo "Installing base Cobbler dependencies";
-sudo apt-get install -y debootstrap fakechroot fakeroot proot qemu qemu-user-static;
+echo "Installing dependencies";
+. ./kitchen/steps/install_dependencies.sh;
 
 echo "Using debootstrap --foreign to create rootfs for [$COBBLER_ARCH] jail"
 fakeroot debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=minbase stretch rootfs;
