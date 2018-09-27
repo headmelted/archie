@@ -24,7 +24,7 @@ cobbler_qemu_interception_mode_original=$COBBLER_QEMU_INTERCEPTION_MODE;
 COBBLER_QEMU_INTERCEPTION_MODE="binfmt_misc" # Azure supports binfmt_misc, so override here and then set back to whatever was specified.
 
 echo "Installing QEMU dependencies";
-. ./kitchen/steps/install_qemu_dependencies.sh;
+sudo bash -c ". ./kitchen/steps/install_qemu_dependencies.sh";
 
 echo "Restoring QEMU interception mode to [$cobbler_qemu_interception_mode_original]";
 export COBBLER_QEMU_INTERCEPTION_MODE=$cobbler_qemu_interception_mode_original;
