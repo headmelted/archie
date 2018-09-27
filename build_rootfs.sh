@@ -47,4 +47,4 @@ chmod +x rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static;
 sudo chroot rootfs echo "Setting up debootstrap manually" && sudo dpkg --configure -a && sudo apt-get update -yq;
 #DEBOOTSTRAP_DIR=rootfs/debootstrap sudo debootstrap --second-stage --second-stage-target=rootfs
 
-docker images;
+#docker images;
