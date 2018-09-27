@@ -10,4 +10,4 @@ else
 fi;
 
 echo "Installing base Cobbler dependencies";
-apt-get install -y debootstrap qemu-user-static ${cobbler_qemu_dependencies};
+apt-get install -y qemu-user-static ${cobbler_qemu_dependencies};
