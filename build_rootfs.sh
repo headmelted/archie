@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e;
 
 echo "Setting Cobbler home to build folder for building rootfs";
 COBBLER_HOME=$(pwd);
