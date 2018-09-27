@@ -40,11 +40,11 @@ cp ./kitchen/qemu-$COBBLER_QEMU_ARCH-static rootfs/usr/bin/;
 echo "Marking static [rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static] as executable";
 chmod +x rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static;
 
-echo "Entering [$COBBLER_ARCH] cleanroom (proot) to execute second stage of debootstrap";
-sudo proot -b $COBBLER_HOME/kitchen:/kitchen -q qemu-$COBBLER_QEMU_ARCH-static -R rootfs uname -a && sudo dpkg --configure -a && sudo apt-get update -yq;
+#echo "Entering [$COBBLER_ARCH] cleanroom (proot) to execute second stage of debootstrap";
+#sudo proot -b $COBBLER_HOME/kitchen:/kitchen -q qemu-$COBBLER_QEMU_ARCH-static -R rootfs uname -a && sudo dpkg --configure -a && sudo apt-get update -yq;
 
 #sudo ./rootfs/usr/bin/qemu-arm-static -L rootfs uname -a
-#sudo chroot rootfs /debootstrap/debootstrap --second-stage;
+sudo chroot rootfs echo "Setting up debootstrap manually" && sudo dpkg --configure -a && sudo apt-get update -yq;
 #DEBOOTSTRAP_DIR=rootfs/debootstrap sudo debootstrap --second-stage --second-stage-target=rootfs
 
 docker images;
