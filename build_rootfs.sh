@@ -26,8 +26,8 @@ chmod +x rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static;
 qwrap_path=rootfs/usr/bin/qwrap_${COBBLER_QEMU_ARCH}.sh
 
 echo "Writing QEMU bash wrapper to ${qwrap_path}";
-cat > ${qwrap_path} << endmsg
-#!/usr/bin/qemu-${COBBLER_QEMU_ARCH}-static /bin/bash
+cat > ${qwrap_path} << 'endmsg'
+#!/usr/bin/qemu-arm-static /bin/bash
 echo "Executing command using QEMU shell";
 "$@"
 endmsg
@@ -42,4 +42,4 @@ cat ${qwrap_path};
 #sudo proot -b $COBBLER_HOME/kitchen:/kitchen -q qemu-$COBBLER_QEMU_ARCH-static -R rootfs uname -a && sudo dpkg --configure -a && sudo apt-get update -yq;
 
 #sudo ./rootfs/usr/bin/qemu-arm-static -L rootfs uname -a
-fakechroot fakeroot chroot rootfs qwrap_${COBBLER_QEMU_ARCH} uname -a
+fakechroot fakeroot chroot rootfs /usr/bin/qwrap_${COBBLER_QEMU_ARCH}.sh uname -a
