@@ -41,5 +41,5 @@ echo "Marking static [rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static] as executab
 chmod +x rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static;
 
 echo "Manually setting up debootstrap";
-sudo chroot rootfs /bin/bash -c "sudo dpkg --configure -a && sudo apt-get update -yq";
+sudo chroot rootfs /bin/bash -c "sudo dpkg --configure -a && apt-get update -yq";
 
