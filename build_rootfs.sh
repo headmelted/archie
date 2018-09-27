@@ -8,7 +8,7 @@ echo "Setting Cobbler environment";
 . ./kitchen/env/linux/setup.sh;
 
 echo "Installing debootstrap";
-sudo apt-get install -y debootstrap fakeroot proot;
+sudo apt-get install -y debootstrap fakechroot fakeroot proot;
 
 echo "Using debootstrap --foreign to create rootfs for [$COBBLER_ARCH] jail"
 fakeroot debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=fakechroot stretch rootfs;
