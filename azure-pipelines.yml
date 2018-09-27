@@ -16,7 +16,7 @@ jobs:
       echo "Preparing rootfs";
       . ./build_rootfs.sh;
       echo "Performing first stage image build";
-      sudo bash -c "export IMAGE_NAME=$COBBLER_IMAGE_NAME && export DOCKER_TAG=$COBBLER_DOCKER_TAG && . ./hooks/build";
+      sudo bash -c "export IMAGE_NAME=$COBBLER_DOCKER_IMAGE && export DOCKER_TAG=$COBBLER_DOCKER_TAG && . ./hooks/build";
       echo "Logging into docker hub";
       docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD;
       echo "Pushing image to docker hub";
