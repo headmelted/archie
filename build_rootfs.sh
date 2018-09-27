@@ -7,8 +7,11 @@ COBBLER_HOME=$(pwd);
 echo "Setting Cobbler environment";
 . ./kitchen/env/linux/setup.sh;
 
-echo "Installing dependencies";
-. ./kitchen/steps/install_dependencies.sh;
+echo "Installing QEMU dependencies";
+. ./kitchen/steps/install_qemu_dependencies.sh;
+
+echo "Installing debootstrap";
+apt-get install -y debootstrap;
 
 echo "Using debootstrap --foreign to create rootfs for [$COBBLER_ARCH] jail"
 fakeroot debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=minbase stretch rootfs;
