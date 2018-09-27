@@ -45,6 +45,9 @@ echo "Manually setting up debootstrap";
 #sudo fakechroot fakeroot chroot rootfs /debootstrap/debootstrap --second-stage;
 DEBOOTSTRAP_DIR=rootfs/debootstrap fakechroot fakeroot debootstrap --second-stage --second-stage-target=rootfs
 
+echo "Debootstrap log:";
+cat rootfs/debootstrap/debootstrap.log;
+
 #echo "Configuring dpkg"
 #sudo fakechroot fakeroot chroot rootfs dpkg --configure -a;
 
