@@ -46,3 +46,5 @@ cat rootfs/etc/apt/sources.list;
 
 #sudo ./rootfs/usr/bin/qemu-arm-static -L rootfs uname -a
 sudo chroot rootfs uname -a
+
+docker images;
