@@ -27,7 +27,7 @@ qwrap_path=rootfs/usr/bin/qwrap_${COBBLER_QEMU_ARCH}.sh
 
 echo "Writing QEMU bash wrapper to ${qwrap_path}";
 cat > ${qwrap_path} << 'endmsg'
-#!/usr/bin/qemu-arm-static /bin/bash
+#!/usr/bin/qemu-arm-static rootfs/bin/bash
 echo "Executing command using QEMU shell";
 "$@"
 endmsg
