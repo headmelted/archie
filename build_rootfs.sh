@@ -8,7 +8,7 @@ echo "Setting Cobbler environment";
 . ./kitchen/env/linux/setup.sh;
 
 echo "Installing debootstrap";
-sudo apt-get install -y debootstrap fakeroot;
+sudo apt-get install -y debootstrap fakeroot proot;
 
 echo "Using debootstrap --foreign to create rootfs for [$COBBLER_ARCH] jail"
 fakeroot debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=minbase stretch rootfs;
@@ -40,11 +40,11 @@ cp ./kitchen/qemu-$COBBLER_QEMU_ARCH-static rootfs/usr/bin/;
 echo "Marking static [rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static] as executable";
 chmod +x rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static;
 
-#echo "Entering [$COBBLER_ARCH] cleanroom (proot) to execute second stage of debootstrap";
-#sudo proot -b $COBBLER_HOME/kitchen:/kitchen -q qemu-$COBBLER_QEMU_ARCH-static -R rootfs uname -a && sudo dpkg --configure -a && sudo apt-get update -yq;
+echo "Entering [$COBBLER_ARCH] cleanroom (proot) to execute second stage of debootstrap";
+sudo proot -b $COBBLER_HOME/kitchen:/kitchen -q qemu-$COBBLER_QEMU_ARCH-static -R rootfs uname -a && sudo dpkg --configure -a && sudo apt-get update -yq;
 
 #sudo ./rootfs/usr/bin/qemu-arm-static -L rootfs uname -a
 #sudo chroot rootfs /debootstrap/debootstrap --second-stage;
-DEBOOTSTRAP_DIR=rootfs/debootstrap sudo debootstrap --second-stage --second-stage-target=rootfs
+#DEBOOTSTRAP_DIR=rootfs/debootstrap sudo debootstrap --second-stage --second-stage-target=rootfs
 
 docker images;
