@@ -11,7 +11,7 @@ echo "Installing debootstrap";
 sudo apt-get install -y debootstrap fakeroot proot;
 
 echo "Using debootstrap --foreign to create rootfs for [$COBBLER_ARCH] jail"
-fakeroot debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=minbase stretch rootfs;
+fakeroot debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=fakechroot stretch rootfs;
 
 echo "Injecting APT sources list";
 mv sources.list rootfs/etc/apt/;
@@ -42,7 +42,8 @@ chmod +x rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static;
 
 echo "Manually setting up debootstrap";
 #sudo fakechroot fakeroot chroot rootfs dpkg --add-architecture $COBBLER_ARCH;
-sudo fakechroot fakeroot chroot rootfs /debootstrap/debootstrap --second-stage;
+#sudo fakechroot fakeroot chroot rootfs /debootstrap/debootstrap --second-stage;
+DEBOOTSTRAP_DIR=rootfs/debootstrap fakechroot fakeroot debootstrap --second-stage --second-stage-target=rootfs
 
 #echo "Configuring dpkg"
 #sudo fakechroot fakeroot chroot rootfs dpkg --configure -a;
