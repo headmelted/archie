@@ -45,13 +45,22 @@ cp ./kitchen/qemu-$COBBLER_QEMU_ARCH-static rootfs/usr/bin/;
 echo "Marking static [rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static] as executable";
 chmod +x rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static;
 
+echo "Adding $COBBLER_ARCH to dpkg";
+sudo dpkg --add-architecture $COBBLER_ARCH;
+
+echo "Updating APT";
+sudo apt-get update -yq;
+
+echo "Installing runtime dependencies for foreign fakechroot";
+sudo apt-get install -y fakechroot:$COBBLER_ARCH fakeroot:$COBBLER_ARCH libc6:$COBBLER_ARCH;
+
 #echo "Installing packages from debootstrap with QEMU"
 #fakechroot -s fakeroot chroot rootfs dpkg --force-depends --install rootfs/var/cache/apt/archives/*.deb
 
 echo "Manually setting up debootstrap";
 #sudo fakechroot fakeroot chroot rootfs dpkg --add-architecture $COBBLER_ARCH;
 #sudo fakechroot fakeroot chroot rootfs /debootstrap/debootstrap --second-stage;
-fakechroot --elfloader rootfs/lib/ld-linux-armhf.so.3 fakeroot chroot rootfs /debootstrap/debootstrap --second-stage --verbose;
+fakechroot fakeroot chroot rootfs /debootstrap/debootstrap --second-stage --verbose;
 
 #echo "Configuring dpkg"
 #sudo fakechroot fakeroot chroot rootfs dpkg --configure -a;
