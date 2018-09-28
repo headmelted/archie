@@ -48,10 +48,10 @@ fi;
 #cdebootstrap --download-only --debug --verbose --foreign --arch=$COBBLER_ARCH --flavour=minimal stretch rootfs http://ftp.us.debian.org/debian/;
 
 echo "Copying static QEMU (using the Resin.IO patched version - ToDo: ADD REFERENCE IN README) for [$COBBLER_QEMU_ARCH] into [$COBBLER_ARCH] jail";
-cp ./kitchen/qemu-$COBBLER_QEMU_ARCH-static rootfs/usr/bin/;
+sudo cp ./kitchen/qemu-$COBBLER_QEMU_ARCH-static rootfs/usr/bin/;
     
 echo "Marking static [rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static] as executable";
-chmod +x rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static;
+sudo chmod +x rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static;
 
 #echo "Adding $COBBLER_ARCH to dpkg";
 #sudo dpkg --add-architecture $COBBLER_ARCH;
