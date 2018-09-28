@@ -9,22 +9,6 @@ echo "COBBLER_HOME is $COBBLER_HOME";
 echo "Setting environment";
 . ~/kitchen/env/linux/setup.sh;
 
-#if [ "$COBBLER_STRATEGY" == "emulate" ] ; then
-
-  #echo "We're in an emulated chroot, executing second stage debootstrap";
-  #/debootstrap/debootstrap --second-stage;
-  
-#else
-
-#  if [ "$COBBLER_STRATEGY" == "hybrid" ] ; then
-  
-#    echo "Using hybrid strategy, attempt to enter jail to execute second stage debootstrap";
-#    . ~/kitchen/steps/jail.sh /debootstrap/debootstrap --second-stage;
-    
-#  fi;
-
-#fi;
-
 if [ "$COBBLER_STRATEGY" == "cross" ] || [ "$COBBLER_STRATEGY" == "hybrid" ] ; then
   
   echo "Adding cross-compilation target of [$COBBLER_ARCH]";
