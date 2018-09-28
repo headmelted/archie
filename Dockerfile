@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:stretch-slim
 ARG DOCKER_TAG	
 ENV COBBLER_DOCKER_TAG=$DOCKER_TAG	
 ENV COBBLER_INSTALL_DEPENDENCIES_AT_BUILD="true"
@@ -14,7 +14,7 @@ libcairo2 libc6-dev linux-libc-dev libatk1.0-0 libx11-xcb-dev libxtst6 libxss-de
 libasound2 libnss3 zlib1g libx11-dev libxkbfile-dev zlib1g-dev"
 COPY kitchen /root/kitchen/
 COPY rootfs /root/jail/
-ADD cobble.sh /
-RUN /bin/bash -c '. /cobble.sh'
-RUN rm /cobble.sh
+#ADD cobble.sh /
+#RUN /bin/bash -c '. /cobble.sh'
+#RUN rm /cobble.sh
 ENTRYPOINT /bin/bash -c '. /root/kitchen/steps/bootstrap_prepare.sh'
