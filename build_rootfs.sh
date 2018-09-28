@@ -43,7 +43,7 @@ echo "Marking static [rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static] as executab
 chmod +x rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static;
 
 echo "Installing packages from debootstrap with QEMU"
-fakechroot -l /lib/ld-linux-armhf.so.3 fakeroot chroot rootfs dpkg --force-depends --install rootfs/var/cache/apt/archives/*.deb
+fakechroot fakeroot chroot rootfs /usr/bin/qemu-arm-static dpkg --force-depends --install rootfs/var/cache/apt/archives/*.deb
 
 #echo "Manually setting up debootstrap";
 #sudo fakechroot fakeroot chroot rootfs dpkg --add-architecture $COBBLER_ARCH;
