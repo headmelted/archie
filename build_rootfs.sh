@@ -87,13 +87,13 @@ echo "Downloading fakeroot_1.23-1_$COBBLER_ARCH.deb...";
 wget http://ftp.debian.org/debian/pool/main/f/fakeroot/fakeroot_1.23-1_$COBBLER_ARCH.deb;
 
 echo "Extracting fakeroot to /usr/lib/$COBBLER_GNU_TRIPLET/...";
-dpkg-deb --fsys-tarfile fakeroot_1.23-1_$COBBLER_ARCH.deb | sudo tar -xf - --strip-components=4 -C /usr/lib/$COBBLER_GNU_TRIPLET/ ./usr/lib/libfakeroot/libfakeroot-sysv.so
+dpkg-deb --fsys-tarfile fakeroot_1.23-1_$COBBLER_ARCH.deb | sudo tar -xf - --strip-components=4 -C /usr/lib/$COBBLER_GNU_TRIPLET/ ./usr/lib/$COBBLER_GNU_TRIPLET/libfakeroot/libfakeroot-sysv.so
 
 echo "Downloading fakechroot_2.19-3_$COBBLER_ARCH.deb...";
 wget http://ftp.debian.org/debian/pool/main/f/fakechroot/fakechroot_2.19-3_$COBBLER_ARCH.deb;
 
 echo "Extracting fakechroot to /usr/lib/$COBBLER_GNU_TRIPLET/...";
-dpkg-deb --fsys-tarfile fakechroot_2.19-3_$COBBLER_ARCH.deb | sudo tar -xf - --strip-components=4 -C /usr/lib/$COBBLER_GNU_TRIPLET/ ./usr/lib/fakechroot/libfakechroot.so
+dpkg-deb --fsys-tarfile fakechroot_2.19-3_$COBBLER_ARCH.deb | sudo tar -xf - --strip-components=4 -C /usr/lib/$COBBLER_GNU_TRIPLET/ ./usr/lib/$COBBLER_GNU_TRIPLET/fakechroot/libfakechroot.so
 
 echo "Downloading libc6_2.13-38+deb7u10_$COBBLER_ARCH.deb...";
 wget http://ftp.debian.org/debian/pool/main/e/eglibc/libc6_2.13-38+deb7u10_$COBBLER_ARCH.deb;
