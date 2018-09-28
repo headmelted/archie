@@ -98,6 +98,12 @@ dpkg-deb --fsys-tarfile libfakechroot_2.19-3_$COBBLER_ARCH.deb | sudo tar -xf - 
 echo "Downloading libc6_2.13-38+deb7u10_$COBBLER_ARCH.deb...";
 wget http://ftp.debian.org/debian/pool/main/e/eglibc/libc6_2.13-38+deb7u10_$COBBLER_ARCH.deb;
 
+echo "Creating qemu-binfmt directory in rootfs";
+mkdir -p rootfs/etc/qemu-binfmt;
+
+echo "Creating qemu-binfmt/$COBBLER_QEMU_ARCH directory in rootfs";
+mkdir -p rootfs/etc/qemu-binfmt/$COBBLER_QEMU_ARCH;
+
 echo "Extracting libc6 to /etc/qemu-binfmt/$COBBLER_QEMU_ARCH/...";
 sudo dpkg -x libc6_2.13-38+deb7u10_$COBBLER_ARCH.deb rootfs/etc/qemu-binfmt/$COBBLER_QEMU_ARCH/;
 
