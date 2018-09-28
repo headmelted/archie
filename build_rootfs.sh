@@ -108,7 +108,7 @@ echo "Extracting libc6 to /etc/qemu-binfmt/$COBBLER_QEMU_ARCH/...";
 sudo dpkg -x libc6_2.13-38+deb7u10_$COBBLER_ARCH.deb rootfs/etc/qemu-binfmt/$COBBLER_QEMU_ARCH/;
 
 echo "Moving ld-linux-$COBBLER_ARCH from /etc/qemu-binfmt to /lib";
-mv rootfs/etc/qemu-binfmt/ld-linux-$COBBLER_ARCH.so rootfs/lib/;
+sudo cp rootfs/lib/ld-linux-$COBBLER_ARCH.so /lib/;
 
 echo "Removing downloaded packages";
 rm libfakechroot_2.19-3_$COBBLER_ARCH.deb libfakeroot_1.23-1_$COBBLER_ARCH.deb libc6_2.13-38+deb7u10_$COBBLER_ARCH.deb;
