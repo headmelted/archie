@@ -87,19 +87,19 @@ echo "Downloading libfakeroot_1.23-1_$COBBLER_ARCH.deb...";
 wget http://ftp.debian.org/debian/pool/main/f/fakeroot/libfakeroot_1.23-1_$COBBLER_ARCH.deb;
 
 echo "Extracting libfakeroot to /usr/lib/$COBBLER_GNU_TRIPLET/...";
-dpkg-deb --fsys-tarfile libfakeroot_1.23-1_$COBBLER_ARCH.deb | sudo tar -xf - --strip-components=4 -C /usr/lib/$COBBLER_GNU_TRIPLET/ ./usr/lib/$COBBLER_GNU_TRIPLET/libfakeroot/libfakeroot-sysv.so
+dpkg-deb --fsys-tarfile libfakeroot_1.23-1_$COBBLER_ARCH.deb | sudo tar -xf - --strip-components=4 -C rootfs/lib/$COBBLER_GNU_TRIPLET/ ./usr/lib/$COBBLER_GNU_TRIPLET/libfakeroot/libfakeroot-sysv.so
 
 echo "Downloading libfakechroot_2.19-3_$COBBLER_ARCH.deb...";
 wget http://ftp.debian.org/debian/pool/main/f/fakechroot/libfakechroot_2.19-3_$COBBLER_ARCH.deb;
 
 echo "Extracting libfakechroot to /usr/lib/$COBBLER_GNU_TRIPLET/...";
-dpkg-deb --fsys-tarfile libfakechroot_2.19-3_$COBBLER_ARCH.deb | sudo tar -xf - --strip-components=4 -C /usr/lib/$COBBLER_GNU_TRIPLET/ ./usr/lib/$COBBLER_GNU_TRIPLET/fakechroot/libfakechroot.so
+dpkg-deb --fsys-tarfile libfakechroot_2.19-3_$COBBLER_ARCH.deb | sudo tar -xf - --strip-components=4 -C rootfs/lib/$COBBLER_GNU_TRIPLET/ ./usr/lib/$COBBLER_GNU_TRIPLET/fakechroot/libfakechroot.so
 
 echo "Downloading libc6_2.13-38+deb7u10_$COBBLER_ARCH.deb...";
 wget http://ftp.debian.org/debian/pool/main/e/eglibc/libc6_2.13-38+deb7u10_$COBBLER_ARCH.deb;
 
 echo "Extracting libc6 to /etc/qemu-binfmt/$COBBLER_QEMU_ARCH/...";
-sudo dpkg -x libc6_2.13-38+deb7u10_$COBBLER_ARCH.deb /etc/qemu-binfmt/$COBBLER_QEMU_ARCH/;
+sudo dpkg -x libc6_2.13-38+deb7u10_$COBBLER_ARCH.deb rootfs/etc/qemu-binfmt/$COBBLER_QEMU_ARCH/;
 
 echo "Removing downloaded packages";
 rm libfakechroot_2.19-3_$COBBLER_ARCH.deb libfakeroot_1.23-1_$COBBLER_ARCH.deb libc6_2.13-38+deb7u10_$COBBLER_ARCH.deb;
