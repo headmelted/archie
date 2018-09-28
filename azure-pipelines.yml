@@ -11,8 +11,6 @@ jobs:
     COBBLER_DOCKER_IMAGE: 'headmelted/cobbler'
     COBBLER_DOCKER_TAG: 'hybrid-armhf'
     COBBLER_IMAGE_NAME: '$COBBLER_DOCKER_IMAGE:$COBBLER_DOCKER_TAG'
-    DOCKER_LOGIN: $DOCKER_LOGIN
-    DOCKER_PASSWORD: $DOCKER_PASSWORD
   steps:
   - script: |
       echo "Preparing rootfs";
@@ -20,6 +18,6 @@ jobs:
       echo "Performing first stage image build";
       sudo bash -c "export IMAGE_NAME=$COBBLER_DOCKER_IMAGE && export DOCKER_TAG=$COBBLER_DOCKER_TAG && . ./hooks/build";
       echo "Logging into docker hub";
-      docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD;
+      docker login --username $DOCKER_LOGIN -password $DOCKER_PASSWORD;
       echo "Pushing image to docker hub";
       docker push $COBBLER_IMAGE_NAME;
