@@ -10,13 +10,13 @@ echo "Installing cdebootstrap";
 sudo apt-get install -y debootstrap fakechroot fakeroot proot;
 
 echo "Using debootstrap --foreign to create rootfs for [$COBBLER_ARCH] jail"
-fakechroot fakeroot debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=minbase stretch rootfs;
+debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=minbase stretch rootfs;
 
 echo "Mounting proc into rootfs";
 sudo mount --bind /proc rootfs/proc;
 
-echo "rootfs lib:";
-ls rootfs/lib;
+#echo "rootfs lib:";
+#ls rootfs/lib;
 
 #echo "Injecting APT sources list";
 #mv sources.list rootfs/etc/apt/;
@@ -80,41 +80,41 @@ chmod +x rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static;
 #sudo apt-get install -y fakeroot:$COBBLER_ARCH libc6:$COBBLER_ARCH;
 
 # Following instructions at https://blog.mister-muffin.de/2011/04/02/foreign-debian-bootstrapping-without-root-priviliges-with-fakeroot%2C-fakechroot-and-qemu-user-emulation/
-echo "Creating /etc/qemu-binfmt/$COBBLER_QEMU_ARCH/ if it doesn't exist...";
-sudo mkdir -p /etc/qemu-binfmt/$COBBLER_QEMU_ARCH/;
+#echo "Creating /etc/qemu-binfmt/$COBBLER_QEMU_ARCH/ if it doesn't exist...";
+#sudo mkdir -p /etc/qemu-binfmt/$COBBLER_QEMU_ARCH/;
 
-echo "Creating /usr/lib/$COBBLER_GNU_TRIPLET/ if it doesn't exist...";
-sudo mkdir -p /usr/lib/$COBBLER_GNU_TRIPLET/;
+#echo "Creating /usr/lib/$COBBLER_GNU_TRIPLET/ if it doesn't exist...";
+#sudo mkdir -p /usr/lib/$COBBLER_GNU_TRIPLET/;
 
-echo "Downloading libfakeroot_1.23-1_$COBBLER_ARCH.deb...";
-wget http://ftp.debian.org/debian/pool/main/f/fakeroot/libfakeroot_1.23-1_$COBBLER_ARCH.deb;
+#echo "Downloading libfakeroot_1.23-1_$COBBLER_ARCH.deb...";
+#wget http://ftp.debian.org/debian/pool/main/f/fakeroot/libfakeroot_1.23-1_$COBBLER_ARCH.deb;
 
-echo "Extracting libfakeroot to /usr/lib/$COBBLER_GNU_TRIPLET/...";
-dpkg-deb --fsys-tarfile libfakeroot_1.23-1_$COBBLER_ARCH.deb | sudo tar -xf - --strip-components=4 -C rootfs/lib/$COBBLER_GNU_TRIPLET/ ./usr/lib/$COBBLER_GNU_TRIPLET/libfakeroot/libfakeroot-sysv.so
+#echo "Extracting libfakeroot to /usr/lib/$COBBLER_GNU_TRIPLET/...";
+#dpkg-deb --fsys-tarfile libfakeroot_1.23-1_$COBBLER_ARCH.deb | sudo tar -xf - --strip-components=4 -C rootfs/lib/$COBBLER_GNU_TRIPLET/ ./usr/lib/$COBBLER_GNU_TRIPLET/libfakeroot/libfakeroot-sysv.so
 
-echo "Downloading libfakechroot_2.19-3_$COBBLER_ARCH.deb...";
-wget http://ftp.debian.org/debian/pool/main/f/fakechroot/libfakechroot_2.19-3_$COBBLER_ARCH.deb;
+#echo "Downloading libfakechroot_2.19-3_$COBBLER_ARCH.deb...";
+#wget http://ftp.debian.org/debian/pool/main/f/fakechroot/libfakechroot_2.19-3_$COBBLER_ARCH.deb;
 
-echo "Extracting libfakechroot to /usr/lib/$COBBLER_GNU_TRIPLET/...";
-dpkg-deb --fsys-tarfile libfakechroot_2.19-3_$COBBLER_ARCH.deb | sudo tar -xf - --strip-components=4 -C rootfs/lib/$COBBLER_GNU_TRIPLET/ ./usr/lib/$COBBLER_GNU_TRIPLET/fakechroot/libfakechroot.so
+#echo "Extracting libfakechroot to /usr/lib/$COBBLER_GNU_TRIPLET/...";
+#dpkg-deb --fsys-tarfile libfakechroot_2.19-3_$COBBLER_ARCH.deb | sudo tar -xf - --strip-components=4 -C rootfs/lib/$COBBLER_GNU_TRIPLET/ ./usr/lib/$COBBLER_GNU_TRIPLET/fakechroot/libfakechroot.so
 
-echo "Downloading libc6_2.13-38+deb7u10_$COBBLER_ARCH.deb...";
-wget http://ftp.debian.org/debian/pool/main/e/eglibc/libc6_2.13-38+deb7u10_$COBBLER_ARCH.deb;
+#echo "Downloading libc6_2.13-38+deb7u10_$COBBLER_ARCH.deb...";
+#wget http://ftp.debian.org/debian/pool/main/e/eglibc/libc6_2.13-38+deb7u10_$COBBLER_ARCH.deb;
 
-echo "Creating qemu-binfmt directory in rootfs";
-mkdir -p rootfs/etc/qemu-binfmt;
+#echo "Creating qemu-binfmt directory in rootfs";
+#mkdir -p rootfs/etc/qemu-binfmt;
 
-echo "Creating qemu-binfmt/$COBBLER_QEMU_ARCH directory in rootfs";
-mkdir -p rootfs/etc/qemu-binfmt/$COBBLER_QEMU_ARCH;
+#echo "Creating qemu-binfmt/$COBBLER_QEMU_ARCH directory in rootfs";
+#mkdir -p rootfs/etc/qemu-binfmt/$COBBLER_QEMU_ARCH;
 
-echo "Extracting libc6 to /etc/qemu-binfmt/$COBBLER_QEMU_ARCH/...";
-sudo dpkg -x libc6_2.13-38+deb7u10_$COBBLER_ARCH.deb rootfs/etc/qemu-binfmt/$COBBLER_QEMU_ARCH/;
+#echo "Extracting libc6 to /etc/qemu-binfmt/$COBBLER_QEMU_ARCH/...";
+#sudo dpkg -x libc6_2.13-38+deb7u10_$COBBLER_ARCH.deb rootfs/etc/qemu-binfmt/$COBBLER_QEMU_ARCH/;
 
-echo "Moving ld-linux-$COBBLER_ARCH.so.3 from /etc/qemu-binfmt to /lib";
-sudo cp rootfs/lib/ld-linux-$COBBLER_ARCH.so.3 /lib/;
+#echo "Moving ld-linux-$COBBLER_ARCH.so.3 from /etc/qemu-binfmt to /lib";
+#sudo cp rootfs/lib/ld-linux-$COBBLER_ARCH.so.3 /lib/;
 
-echo "Removing downloaded packages";
-rm libfakechroot_2.19-3_$COBBLER_ARCH.deb libfakeroot_1.23-1_$COBBLER_ARCH.deb libc6_2.13-38+deb7u10_$COBBLER_ARCH.deb;
+#echo "Removing downloaded packages";
+#rm libfakechroot_2.19-3_$COBBLER_ARCH.deb libfakeroot_1.23-1_$COBBLER_ARCH.deb libc6_2.13-38+deb7u10_$COBBLER_ARCH.deb;
 
 #echo "Installing packages from debootstrap with QEMU"
 #fakechroot -s fakeroot chroot rootfs dpkg --force-depends --install rootfs/var/cache/apt/archives/*.deb
@@ -122,7 +122,7 @@ rm libfakechroot_2.19-3_$COBBLER_ARCH.deb libfakeroot_1.23-1_$COBBLER_ARCH.deb l
 echo "Manually setting up debootstrap";
 #sudo fakechroot fakeroot chroot rootfs dpkg --add-architecture $COBBLER_ARCH;
 #sudo fakechroot fakeroot chroot rootfs /debootstrap/debootstrap --second-stage;
-fakechroot fakeroot chroot rootfs /debootstrap/debootstrap --second-stage --verbose;
+sudo chroot rootfs /debootstrap/debootstrap --second-stage --verbose;
 
 #echo "Configuring dpkg"
 #sudo fakechroot fakeroot chroot rootfs dpkg --configure -a;
