@@ -10,7 +10,7 @@ echo "Installing cdebootstrap";
 sudo apt-get install -y debootstrap fakechroot fakeroot proot;
 
 echo "Using debootstrap --foreign to create rootfs for [$COBBLER_ARCH] jail"
-debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=minbase stretch rootfs;
+sudo debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=minbase stretch rootfs;
 
 echo "Mounting proc into rootfs";
 sudo mount --bind /proc rootfs/proc;
