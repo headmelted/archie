@@ -10,7 +10,7 @@ echo "Installing cdebootstrap";
 sudo apt-get install -y cdebootstrap fakechroot fakeroot proot;
 
 echo "Using cdebootstrap --arch to create rootfs for [$COBBLER_ARCH] jail"
-cdebootstrap --debug --verbose --arch=$COBBLER_ARCH --flavour=minimal stretch rootfs;
+cdebootstrap --debug --verbose --foreign --arch=$COBBLER_ARCH --flavour=minimal stretch rootfs;
 
 #echo "Using debootstrap --foreign to create rootfs for [$COBBLER_ARCH] jail"
 #fakechroot fakeroot debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=fakechroot stretch rootfs;
