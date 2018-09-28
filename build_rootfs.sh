@@ -12,6 +12,9 @@ sudo apt-get install -y debootstrap fakechroot fakeroot proot;
 echo "Using debootstrap --foreign to create rootfs for [$COBBLER_ARCH] jail"
 fakechroot fakeroot debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=minbase stretch rootfs;
 
+echo "rootfs lib:";
+ls rootfs/lib;
+
 #echo "Injecting APT sources list";
 #mv sources.list rootfs/etc/apt/;
 
