@@ -51,7 +51,7 @@ chmod +x rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static;
 echo "Manually setting up debootstrap";
 #sudo fakechroot fakeroot chroot rootfs dpkg --add-architecture $COBBLER_ARCH;
 #sudo fakechroot fakeroot chroot rootfs /debootstrap/debootstrap --second-stage;
-fakechroot --elfloader rootfs/lib/ld-linux-armhf.so.3 fakeroot chroot rootfs debootstrap --second-stage --verbose;
+fakechroot fakeroot chroot rootfs debootstrap --second-stage --verbose;
 
 #echo "Configuring dpkg"
 #sudo fakechroot fakeroot chroot rootfs dpkg --configure -a;
