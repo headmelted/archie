@@ -6,17 +6,20 @@ COBBLER_HOME=$(pwd);
 echo "Setting Cobbler environment";
 . ./kitchen/env/linux/setup.sh;
 
-echo "Installing debootstrap";
-sudo apt-get install -y debootstrap fakechroot fakeroot proot;
+echo "Installing cdebootstrap";
+sudo apt-get install -y cdebootstrap fakechroot fakeroot proot;
 
-echo "Using debootstrap --foreign to create rootfs for [$COBBLER_ARCH] jail"
-fakechroot fakeroot debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=fakechroot stretch rootfs;
+echo "Using cdebootstrap --arch to create rootfs for [$COBBLER_ARCH] jail"
+cdebootstrap --debug --verbose --arch=$COBBLER_ARCH --flavour=minimal stretch rootfs;
 
-echo "Injecting APT sources list";
-mv sources.list rootfs/etc/apt/;
+#echo "Using debootstrap --foreign to create rootfs for [$COBBLER_ARCH] jail"
+#fakechroot fakeroot debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=fakechroot stretch rootfs;
 
-echo "Reading rootfs sources list";
-cat rootfs/etc/apt/sources.list;
+#echo "Injecting APT sources list";
+#mv sources.list rootfs/etc/apt/;
+
+#echo "Reading rootfs sources list";
+#cat rootfs/etc/apt/sources.list;
 
 echo "Override QEMU interception mode on build host to construct rootfs";
 cobbler_qemu_interception_mode_original=$COBBLER_QEMU_INTERCEPTION_MODE;
@@ -39,10 +42,10 @@ cp ./kitchen/qemu-$COBBLER_QEMU_ARCH-static rootfs/usr/bin/;
 echo "Marking static [rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static] as executable";
 chmod +x rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static;
 
-echo "Manually setting up debootstrap";
+#echo "Manually setting up debootstrap";
 #sudo fakechroot fakeroot chroot rootfs dpkg --add-architecture $COBBLER_ARCH;
 #sudo fakechroot fakeroot chroot rootfs /debootstrap/debootstrap --second-stage;
-DEBOOTSTRAP_DIR=rootfs/debootstrap fakechroot fakeroot debootstrap --second-stage --second-stage-target=rootfs --verbose || echo "Debootstrap log:"; || cat rootfs/debootstrap/debootstrap.log;
+#DEBOOTSTRAP_DIR=rootfs/debootstrap fakechroot fakeroot debootstrap --second-stage --second-stage-target=rootfs --verbose || echo "Debootstrap log:"; || cat rootfs/debootstrap/debootstrap.log;
 
 #echo "Configuring dpkg"
 #sudo fakechroot fakeroot chroot rootfs dpkg --configure -a;
