@@ -10,7 +10,7 @@ echo "Installing cdebootstrap";
 sudo apt-get install -y debootstrap fakechroot fakeroot proot;
 
 echo "Using debootstrap --foreign to create rootfs for [$COBBLER_ARCH] jail"
-fakechroot fakeroot debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=fakechroot stretch rootfs;
+fakechroot fakeroot debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=minbase stretch rootfs;
 
 #echo "Injecting APT sources list";
 #mv sources.list rootfs/etc/apt/;
@@ -42,13 +42,13 @@ cp ./kitchen/qemu-$COBBLER_QEMU_ARCH-static rootfs/usr/bin/;
 echo "Marking static [rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static] as executable";
 chmod +x rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static;
 
-echo "Installing packages from debootstrap with QEMU"
-fakechroot -s fakeroot chroot rootfs dpkg --force-depends --install rootfs/var/cache/apt/archives/*.deb
+#echo "Installing packages from debootstrap with QEMU"
+#fakechroot -s fakeroot chroot rootfs dpkg --force-depends --install rootfs/var/cache/apt/archives/*.deb
 
-#echo "Manually setting up debootstrap";
+echo "Manually setting up debootstrap";
 #sudo fakechroot fakeroot chroot rootfs dpkg --add-architecture $COBBLER_ARCH;
 #sudo fakechroot fakeroot chroot rootfs /debootstrap/debootstrap --second-stage;
-#DEBOOTSTRAP_DIR=rootfs/debootstrap fakechroot fakeroot debootstrap --second-stage --second-stage-target=rootfs --verbose || echo "Debootstrap log:"; || cat rootfs/debootstrap/debootstrap.log;
+DEBOOTSTRAP_DIR=rootfs/debootstrap fakechroot -s fakeroot debootstrap --second-stage --second-stage-target=rootfs --verbose;
 
 #echo "Configuring dpkg"
 #sudo fakechroot fakeroot chroot rootfs dpkg --configure -a;
