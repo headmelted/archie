@@ -50,28 +50,28 @@ sudo dpkg --add-architecture $COBBLER_ARCH;
 
 echo "Resetting ubuntu package lists"
 #echo "deb http://emdebian.org/tools/debian/ unstable main" | tee /etc/apt/sources.list.d/cobbler.list;
-echo "deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ xenial main universe multiverse restricted" | tee /etc/apt/sources.list.d/cobbler.list;
-echo "deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu/ xenial-security main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
-echo "deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ xenial-updates main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
-echo "deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ xenial-backports main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
+echo "deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ xenial main universe multiverse restricted" | sudo tee /etc/apt/sources.list.d/cobbler.list;
+echo "deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu/ xenial-security main universe multiverse restricted" | sudo tee -a /etc/apt/sources.list.d/cobbler.list;
+echo "deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ xenial-updates main universe multiverse restricted" | sudo tee -a /etc/apt/sources.list.d/cobbler.list;
+echo "deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ xenial-backports main universe multiverse restricted" | sudo tee -a /etc/apt/sources.list.d/cobbler.list;
 
 echo "Checking ports list [$COBBLER_ARCH]...";
 if [[ -n "${COBBLER_ARCH}" ]]; then
   echo "Adding ports repositories...";
-  echo "deb [arch=$COBBLER_ARCH] http://ports.ubuntu.com/ubuntu-ports xenial main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
-  echo "deb [arch=$COBBLER_ARCH] http://ports.ubuntu.com/ubuntu-ports xenial-security main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
-  echo "deb [arch=$COBBLER_ARCH] http://ports.ubuntu.com/ubuntu-ports xenial-updates main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
-  echo "deb [arch=$COBBLER_ARCH] http://ports.ubuntu.com/ubuntu-ports xenial-backports main universe multiverse restricted" | tee -a /etc/apt/sources.list.d/cobbler.list;
+  echo "deb [arch=$COBBLER_ARCH] http://ports.ubuntu.com/ubuntu-ports xenial main universe multiverse restricted" | sudo tee -a /etc/apt/sources.list.d/cobbler.list;
+  echo "deb [arch=$COBBLER_ARCH] http://ports.ubuntu.com/ubuntu-ports xenial-security main universe multiverse restricted" | sudo tee -a /etc/apt/sources.list.d/cobbler.list;
+  echo "deb [arch=$COBBLER_ARCH] http://ports.ubuntu.com/ubuntu-ports xenial-updates main universe multiverse restricted" | sudo tee -a /etc/apt/sources.list.d/cobbler.list;
+  echo "deb [arch=$COBBLER_ARCH] http://ports.ubuntu.com/ubuntu-ports xenial-backports main universe multiverse restricted" | sudo tee -a /etc/apt/sources.list.d/cobbler.list;
 fi;
 
 echo "cobbler.list be like:"
 cat /etc/apt/sources.list.d/cobbler.list;
 
 echo "Deleting original packages sources"
-rm /etc/apt/sources.list;
+sudo rm /etc/apt/sources.list;
 
 echo "Updating package sources"
-apt-get update -yq;
+sudo apt-get update -yq;
 
 echo "Installing runtime dependencies for foreign fakechroot";
 sudo apt-get install -y fakechroot:$COBBLER_ARCH fakeroot:$COBBLER_ARCH libc6:$COBBLER_ARCH;
