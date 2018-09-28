@@ -45,36 +45,63 @@ cp ./kitchen/qemu-$COBBLER_QEMU_ARCH-static rootfs/usr/bin/;
 echo "Marking static [rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static] as executable";
 chmod +x rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static;
 
-echo "Adding $COBBLER_ARCH to dpkg";
-sudo dpkg --add-architecture $COBBLER_ARCH;
+#echo "Adding $COBBLER_ARCH to dpkg";
+#sudo dpkg --add-architecture $COBBLER_ARCH;
 
-echo "Resetting ubuntu package lists"
+#echo "Resetting ubuntu package lists"
 #echo "deb http://emdebian.org/tools/debian/ unstable main" | tee /etc/apt/sources.list.d/cobbler.list;
-echo "deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ xenial main universe multiverse restricted" | sudo tee /etc/apt/sources.list.d/cobbler.list;
-echo "deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu/ xenial-security main universe multiverse restricted" | sudo tee -a /etc/apt/sources.list.d/cobbler.list;
-echo "deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ xenial-updates main universe multiverse restricted" | sudo tee -a /etc/apt/sources.list.d/cobbler.list;
-echo "deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ xenial-backports main universe multiverse restricted" | sudo tee -a /etc/apt/sources.list.d/cobbler.list;
+#echo "deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ xenial main universe multiverse restricted" | sudo tee /etc/apt/sources.list.d/cobbler.list;
+#echo "deb [arch=amd64,i386] http://security.ubuntu.com/ubuntu/ xenial-security main universe multiverse restricted" | sudo tee -a /etc/apt/sources.list.d/cobbler.list;
+#echo "deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ xenial-updates main universe multiverse restricted" | sudo tee -a /etc/apt/sources.list.d/cobbler.list;
+#echo "deb [arch=amd64,i386] http://archive.ubuntu.com/ubuntu/ xenial-backports main universe multiverse restricted" | sudo tee -a /etc/apt/sources.list.d/cobbler.list;#
 
-echo "Checking ports list [$COBBLER_ARCH]...";
-if [[ -n "${COBBLER_ARCH}" ]]; then
-  echo "Adding ports repositories...";
-  echo "deb [arch=$COBBLER_ARCH] http://ports.ubuntu.com/ubuntu-ports xenial main universe multiverse restricted" | sudo tee -a /etc/apt/sources.list.d/cobbler.list;
-  echo "deb [arch=$COBBLER_ARCH] http://ports.ubuntu.com/ubuntu-ports xenial-security main universe multiverse restricted" | sudo tee -a /etc/apt/sources.list.d/cobbler.list;
-  echo "deb [arch=$COBBLER_ARCH] http://ports.ubuntu.com/ubuntu-ports xenial-updates main universe multiverse restricted" | sudo tee -a /etc/apt/sources.list.d/cobbler.list;
-  echo "deb [arch=$COBBLER_ARCH] http://ports.ubuntu.com/ubuntu-ports xenial-backports main universe multiverse restricted" | sudo tee -a /etc/apt/sources.list.d/cobbler.list;
-fi;
+#echo "Checking ports list [$COBBLER_ARCH]...";
+#if [[ -n "${COBBLER_ARCH}" ]]; then
+#  echo "Adding ports repositories...";
+#  echo "deb [arch=$COBBLER_ARCH] http://ports.ubuntu.com/ubuntu-ports xenial main universe multiverse restricted" | sudo tee -a /etc/apt/sources.list.d/cobbler.list;
+#  echo "deb [arch=$COBBLER_ARCH] http://ports.ubuntu.com/ubuntu-ports xenial-security main universe multiverse restricted" | sudo tee -a /etc/apt/sources.list.d/cobbler.list;
+#  echo "deb [arch=$COBBLER_ARCH] http://ports.ubuntu.com/ubuntu-ports xenial-updates main universe multiverse restricted" | sudo tee -a /etc/apt/sources.list.d/cobbler.list;
+#  echo "deb [arch=$COBBLER_ARCH] http://ports.ubuntu.com/ubuntu-ports xenial-backports main universe multiverse restricted" | sudo tee -a /etc/apt/sources.list.d/cobbler.list;
+#fi;
 
-echo "cobbler.list be like:"
-cat /etc/apt/sources.list.d/cobbler.list;
+#echo "cobbler.list be like:"
+#cat /etc/apt/sources.list.d/cobbler.list;
 
-echo "Deleting original packages sources"
-sudo rm /etc/apt/sources.list;
+#echo "Deleting original packages sources"
+#sudo rm /etc/apt/sources.list;
 
-echo "Updating package sources"
-sudo apt-get update -yq;
+#echo "Updating package sources"
+#sudo apt-get update -yq;
 
-echo "Installing runtime dependencies for foreign fakechroot";
-sudo apt-get install -y fakeroot:$COBBLER_ARCH libc6:$COBBLER_ARCH;
+#echo "Installing runtime dependencies for foreign fakechroot";
+#sudo apt-get install -y fakeroot:$COBBLER_ARCH libc6:$COBBLER_ARCH;
+
+echo "Downloading fakechroot_2.14-1_$COBBLER_ARCH.deb...";
+wget http://ftp.debian.org/debian/pool/main/f/fakechroot/fakechroot_2.14-1_$COBBLER_ARCH.deb;
+
+echo "Downloading fakeroot_1.14.5-1_$COBBLER_ARCH.deb...";
+wget http://ftp.debian.org/debian/pool/main/f/fakeroot/fakeroot_1.14.5-1_$COBBLER_ARCH.deb;
+
+echo "Downloading libc6_2.11.2-11_$COBBLER_ARCH.deb...";
+wget http://ftp.debian.org/debian/pool/main/e/eglibc/libc6_2.11.2-11_$COBBLER_ARCH.deb;
+
+echo "Creating /etc/qemu-binfmt/$COBBLER_QEMU_ARCH/ if it doesn't exist...";
+sudo mkdir -p /etc/qemu-binfmt/$COBBLER_QEMU_ARCH/;
+
+echo "Creating /usr/lib/$COBBLER_GNU_TRIPLET/ if it doesn't exist...";
+sudo mkdir -p /usr/lib/$COBBLER_GNU_TRIPLET/;
+
+echo "Extracting libc6 to /etc/qemu-binfmt/$COBBLER_QEMU_ARCH/...";
+sudo dpkg -x libc6_2.11.2-11_$COBBLER_ARCH.deb /etc/qemu-binfmt/$COBBLER_QEMU_ARCH/;
+
+echo "Extracting fakeroot to /usr/lib/$COBBLER_GNU_TRIPLET/...";
+dpkg-deb --fsys-tarfile fakeroot_1.14.5-1_$COBBLER_ARCH.deb | sudo tar -xf - --strip-components=4 -C /usr/lib/$COBBLER_GNU_TRIPLET/ ./usr/lib/libfakeroot/libfakeroot-sysv.so
+
+echo "Extracting fakechroot to /usr/lib/$COBBLER_GNU_TRIPLET/...";
+dpkg-deb --fsys-tarfile fakechroot_2.14-1_$COBBLER_ARCH.deb | sudo tar -xf - --strip-components=4 -C /usr/lib/$COBBLER_GNU_TRIPLET/ ./usr/lib/fakechroot/libfakechroot.so
+
+echo "Removing downloaded packages";
+rm fakechroot_2.14-1_$COBBLER_ARCH.deb fakeroot_1.14.5-1_$COBBLER_ARCH.deb libc6_2.11.2-11_$COBBLER_ARCH.deb;
 
 #echo "Installing packages from debootstrap with QEMU"
 #fakechroot -s fakeroot chroot rootfs dpkg --force-depends --install rootfs/var/cache/apt/archives/*.deb
