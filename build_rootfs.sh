@@ -33,17 +33,17 @@ if [ ${COBBLER_QEMU_INTERCEPTION_MODE} == "binfmt_misc" ] ; then
   update-binfmts --display;
 fi;
 
+echo "Using cdebootstrap --arch to create rootfs for [$COBBLER_ARCH] jail in download only mode"
+cdebootstrap --download-only --debug --verbose --foreign --arch=$COBBLER_ARCH --flavour=minimal stretch rootfs http://ftp.us.debian.org/debian/;
+
 echo "Copying static QEMU (using the Resin.IO patched version - ToDo: ADD REFERENCE IN README) for [$COBBLER_QEMU_ARCH] into [$COBBLER_ARCH] jail";
 cp ./kitchen/qemu-$COBBLER_QEMU_ARCH-static rootfs/usr/bin/;
     
 echo "Marking static [rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static] as executable";
 chmod +x rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static;
 
-echo "Using cdebootstrap --arch to create rootfs for [$COBBLER_ARCH] jail in download only mode"
-cdebootstrap --download-only --debug --verbose --foreign --arch=$COBBLER_ARCH --flavour=minimal stretch rootfs http://ftp.us.debian.org/debian/;
-
 echo "Installing packages from cdebootstrap with QEMU"
-chroot rootfs dpkg --force-depends --install /var/cache/bootstrap/base-passwd_3.5.43_armhf.deb
+chroot rootfs dpkg --force-depends --install rootfs/var/cache/bootstrap/base-passwd_3.5.43_armhf.deb
 
 #echo "Manually setting up debootstrap";
 #sudo fakechroot fakeroot chroot rootfs dpkg --add-architecture $COBBLER_ARCH;
