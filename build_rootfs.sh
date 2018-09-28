@@ -9,9 +9,6 @@ echo "Setting Cobbler environment";
 echo "Installing cdebootstrap";
 sudo apt-get install -y cdebootstrap fakechroot fakeroot proot;
 
-echo "Using cdebootstrap --arch to create rootfs for [$COBBLER_ARCH] jail"
-cdebootstrap --debug --verbose --foreign --arch=$COBBLER_ARCH --flavour=minimal stretch rootfs http://ftp.us.debian.org/debian/;
-
 #echo "Using debootstrap --foreign to create rootfs for [$COBBLER_ARCH] jail"
 #fakechroot fakeroot debootstrap --foreign --verbose --arch=$COBBLER_ARCH --variant=fakechroot stretch rootfs;
 
@@ -41,6 +38,12 @@ cp ./kitchen/qemu-$COBBLER_QEMU_ARCH-static rootfs/usr/bin/;
     
 echo "Marking static [rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static] as executable";
 chmod +x rootfs/usr/bin/qemu-$COBBLER_QEMU_ARCH-static;
+
+echo "Using cdebootstrap --arch to create rootfs for [$COBBLER_ARCH] jail in download only mode"
+cdebootstrap --download-only --debug --verbose --foreign --arch=$COBBLER_ARCH --flavour=minimal stretch rootfs http://ftp.us.debian.org/debian/;
+
+echo "Installing packages from cdebootstrap with QEMU"
+chroot rootfs dpkg --force-depends --install /var/cache/bootstrap/base-passwd_3.5.43_armhf.deb
 
 #echo "Manually setting up debootstrap";
 #sudo fakechroot fakeroot chroot rootfs dpkg --add-architecture $COBBLER_ARCH;
