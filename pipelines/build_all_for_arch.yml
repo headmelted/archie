@@ -1,0 +1,22 @@
+# build_all_for_arch.yml
+
+# This file contains the matrix of different strategies to build for each architecture.
+
+jobs:
+- template: build_for_arch_and_strategy.yml
+  parameters:
+    arch: ${{ parameters.arch }}
+    strategy: cross
+- template: build_for_arch_and_strategy.yml
+  parameters:
+    arch: ${{ parameters.arch }}
+    strategy: hybrid
+- template: build_for_arch_and_strategy.yml
+  parameters:
+    arch: ${{ parameters.arch }}
+    strategy: emulate
+#- template: build_for_arch_and_strategy.yml
+#  parameters:
+#    arch: ${{ parameters.arch }}
+#    strategy: virtualize
+    
