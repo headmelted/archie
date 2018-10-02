@@ -11,8 +11,8 @@ jobs:
     COBBLER_DOCKER_IMAGE: "headmelted/cobbler"
     COBBLER_ARCH: "armhf"
     COBBLER_STRATEGY: "hybrid"
-    COBBLER_DOCKER_TAG: "$COBBLER_STRATEGY-$COBBLER_ARCH"
-    COBBLER_IMAGE_NAME: "$COBBLER_DOCKER_IMAGE:$COBBLER_DOCKER_TAG"
+    COBBLER_DOCKER_TAG: "hybrid-armhf"
+    COBBLER_IMAGE_NAME: "headmelted/cobbler:hybrid-armhf"
   steps:
   - script: |
       echo "Downloading rootfs from prebootstrap";
