@@ -9,7 +9,7 @@ _WARNING: THIS PROJECT IS STILL VERY MUCH A WORK-IN-PROGRESS AND SHOULD NOT BE U
 [![GitHub Watchers](https://img.shields.io/github/watchers/headmelted/cobbler.svg)](https://github.com/headmelted/cobbler/watchers)
 [![Docker Stars](https://img.shields.io/docker/stars/headmelted/cobbler.svg)](https://hub.docker.com/r/headmelted/cobbler/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/headmelted/cobbler.svg)](https://hub.docker.com/r/headmelted/cobbler/)
-[![Docker Build](https://img.shields.io/docker/build/headmelted/cobbler.svg)](https://hub.docker.com/r/headmelted/cobbler/builds/)
+[![Build Status](https://dev.azure.com/headmelted/headmelted_on_github/_apis/build/status/headmelted.cobbler)](https://dev.azure.com/headmelted/headmelted_on_github/_build/latest?definitionId=4)
 
 ### What is Cobbler?
 Cobbler is a series of pre-configured Debian Stretch docker containers that are collectively intended to make porting, compiling and testing code written for GNU compilers on multiple architectures as simple as possible.
