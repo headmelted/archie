@@ -16,8 +16,10 @@ jobs:
       export COBBLER_DOCKER_TAG="$COBBLER_STRATEGY-$COBBLER_ARCH"
       echo "Creating rootfs directory";
       mkdir rootfs;
-      echo "Downloading rootfs from prebootstrap";
-      wget -c "https://github.com/headmelted/prebootstrap/releases/download/Oct-18/prebootstrap_stretch_minbase_${COBBLER_ARCH}_rootfs.tar.gz" -O - | sudo tar -xz -C rootfs
+      if [ "${COBBLER_STRATEGY}" == "hybrid" ] || [ "${COBBLER_STRATEGY}" == "emulate" ]; do
+        echo "Downloading rootfs from prebootstrap for [${COBBLER_STRATEGY}] image";
+        wget -c "https://github.com/headmelted/prebootstrap/releases/download/Oct-18/prebootstrap_stretch_minbase_${COBBLER_ARCH}_rootfs.tar.gz" -O - | sudo tar -xz -C rootfs
+      done
       echo "Performing first stage image build";
       sudo bash -c "IMAGE_NAME=${COBBLER_DOCKER_IMAGE} && COBBLER_STRATEGY=${COBBLER_STRATEGY} && COBBLER_ARCH=${COBBLER_ARCH} && DOCKER_TAG=${COBBLER_DOCKER_TAG} && . ./hooks/build";
       echo "Logging into docker hub";
