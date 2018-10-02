@@ -23,6 +23,6 @@ jobs:
       echo "Performing first stage image build";
       sudo bash -c "IMAGE_NAME=${COBBLER_DOCKER_IMAGE} && COBBLER_STRATEGY=${COBBLER_STRATEGY} && COBBLER_ARCH=${COBBLER_ARCH} && DOCKER_TAG=${COBBLER_DOCKER_TAG} && . ./hooks/build";
       echo "Logging into docker hub";
-      docker login --username ${DOCKER_LOGIN} -password ${DOCKER_PASSWORD};
+      docker login --username ${DOCKER_LOGIN} --password ${DOCKER_PASSWORD};
       echo "Pushing image to docker hub";
       docker push ${COBBLER_DOCKER_IMAGE};
