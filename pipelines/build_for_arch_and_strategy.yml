@@ -3,7 +3,7 @@
 # This template is used to generate a cobbler image for a single architecture and strategy combination.
 
 jobs:
-- job: ${{ parameters.image_tag }}
+- job: ${{ parameters.arch }}
   pool:
     vmImage: 'Ubuntu 16.04'
   variables:
