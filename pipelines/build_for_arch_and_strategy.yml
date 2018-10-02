@@ -3,12 +3,13 @@
 # This template is used to generate a cobbler image for a single architecture and strategy combination.
 
 jobs:
-- job: ${{ parameters.tag }}
+- job:
   pool:
     vmImage: 'Ubuntu 16.04'
   variables:
     COBBLER_ARCH: ${{ parameters.arch }}
     COBBLER_STRATEGY: ${{ parameters.strategy }}
+  displayName: "${{ parameters.arch }}, ${{ parameters.strategy }}"
   steps:
   - script: |
       export COBBLER_DOCKER_TAG="$COBBLER_STRATEGY-$COBBLER_ARCH"
