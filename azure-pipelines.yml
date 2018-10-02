@@ -11,17 +11,19 @@ jobs:
     COBBLER_DOCKER_IMAGE: "headmelted/cobbler"
     COBBLER_ARCH: "armhf"
     COBBLER_STRATEGY: "hybrid"
-    COBBLER_DOCKER_TAG: "hybrid-armhf"
-    COBBLER_IMAGE_NAME: "headmelted/cobbler:hybrid-armhf"
   steps:
   - script: |
+      export COBBLER_DOCKER_TAG="$COBBLER_STRATEGY-$COBBLER_ARCH"
+      #export COBBLER_IMAGE_NAME="$COBBLER_DOCKER_IMAGE:$COBBLER_DOCKER_TAG"
       echo "Creating rootfs directory";
       mkdir rootfs;
       echo "Downloading rootfs from prebootstrap";
       wget -c "https://github.com/headmelted/prebootstrap/releases/download/Oct-18/prebootstrap_stretch_minbase_${COBBLER_ARCH}_rootfs.tar.gz" -O - | sudo tar -xz -C rootfs
       echo "Performing first stage image build";
       sudo bash -c "export IMAGE_NAME=${COBBLER_DOCKER_IMAGE} && export DOCKER_TAG=${COBBLER_DOCKER_TAG} && . ./hooks/build";
+      echo "Tagging image [${COBBLER_DOCKER_IMAGE}] with tag [${COBBLER_DOCKER_TAG}]"
+      docker tag ${COBBLER_DOCKER_TAG} ${COBBLER_DOCKER_IMAGE}
       echo "Logging into docker hub";
       docker login --username ${DOCKER_LOGIN} -password ${DOCKER_PASSWORD};
       echo "Pushing image to docker hub";
-      docker push ${COBBLER_IMAGE_NAME};
+      docker push ${COBBLER_DOCKER_IMAGE};
