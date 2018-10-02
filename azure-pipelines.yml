@@ -11,6 +11,8 @@ jobs:
     COBBLER_DOCKER_IMAGE: "headmelted/cobbler"
     COBBLER_ARCH: "armhf"
     COBBLER_STRATEGY: "hybrid"
+    DOCKER_LOGIN: ${DOCKER_LOGIN}
+    DOCKER_PASSWORD: ${DOCKER_PASSWORD}
   steps:
   - script: |
       export COBBLER_DOCKER_TAG="$COBBLER_STRATEGY-$COBBLER_ARCH"
