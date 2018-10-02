@@ -16,7 +16,7 @@ jobs:
   steps:
   - script: |
       echo "Downloading rootfs from prebootstrap";
-      wget -c "https://github.com/headmelted/prebootstrap/releases/download/Oct-18/prebootstrap_stretch_minbase_${COBBLER_ARCH}_rootfs.tar.gz" -O - | tar -xz
+      wget -c "https://github.com/headmelted/prebootstrap/releases/download/Oct-18/prebootstrap_stretch_minbase_${COBBLER_ARCH}_rootfs.tar.gz" -O - | sudo tar -xz
       echo "Performing first stage image build";
       sudo bash -c "export IMAGE_NAME=${COBBLER_DOCKER_IMAGE} && export DOCKER_TAG=${COBBLER_DOCKER_TAG} && . ./hooks/build";
       echo "Logging into docker hub";
