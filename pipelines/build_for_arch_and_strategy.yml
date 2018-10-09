@@ -23,4 +23,4 @@ jobs:
       echo "Logging [$(DOCKER_LOGIN)] into docker hub";
       docker login -u $(DOCKER_LOGIN) -p $(DOCKER_PASSWORD);
       echo "Pushing image to docker hub";
-      docker push "headmelted/cobbler";
+      docker push "headmelted/cobbler:$COBBLER_DOCKER_TAG";
