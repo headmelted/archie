@@ -8,17 +8,16 @@ echo "Checking for $COBBLER_GIT_ENDPOINT";
 if [ "$COBBLER_GIT_ENDPOINT" != "" ]; then
   echo "Cobbler is pointed at a git endpoint";
   . ~/kitchen/steps/get.sh;
-  # . ~/kitchen/steps/patch.sh; # Removing patching (it should really be done in the context of the project's build script).
 else
   echo "Cobbler is not pointed at a git endpoint, assuming the current project is the one to build";
 fi;
 
+build_command="cd $COBBLER_CODE_DIRECTORY && . /kitchen/steps/install_dependencies.sh && . /build.sh"
+
 if [ "$COBBLER_STRATEGY" == "emulate" ]; then
   echo "Entering jail to start build in new bash shell";
-  . ~/kitchen/steps/jail.sh /bin/bash -c "cd $COBBLER_CODE_DIRECTORY && . /home/cobbler/steps/$COBBLER_SCRIPT.sh";
+  . ~/kitchen/steps/jail.sh /bin/bash -c build_command;
 else
   echo "Starting build in new bash shell";
-  tree /root/cobbler;
-  ls /root/cobbler/steps/;
-  /bin/bash -c "cd $COBBLER_CODE_DIRECTORY && . /root/cobbler/steps/$COBBLER_SCRIPT.sh";
+  /bin/bash -c build_command;
 fi;
