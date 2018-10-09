@@ -16,8 +16,8 @@ build_command="cd $COBBLER_CODE_DIRECTORY && . /kitchen/steps/install_dependenci
 
 if [ "$COBBLER_STRATEGY" == "emulate" ]; then
   echo "Entering jail to start build in new bash shell";
-  . ~/kitchen/steps/jail.sh /bin/bash -c build_command;
+  . ~/kitchen/steps/jail.sh /bin/bash -c "$build_command";
 else
   echo "Starting build in new bash shell";
-  /bin/bash -c build_command;
+  /bin/bash -c "$build_command";
 fi;
