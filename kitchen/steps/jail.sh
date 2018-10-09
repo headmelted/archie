@@ -8,11 +8,11 @@ if [ "${COBBLER_QEMU_INTERCEPTION_MODE}" == "binfmt_misc" ]; then
   echo "Mounting [${COBBLER_ARCH}] cleanroom (for binfmt_misc/chroot method)";
   current_directory=$(pwd);
   cd "$COBBLER_CLEANROOM_DIRECTORY";
-  sudo mount --bind /dev dev/
-  sudo mount --bind /sys sys/
-  sudo mount --bind /proc proc/
-  sudo mount --bind /dev/pts dev/pts/
-  sudo mount --bind /root/kitchen home/kitchen
+  mount --bind /dev dev/;
+  mount --bind /sys sys/;
+  mount --bind /proc proc/;
+  mount --bind /dev/pts dev/pts/;
+  mount --bind /root/kitchen home/kitchen;
   cd "$current_directory";
   echo "Executing command in [$COBBLER_ARCH] cleanroom (with binfmt_misc/chroot method)";
   sudo chroot $COBBLER_CLEANROOM_DIRECTORY "$@";
