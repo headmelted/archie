@@ -1,2 +1,9 @@
 #!/bin/sh
-docker build --build-arg DOCKER_TAG="$DOCKER_TAG" --build-arg COBBLER_STRATEGY="$COBBLER_STRATEGY" --build-arg COBBLER_ARCH="$COBBLER_ARCH" -t $IMAGE_NAME:$DOCKER_TAG .
+
+if [ "${DOCKER_TAG}" == "base" ]; then
+  FROM_IMAGE="debian:stretch-slim";
+else
+  FROM_IMAGE="headmelted/cobbler:base";
+fi;
+
+docker build --build-arg DOCKER_TAG="$DOCKER_TAG" --build-arg COBBLER_STRATEGY="$COBBLER_STRATEGY" --build-arg COBBLER_ARCH="$COBBLER_ARCH" --build-arg FROM_IMAGE="${FROM_IMAGE}" -t $IMAGE_NAME:$DOCKER_TAG .
