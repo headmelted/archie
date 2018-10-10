@@ -6,9 +6,6 @@ set -e;
 # Clone $COBBLER_GIT_ENDPOINT into the code folder, and make the executing
 # user the owner of the folder.
 
-echo "Ensuring git is installed";
-apt-get install -y git;
-
 echo "Retrieving code from git endpoint [$COBBLER_GIT_ENDPOINT] into [$COBBLER_CODE_DIRECTORY]";
 git clone $COBBLER_GIT_ENDPOINT $COBBLER_CODE_DIRECTORY;
   

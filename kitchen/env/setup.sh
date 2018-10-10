@@ -1,11 +1,21 @@
 #!/bin/bash
 set -e;
 
-COBBLER_TAG_SETTINGS=(${COBBLER_DOCKER_TAG//-/ });
+if [ $# -eq 0 ]
+then
 
-echo "Setting Cobbler strategy and arch from tag";
-export COBBLER_STRATEGY=${COBBLER_TAG_SETTINGS[0]};
-export COBBLER_ARCH=${COBBLER_TAG_SETTINGS[1]};
+  echo "No target strategy specified, setting Cobbler strategy and arch from tag";
+  COBBLER_TAG_SETTINGS=(${COBBLER_DOCKER_TAG//-/ });
+  export COBBLER_STRATEGY=${COBBLER_TAG_SETTINGS[0]};
+  export COBBLER_ARCH=${COBBLER_TAG_SETTINGS[1]};
+
+else
+
+  echo "Setting Cobbler strategy and arch from parameters"
+  export COBBLER_STRATEGY=$1;
+  export COBBLER_ARCH=$2;
+
+fi
 
 echo "Setting Cobbler environment for all architectures";
 export COBBLER_OS_DISTRIBUTION_NAME=debian;

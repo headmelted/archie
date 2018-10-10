@@ -11,16 +11,18 @@ jobs:
     COBBLER_STRATEGY: ${{ parameters.strategy }}
   steps:
   - script: |
-      export COBBLER_DOCKER_TAG="$COBBLER_STRATEGY-$COBBLER_ARCH"
-      echo "Creating rootfs directory";
-      mkdir rootfs;
-      if [ "${COBBLER_STRATEGY}" == "hybrid" ] || [ "${COBBLER_STRATEGY}" == "emulate" ]; then
-        echo "Downloading rootfs from prebootstrap for [${COBBLER_STRATEGY}] image";
-        wget -c "https://github.com/headmelted/prebootstrap/releases/download/Oct-18/prebootstrap_stretch_minbase_${COBBLER_ARCH}_rootfs.tar.gz" -O - | sudo tar -xz -C rootfs
-      fi
+      if [ -n "${COBBLER_ARCH}" ] && [ -n "${COBBLER_STRATEGY} ]; then
+        export COBBLER_DOCKER_TAG="$COBBLER_STRATEGY-$COBBLER_ARCH"
+      fi;
       echo "Performing first stage image build";
       sudo bash -c "IMAGE_NAME='headmelted/cobbler' && COBBLER_STRATEGY=${COBBLER_STRATEGY} && COBBLER_ARCH=${COBBLER_ARCH} && DOCKER_TAG=${COBBLER_DOCKER_TAG} && . ./hooks/build";
       echo "Logging [$(DOCKER_LOGIN)] into docker hub";
       docker login -u $(DOCKER_LOGIN) -p $(DOCKER_PASSWORD);
       echo "Pushing image to docker hub";
-      docker push "headmelted/cobbler:$COBBLER_DOCKER_TAG";
+      if [ -n "${COBBLER_DOCKER_TAG}" ]; then
+        echo "Pushing ${COBBLER_DOCKER_TAG} to Docker Hub";
+        docker push "headmelted/cobbler:$COBBLER_DOCKER_TAG";
+      else
+        echo "Pushing base container to Docker Hub";
+        docker push "headmelted/cobbler";
+      fi;

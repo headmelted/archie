@@ -48,9 +48,9 @@ if [ "$COBBLER_STRATEGY" == "cross" ] || [ "$COBBLER_STRATEGY" == "virtualize" ]
   apt-get install -y $packages_to_install;
 else
   echo "Installing dependency packages in jail for [$COBBLER_ARCH]";
-  . ~/kitchen/steps/jail.sh apt-get install -y $packages_to_install;
+  cobbler_jail apt-get install -y $packages_to_install;
 fi;
 
 echo "[$HOME] is where the ♥ is";
 
-echo "Environment prepared";
+echo "Dependencies installed";

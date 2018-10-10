@@ -5,32 +5,33 @@
 
 jobs:
 - template: build_all_for_arch.yml
-  parameters:
-    arch: amd64 
-- template: build_all_for_arch.yml
-  parameters:
-    arch: arm64
-- template: build_all_for_arch.yml
-  parameters:
-    arch: armel
-- template: build_all_for_arch.yml
-  parameters:
-    arch: armhf
-- template: build_all_for_arch.yml
-  parameters:
-    arch: i386
-- template: build_all_for_arch.yml
-  parameters:
-    arch: mips
-- template: build_all_for_arch.yml
-  parameters:
-    arch: mips64el
-- template: build_all_for_arch.yml
-  parameters:
-    arch: mipsel
+# - template: build_all_for_arch.yml
+#   parameters:
+#     arch: amd64 
+# - template: build_all_for_arch.yml
+#   parameters:
+#     arch: arm64
+# - template: build_all_for_arch.yml
+#   parameters:
+#     arch: armel
+# - template: build_all_for_arch.yml
+#   parameters:
+#     arch: armhf
+# - template: build_all_for_arch.yml
+#   parameters:
+#     arch: i386
+# - template: build_all_for_arch.yml
+#   parameters:
+#     arch: mips
+# - template: build_all_for_arch.yml
+#   parameters:
+#     arch: mips64el
+# - template: build_all_for_arch.yml
+#   parameters:
+#     arch: mipsel
 #- template: debootstrap_architecture_template.yml   # debootstrap having trouble with ppc64le, will restore later
 #  parameters:
 #    arch: ppc64el
-- template: build_all_for_arch.yml
-  parameters:
-    arch: s390x
+#- template: build_all_for_arch.yml
+#  parameters:
+#    arch: s390x
