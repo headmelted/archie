@@ -14,7 +14,7 @@ fi
 echo "Updating APT caches"
 apt-get update -yq;
 
-echo "Ensuring git is installed";
-apt-get install -y git;
+echo "Ensuring git and wget are installed";
+apt-get install -y git wget;
 
 . $COBBLER_HOME/kitchen/env/linux/display.sh;
