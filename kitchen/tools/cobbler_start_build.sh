@@ -12,7 +12,7 @@ set -e;
 #  echo "Cobbler is not pointed at a git endpoint, assuming the current project is the one to build";
 #fi;
 
-build_command=". $COBBLER_HOME/kitchen/tools/cobbler_install_dependencies.sh && . /build.sh"
+build_command=". $COBBLER_HOME/kitchen/tools/cobbler_install_dependencies.sh && . /root/build/build.sh"
 
 if [ "$COBBLER_STRATEGY" == "emulate" ]; then
   echo "Entering jail to start build in new bash shell";
