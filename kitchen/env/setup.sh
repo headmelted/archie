@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e;
 
-if [ "${COBBLER_DOCKER_TAG}" != "base" ]; then
+if [ -n "${COBBLER_DOCKER_TAG}" ] && [ "${COBBLER_DOCKER_TAG}" != "base" ]; then
 
   echo "No target strategy specified, setting Cobbler strategy and arch from tag";
   COBBLER_TAG_SETTINGS=(${COBBLER_DOCKER_TAG//-/ });
