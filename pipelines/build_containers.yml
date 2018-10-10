@@ -5,7 +5,6 @@
 
 jobs:
 - template: build_for_arch_and_strategy.yml
-  displayName: 'Base Container (Uninitialized)'
 # - template: build_all_for_arch.yml
 #   parameters:
 #     arch: amd64 
