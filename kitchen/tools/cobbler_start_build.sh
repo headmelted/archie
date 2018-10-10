@@ -18,6 +18,6 @@ if [ "$COBBLER_STRATEGY" == "emulate" ]; then
   echo "Entering jail to start build in new bash shell";
   cobbler_jail /bin/bash -c "$build_command";
 else
-  echo "Starting build in new bash shell";
+  echo "Starting build in new bash shell [$build_command]";
   /bin/bash -c "$build_command";
 fi;
