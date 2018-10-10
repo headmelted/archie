@@ -11,7 +11,7 @@ jobs:
     COBBLER_STRATEGY: ${{ parameters.strategy }}
   steps:
   - script: |
-      if [ -n "${COBBLER_ARCH}" ] && [ -n "${COBBLER_STRATEGY} ]; then
+      if [ -n "${COBBLER_ARCH}" ] && [ -n "${COBBLER_STRATEGY}" ]; then
         export COBBLER_DOCKER_TAG="$COBBLER_STRATEGY-$COBBLER_ARCH"
       fi;
       echo "Performing first stage image build";
