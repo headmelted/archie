@@ -1,3 +1,4 @@
+ARG FROM_IMAGE=debian:stretch-slim
 FROM $FROM_IMAGE
 ENV COBBLER_DOCKER_TAG=$DOCKER_TAG
 COPY kitchen /root/kitchen/
