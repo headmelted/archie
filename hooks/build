@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ "${DOCKER_TAG}" == "base" ]; then
+if [ -z "${DOCKER_TAG}" ]; then
   FROM_IMAGE="debian:stretch-slim";
 else
   FROM_IMAGE="headmelted/cobbler:base";
