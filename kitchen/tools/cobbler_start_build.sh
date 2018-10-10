@@ -4,13 +4,13 @@ set -e;
 #echo "Setting environment";
 #. ~/kitchen/env/linux/setup.sh;
 
-echo "Checking for $COBBLER_GIT_ENDPOINT";
-if [ "$COBBLER_GIT_ENDPOINT" != "" ]; then
-  echo "Cobbler is pointed at a git endpoint";
-  . $COBBLER_HOME/kitchen/env/linux/cobbler_get_sources.sh;
-else
-  echo "Cobbler is not pointed at a git endpoint, assuming the current project is the one to build";
-fi;
+#echo "Checking for $COBBLER_GIT_ENDPOINT";
+#if [ "$COBBLER_GIT_ENDPOINT" != "" ]; then
+#  echo "Cobbler is pointed at a git endpoint";
+#  . $COBBLER_HOME/kitchen/env/linux/cobbler_get_sources.sh;
+#else
+#  echo "Cobbler is not pointed at a git endpoint, assuming the current project is the one to build";
+#fi;
 
 build_command="cd $COBBLER_CODE_DIRECTORY && . $COBBLER_HOME/kitchen/env/linux/cobbler_install_dependencies.sh && . /build.sh"
 
