@@ -4,7 +4,8 @@
 # we want to produce cobbler containers for.
 
 jobs:
-- template: build_all_for_arch.yml
+- template: build_for_arch_and_strategy.yml
+  displayName: 'Base Container (Uninitialized)'
 # - template: build_all_for_arch.yml
 #   parameters:
 #     arch: amd64 
