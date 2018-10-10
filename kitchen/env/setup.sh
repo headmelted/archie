@@ -38,8 +38,8 @@ echo "Setting cleanroom paths";
 export COBBLER_CLEANROOM_DIRECTORY=/root/jail;
 
 echo "Setting code and output paths";
-export COBBLER_OUTPUT_DIRECTORY=~/output;
-export COBBLER_CODE_DIRECTORY=~/code;
+export COBBLER_OUTPUT_DIRECTORY=/root/output;
+export COBBLER_CODE_DIRECTORY=$(pwd);
 
 echo "Matching npm_config_arch to npm_config_target_arch. THIS MAY BE WRONG - CONTACT ME IF THIS IS THE CASE."
 export npm_config_arch=$npm_config_target_arch;
