@@ -7,7 +7,7 @@ export COBBLER_HOME=$HOME;
 echo "COBBLER_HOME is $COBBLER_HOME";
 
 echo "Setting environment";
-. ~/kitchen/env/linux/setup.sh;
+. $COBBLER_HOME/kitchen/env/linux/setup.sh;
 
 if [ "$COBBLER_STRATEGY" == "cross" ] || [ "$COBBLER_STRATEGY" == "hybrid" ] ; then
   
@@ -48,7 +48,7 @@ if [ "$COBBLER_STRATEGY" == "cross" ] || [ "$COBBLER_STRATEGY" == "virtualize" ]
   apt-get install -y $packages_to_install;
 else
   echo "Installing dependency packages in jail for [$COBBLER_ARCH]";
-  cobbler_jail apt-get install -y $packages_to_install;
+  $COBBLER_HOME/kitchen/env/linux/cobbler_jail.sh apt-get install -y $packages_to_install;
 fi;
 
 echo "[$HOME] is where the ♥ is";

@@ -3,12 +3,6 @@
 echo "Setting COBBLER_HOME";
 export COBBLER_HOME=$HOME;
 
-#echo "Marking tools scripts executable";
-#chmod +x $COBBLER_HOME/kitchen/tools/*.sh;
-
-#echo "Setting PATH to include Cobbler tools"
-#export PATH="$COBBLER_HOME/kitchen/tools/:$PATH"
-
 echo "Initializing environment for [${COBBLER_DOCKER_TAG}]";
 . $COBBLER_HOME/kitchen/env/setup.sh;
 
