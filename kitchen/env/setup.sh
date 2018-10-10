@@ -1,19 +1,12 @@
 #!/bin/bash
 set -e;
 
-if [ $# -eq 0 ]
-then
+if [ "${COBBLER_DOCKER_TAG}" != "base" ]; then
 
   echo "No target strategy specified, setting Cobbler strategy and arch from tag";
   COBBLER_TAG_SETTINGS=(${COBBLER_DOCKER_TAG//-/ });
   export COBBLER_STRATEGY=${COBBLER_TAG_SETTINGS[0]};
   export COBBLER_ARCH=${COBBLER_TAG_SETTINGS[1]};
-
-else
-
-  echo "Setting Cobbler strategy and arch from parameters"
-  export COBBLER_STRATEGY=$1;
-  export COBBLER_ARCH=$2;
 
 fi
 

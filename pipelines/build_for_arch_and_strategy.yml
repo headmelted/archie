@@ -13,16 +13,13 @@ jobs:
   - script: |
       if [ -n "${COBBLER_ARCH}" ] && [ -n "${COBBLER_STRATEGY}" ]; then
         export COBBLER_DOCKER_TAG="$COBBLER_STRATEGY-$COBBLER_ARCH"
+      else
+        export COBBLER_DOCKER_TAG="base"
       fi;
       echo "Performing first stage image build";
       sudo bash -c "IMAGE_NAME='headmelted/cobbler' && COBBLER_STRATEGY=${COBBLER_STRATEGY} && COBBLER_ARCH=${COBBLER_ARCH} && DOCKER_TAG=${COBBLER_DOCKER_TAG} && . ./hooks/build";
       echo "Logging [$(DOCKER_LOGIN)] into docker hub";
       docker login -u $(DOCKER_LOGIN) -p $(DOCKER_PASSWORD);
       echo "Pushing image to docker hub";
-      if [ -n "${COBBLER_DOCKER_TAG}" ]; then
-        echo "Pushing ${COBBLER_DOCKER_TAG} to Docker Hub";
-        docker push "headmelted/cobbler:$COBBLER_DOCKER_TAG";
-      else
-        echo "Pushing base container to Docker Hub";
-        docker push "headmelted/cobbler";
-      fi;
+      echo "Pushing ${COBBLER_DOCKER_TAG} to Docker Hub";
+      docker push "headmelted/cobbler:$COBBLER_DOCKER_TAG";

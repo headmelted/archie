@@ -1,2 +1,2 @@
 #!/bin/sh
-docker build --build-arg DOCKER_TAG=$DOCKER_TAG --build-arg COBBLER_STRATEGY=$COBBLER_STRATEGY --build-arg COBBLER_ARCH=$COBBLER_ARCH -t $IMAGE_NAME:$DOCKER_TAG .
+docker build --build-arg DOCKER_TAG="$DOCKER_TAG" --build-arg COBBLER_STRATEGY="$COBBLER_STRATEGY" --build-arg COBBLER_ARCH="$COBBLER_ARCH" -t $IMAGE_NAME:$DOCKER_TAG .

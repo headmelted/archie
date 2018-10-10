@@ -9,8 +9,8 @@ chmod +x ./kitchen/tools/*.sh;
 echo "Setting PATH to include Cobbler tools"
 export PATH="$COBBLER_HOME/kitchen/tools/:$PATH"
 
-echo "Initializing environment for strategy [$1] and arch [$2]";
-. ./kitchen/env/linux/setup.sh $1 $2;
+echo "Initializing environment for [${COBBLER_DOCKER_TAG}]";
+. ./kitchen/env/linux/setup.sh;
 
 if [ "${COBBLER_STRATEGY}" == "hybrid" ] || [ "${COBBLER_STRATEGY}" == "emulate" ]; then
   echo "Downloading rootfs from prebootstrap for [${COBBLER_STRATEGY}] image";
