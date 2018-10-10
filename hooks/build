@@ -1,7 +1,10 @@
 #!/bin/sh
 
 if [ -z "${DOCKER_TAG}" ]; then
+  DOCKER_TAG="base"
   FROM_IMAGE="debian:stretch-slim";
+  COBBLER_STRATEGY=""
+  COBBLER_ARCH=""
 else
   FROM_IMAGE="headmelted/cobbler:base";
 fi;
