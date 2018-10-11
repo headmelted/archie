@@ -6,7 +6,7 @@ export COBBLER_HOME=$HOME;
 
 echo "COBBLER_HOME is $COBBLER_HOME";
 
-packages_to_install="build-essential";
+packages_to_install="gcc-$COBBLER_GNU_TRIPLET g++-$COBBLER_GNU_TRIPLET";
 
 if [ "$COBBLER_ARCH" != "amd64" ]; then
   
