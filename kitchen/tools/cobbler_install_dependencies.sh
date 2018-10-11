@@ -21,7 +21,7 @@ else
     if [ "$COBBLER_ARCH" == "i386" ] ; then
       packages_to_install="$packages_to_install g++-multilib";
     else
-      packages_to_install="$packages_to_install crossbuild-essential-$COBBLER_ARCH";
+      packages_to_install="$packages_to_install dpkg-cross";
     fi;
     
   fi;
