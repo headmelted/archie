@@ -6,7 +6,7 @@ export COBBLER_HOME=$HOME;
 
 echo "COBBLER_HOME is $COBBLER_HOME";
 
-echo "Updating APT caches";
+echo "Updating APT caches before dpkg";
 apt-get update -yq;
 
 if [ "$COBBLER_ARCH" != "amd64" ]; then
@@ -28,6 +28,9 @@ if [ "$COBBLER_ARCH" != "amd64" ]; then
   fi;
   
 fi;
+
+echo "Updating APT caches AFTER dpkg";
+apt-get update -yq;
 
 echo "Preparing to install dependencies";
 packages_to_install="$COBBLER_HOST_DEPENDENCIES";
