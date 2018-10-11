@@ -29,7 +29,7 @@ echo "Updating APT caches prior to dependency installation";
 apt-get update -yq;
 
 echo "Preparing to install dependencies";
-packages_to_install="$COBBLER_HOST_DEPENDENCIES";
+packages_to_install="$packages_to_install $COBBLER_HOST_DEPENDENCIES";
 
 for cobbler_dependency_package in $COBBLER_TARGET_DEPENDENCIES; do
   if [ "$COBBLER_STRATEGY" == "cross" ] ; then
