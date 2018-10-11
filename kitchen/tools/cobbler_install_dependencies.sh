@@ -6,6 +6,9 @@ export COBBLER_HOME=$HOME;
 
 echo "COBBLER_HOME is $COBBLER_HOME";
 
+echo "Updating APT caches";
+apt-get update -yq;
+
 if [ "$COBBLER_ARCH" != "amd64" ]; then
   
   if [ "$COBBLER_STRATEGY" == "cross" ] || [ "$COBBLER_STRATEGY" == "hybrid" ] ; then
@@ -21,7 +24,6 @@ if [ "$COBBLER_ARCH" != "amd64" ]; then
     
     echo "Updating $[COBBLER_ARCH] packages";
     apt-get install -y $packages_to_install;
-    apt-get update -yq;
     
   fi;
   
