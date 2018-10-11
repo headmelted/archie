@@ -6,9 +6,6 @@ export COBBLER_HOME=$HOME;
 
 echo "COBBLER_HOME is $COBBLER_HOME";
 
-echo "Setting environment";
-. $COBBLER_HOME/kitchen/env/linux/setup.sh;
-
 if [ "$COBBLER_STRATEGY" == "cross" ] || [ "$COBBLER_STRATEGY" == "hybrid" ] ; then
   
   echo "Adding cross-compilation target of [$COBBLER_ARCH]";
@@ -17,21 +14,22 @@ if [ "$COBBLER_STRATEGY" == "cross" ] || [ "$COBBLER_STRATEGY" == "hybrid" ] ; t
   echo "Listing apt sources":
   apt-cache policy;
  
-  if [ "$COBBLER_ARCH" != "amd64" ] && [ "$COBBLER_ARCH" != "i386" ] ; then
-    packages_to_install="crossbuild-essential-$COBBLER_ARCH";
-    if [ "$COBBLER_STRATEGY" == "hybrid" ] ; then
-      apt-get install -y $packages_to_install;
-      packages_to_install="";
+  if [ "$COBBLER_ARCH" != "amd64" ]; then
+    if [ "$COBBLER_ARCH" == "i386" ] ; then
+      packages_to_install="g++-multilib";
+    else
+      packages_to_install="crossbuild-essential-$COBBLER_ARCH";
     fi;
   fi;
  
   echo "Updating $[COBBLER_ARCH] packages";
+  apt-get install -y $packages_to_install;
   apt-get update -yq;
   
 fi;
 
 echo "Preparing to install dependencies";
-packages_to_install="$packages_to_install $COBBLER_HOST_DEPENDENCIES";
+packages_to_install="$COBBLER_HOST_DEPENDENCIES";
 
 for cobbler_dependency_package in $COBBLER_TARGET_DEPENDENCIES; do
   if [ "$COBBLER_STRATEGY" == "cross" ] ; then
