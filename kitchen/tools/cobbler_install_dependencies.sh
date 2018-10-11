@@ -6,8 +6,7 @@ export COBBLER_HOME=$HOME;
 
 echo "COBBLER_HOME is $COBBLER_HOME";
 
-echo "Updating APT caches before dpkg";
-apt-get update -yq;
+packages_to_install="build-essential";
 
 if [ "$COBBLER_ARCH" != "amd64" ]; then
   
@@ -15,22 +14,19 @@ if [ "$COBBLER_ARCH" != "amd64" ]; then
   
     echo "Adding cross-compilation target of [$COBBLER_ARCH]";
     dpkg --add-architecture $COBBLER_ARCH;
+
+    echo "Updating APT caches AFTER dpkg";
+    apt-get update -yq;
  
     if [ "$COBBLER_ARCH" == "i386" ] ; then
-      packages_to_install="g++-multilib";
+      packages_to_install="$packages_to_install g++-multilib";
     else
-      packages_to_install="crossbuild-essential-$COBBLER_ARCH";
+      packages_to_install="$packages_to_install crossbuild-essential-$COBBLER_ARCH";
     fi;
-    
-    echo "Updating $[COBBLER_ARCH] packages";
-    apt-get install -y $packages_to_install;
     
   fi;
   
 fi;
-
-echo "Updating APT caches AFTER dpkg";
-apt-get update -yq;
 
 echo "Preparing to install dependencies";
 packages_to_install="$COBBLER_HOST_DEPENDENCIES";
