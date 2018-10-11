@@ -6,25 +6,24 @@ export COBBLER_HOME=$HOME;
 
 echo "COBBLER_HOME is $COBBLER_HOME";
 
-if [ "$COBBLER_STRATEGY" == "cross" ] || [ "$COBBLER_STRATEGY" == "hybrid" ] ; then
+if [ "$COBBLER_ARCH" != "amd64" ]; then
   
-  echo "Adding cross-compilation target of [$COBBLER_ARCH]";
-  dpkg --add-architecture $COBBLER_ARCH;
+  if [ "$COBBLER_STRATEGY" == "cross" ] || [ "$COBBLER_STRATEGY" == "hybrid" ] ; then
   
-  echo "Listing apt sources":
-  apt-cache policy;
+    echo "Adding cross-compilation target of [$COBBLER_ARCH]";
+    dpkg --add-architecture $COBBLER_ARCH;
  
-  if [ "$COBBLER_ARCH" != "amd64" ]; then
     if [ "$COBBLER_ARCH" == "i386" ] ; then
       packages_to_install="g++-multilib";
     else
       packages_to_install="crossbuild-essential-$COBBLER_ARCH";
     fi;
+    
+    echo "Updating $[COBBLER_ARCH] packages";
+    apt-get install -y $packages_to_install;
+    apt-get update -yq;
+    
   fi;
- 
-  echo "Updating $[COBBLER_ARCH] packages";
-  apt-get install -y $packages_to_install;
-  apt-get update -yq;
   
 fi;
 
