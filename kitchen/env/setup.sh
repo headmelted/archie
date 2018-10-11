@@ -76,6 +76,11 @@ if [ "$COBBLER_ARCH" == "i386" ]; then
 else
   cc_compiler="$COBBLER_GNU_TRIPLET-gcc";
   cxx_compiler="$COBBLER_GNU_TRIPLET-g++";
+  if [ "$COBBLER_ARCH" == "amd64" ]; then
+    echo "Setting GCC to version 6 for amd64";
+    cc_compiler="$cc_compiler-6";
+    cxx_compiler="$cxx_compiler-6";
+  fi;
 fi;
 
 echo "CC is [$cc_compiler]";
