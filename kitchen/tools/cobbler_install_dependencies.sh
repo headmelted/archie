@@ -6,7 +6,7 @@ export COBBLER_HOME=$HOME;
 
 echo "COBBLER_HOME is $COBBLER_HOME";
 
-if [ "$COBBLER_ARCH" == "amd64" ]; then
+if [ "$COBBLER_ARCH" == "amd64" ] || [ "$COBBLER_ARCH" == "i386" ]; then
   echo "Installing base gcc and g++ for amd64";
   packages_to_install="gcc g++";
 else
@@ -17,15 +17,15 @@ else
   
     echo "Adding cross-compilation target of [$COBBLER_ARCH]";
     dpkg --add-architecture $COBBLER_ARCH;
- 
-    if [ "$COBBLER_ARCH" == "i386" ] ; then
-      packages_to_install="$packages_to_install g++-multilib";
-    else
-      packages_to_install="$packages_to_install dpkg-cross";
-    fi;
     
   fi;
   
+fi;
+ 
+if [ "$COBBLER_ARCH" == "i386" ] ; then
+  packages_to_install="$packages_to_install g++-multilib";
+else
+  packages_to_install="$packages_to_install dpkg-cross";
 fi;
 
 echo "Updating APT caches prior to dependency installation";
