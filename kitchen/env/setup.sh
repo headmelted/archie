@@ -79,9 +79,7 @@ else
 fi;
 
 echo "CC is [$cc_compiler]";
-${cc_compiler} -v;
 echo "CXX is [$cxx_compiler]";
-${cxx_compiler} -v;
 
 export CC="$cc_compiler $linkage_list";
 export CXX="$cxx_compiler $linkage_list";
