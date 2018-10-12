@@ -55,9 +55,3 @@ fi;
 echo "[$HOME] is where the ♥ is";
 
 echo "Dependencies installed";
-
-echo "CC -----------------------"
-eval "$cc_compiler -v";
-echo "CXX -----------------------"
-eval "$cxx_compiler -v";
-echo "---------------------------"
