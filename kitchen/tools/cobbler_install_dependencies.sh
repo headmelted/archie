@@ -55,3 +55,5 @@ fi;
 echo "[$HOME] is where the ♥ is";
 
 echo "Dependencies installed";
+
+. $COBBLER_HOME/kitchen/env/linux/display.sh;

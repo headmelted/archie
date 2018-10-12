@@ -21,3 +21,13 @@ echo "QEMU system emulator set: qemu-system-$COBBLER_QEMU_PACKAGE_ARCH"
 echo "C compilers (gcc-): $COBBLER_GNU_TRIPLET"
 echo "C++ compilers (gpp-): $COBBLER_GNU_TRIPLET"
 echo "---------------------------------------------------------"
+
+echo "CC (version) --------------"
+eval "$CC -v";
+echo "CC (configuration) --------"
+echo $CC
+echo "CXX (version) -------------"
+eval "$CXX -v";
+echo "CXX (configuration) -------"
+echo $CXX
+echo "---------------------------"

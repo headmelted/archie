@@ -100,7 +100,3 @@ else
   export HOSTCC=$CC;
   export HOSTCXX=$CXX;
 fi;
-
-echo "Linking Options ----------------------------------------------"
-echo $linkage_list;
-echo "--------------------------------------------------------------"
