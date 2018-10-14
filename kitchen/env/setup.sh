@@ -52,6 +52,16 @@ pkg_config_path=""
 linkage_list=""
 
 if [ $COBBLER_STRATEGY == "cross" ]; then
+ 
+  pkg_config_linkage_list="";
+  for cobbler_dependency_package in $COBBLER_TARGET_DEPENDENCIES; do
+    pkg_config_linkage_list="$pkg_config_linkage_list $( pkg-config --libs --cflags $( basename $( dpkg-query -L libxkbfile-dev | grep .pc$ ) .pc ))";
+  done;
+  
+  echo "PKG-CONFIG LINKAGE LIST (NOT CURRENTLY USED)--------------------------------------"
+  echo pkg_config_linkage_list
+  echo "----------------------------------------------------------------------------------"
+
   linkage_list="-L $COBBLER_CROSS_LIB_PATH -I/usr/include/$COBBLER_GNU_TRIPLET";
   pkg_config_path="/usr/share/pkgconfig:$COBBLER_CROSS_LIB_PATH/pkgconfig";
   for package in $COBBLER_TARGET_DEPENDENCIES; do
