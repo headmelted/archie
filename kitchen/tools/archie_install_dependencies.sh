@@ -23,25 +23,34 @@ fi;
 echo "Updating APT caches prior to dependency installation";
 apt-get update -yq;
 
-echo "Preparing to install dependencies";
-packages_to_install="$packages_to_install $ARCHIE_HOST_DEPENDENCIES";
+echo "Preparing to install host dependencies";
+host_packages_to_install="$packages_to_install $ARCHIE_HOST_DEPENDENCIES";
 
+echo "Preparing to install target dependencies";
 for archie_dependency_package in $ARCHIE_TARGET_DEPENDENCIES; do
   if [ "$ARCHIE_STRATEGY" == "cross" ] ; then
     archie_dependency_package="$archie_dependency_package:$ARCHIE_ARCH";
   fi;
-  packages_to_install="$packages_to_install $archie_dependency_package";
+  target_packages_to_install="$target_packages_to_install $archie_dependency_package";
 done;
 
-echo "Packages to install:";
-echo $packages_to_install;
+echo "Host packages to install ------------------";
+echo $host_packages_to_install;
+echo "Target packages to install ----------------";
+echo $target_packages_to_install;
+echo "-------------------------------------------";
   
 if [ "$ARCHIE_STRATEGY" == "cross" ] || [ "$ARCHIE_STRATEGY" == "virtualize" ] ; then
-  echo "Installing dependency packages";
-  apt-get install -y $packages_to_install;
-else
-  echo "Installing dependency packages in jail for [$ARCHIE_ARCH]";
-  $ARCHIE_HOME/kitchen/env/linux/archie_jail.sh apt-get install -y $packages_to_install;
+  echo "Installing host and target dependency packages";
+  apt-get install -y $host_packages_to_install $target_packages_to_install;
+elif [ "$ARCHIE_STRATEGY" == "hybrid" ]; then
+  echo "Installing host dependency packages for [hybrid]";
+  apt-get install -y $host_packages_to_install;
+  echo "Installing target dependency packages in jail for [hybrid]";
+  $ARCHIE_HOME/kitchen/env/linux/archie_jail.sh apt-get install -y $target_packages_to_install;
+elif [ "$ARCHIE_STRATEGY" == "emulate" ]; then
+  echo "Installing host and target dependency packages in jail for [$ARCHIE_ARCH]";
+  $ARCHIE_HOME/kitchen/env/linux/archie_jail.sh apt-get install -y $host_packages_to_install $target_packages_to_install;
 fi;
 
 echo "[$HOME] is where the ♥ is";

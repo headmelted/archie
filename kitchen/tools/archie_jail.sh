@@ -1,19 +1,27 @@
 #!/bin/bash
 set -e;
 
-echo "Listing capabilities:"
-echo "capsh --print | grep "Current:" | cut -d' ' -f3";
+#echo "Kernel capabilities "
+#echo "capsh --print | grep "Current:" | cut -d' ' -f3";
 
 if [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "binfmt_misc" ]; then
-  echo "Mounting [${ARCHIE_ARCH}] cleanroom (for binfmt_misc/chroot method)";
-  current_directory=$(pwd);
-  cd "$ARCHIE_CLEANROOM_DIRECTORY";
-  mount --bind /dev dev/;
-  mount --bind /sys sys/;
-  mount --bind /proc proc/;
-  mount --bind /dev/pts dev/pts/;
-  mount --bind /root/kitchen home/kitchen;
-  cd "$current_directory";
+  if [ ! -d "$ARCHIE_CLEANROOM_DIRECTORY" ]; then
+    echo "Cleanroom [$ARCHIE_CLEANROOM_DIRECTORY] doesn't exist, creating";
+    mkdir "$ARCHIE_CLEANROOM_DIRECTORY";
+    echo "Binding mounts for [${ARCHIE_ARCH}] cleanroom (for binfmt_misc/chroot method)";
+    echo "Mounting /dev into cleanroom [$ARCHIE_CLEANROOM_DIRECTORY]";
+    mount --bind /dev "$ARCHIE_CLEANROOM_DIRECTORY/dev/";
+    echo "Mounting /sys into cleanroom [$ARCHIE_CLEANROOM_DIRECTORY]";
+    mount --bind /sys "$ARCHIE_CLEANROOM_DIRECTORY/sys/";
+    echo "Mounting /proc into cleanroom [$ARCHIE_CLEANROOM_DIRECTORY]";
+    mount --bind /proc "$ARCHIE_CLEANROOM_DIRECTORY/proc/";
+    echo "Mounting /dev/pts into cleanroom [$ARCHIE_CLEANROOM_DIRECTORY]";
+    mount --bind /dev/pts "$ARCHIE_CLEANROOM_DIRECTORY/dev/pts/";
+    echo "Mounting /root/kitchen into cleanroom [$ARCHIE_CLEANROOM_DIRECTORY]";
+    mount --bind /root/kitchen "$ARCHIE_CLEANROOM_DIRECTORY/home/kitchen/";
+  else
+    echo "Cleanroom [$ARCHIE_CLEANROOM_DIRECTORY] already exists";
+  fi;
   echo "Executing command in [$ARCHIE_ARCH] cleanroom (with binfmt_misc/chroot method)";
   sudo chroot $ARCHIE_CLEANROOM_DIRECTORY "$@";
 elif [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "ptrace" ]; then
