@@ -16,7 +16,7 @@ build_command=". $ARCHIE_HOME/kitchen/tools/archie_install_dependencies.sh && . 
 
 if [ "$ARCHIE_STRATEGY" == "emulate" ]; then
   echo "Entering jail to start build in new bash shell";
-  archie_jail /bin/bash -c "$build_command";
+  $ARCHIE_HOME/kitchen/tools/archie_jail.sh /bin/bash -c "$build_command";
 else
   echo "Starting build in new bash shell [$build_command]";
   /bin/bash -c "$build_command";
