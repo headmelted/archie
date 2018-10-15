@@ -1,5 +1,6 @@
-![Archie logo](https://github.com/headmelted/archie/raw/master/logo.gif)
-
+<div style="background-color: #549BFF; width: 100%; text-align:center;">
+<img src="https://github.com/headmelted/archie/raw/master/logo.gif" alt="Archie logo"></img>
+</div>
 # Archie
 ## Simpler cross-compilation and testing for busy developers
 
