@@ -1,4 +1,4 @@
-![Archie logo](https://github.com/headmelted/archie/raw/master/logo_128.png)
+![Archie logo](https://github.com/headmelted/archie/raw/master/logo_128.gif)
 
 # Archie
 ## Simpler cross-compilation and testing for busy developers
