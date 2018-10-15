@@ -92,7 +92,7 @@ echo "Current directory is: $(pwd)";
   echo "Mounting root directory";
   mount -t ext4 -o loop,offset=$root_sector_offset ../../../../.cache/image_${LABEL}.img ../image_${LABEL}/root;
   
-  if [ "$COBBLER_ARCH" == "armhf" ]; then
+  if [ "$ARCHIE_ARCH" == "armhf" ]; then
     echo "Emptying ld.so.preload";
     echo "" > ../image_${LABEL}/root/etc/ld.so.preload;
     echo "Setting boot.sh to execute, and then shutdown";
@@ -185,7 +185,7 @@ poweroff;
   cp -R ../../../tools ../image_${LABEL}/root/workspace/tools;
   
   echo "Copying vscode into host";
-  mkdir ../image_${LABEL}/root/workspace/.builds ../image_${LABEL}/root/workspace/.builds/$COBBLER_LABEL;
+  mkdir ../image_${LABEL}/root/workspace/.builds ../image_${LABEL}/root/workspace/.builds/$ARCHIE_LABEL;
   cp -R ./.vscode ../image_${LABEL}/root/workspace/.builds/${LABEL}/.vscode;
   
   echo "Listing workspace inside image";

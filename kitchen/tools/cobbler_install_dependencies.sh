@@ -1,51 +1,51 @@
 #!/bin/bash
 set -e;
 
-echo "Setting COBBLER_HOME";
-export COBBLER_HOME=$HOME;
+echo "Setting ARCHIE_HOME";
+export ARCHIE_HOME=$HOME;
 
-echo "COBBLER_HOME is $COBBLER_HOME";
+echo "ARCHIE_HOME is $ARCHIE_HOME";
 
-if [ "$COBBLER_ARCH" == "amd64" ] || [ "$COBBLER_ARCH" == "i386" ]; then
+if [ "$ARCHIE_ARCH" == "amd64" ] || [ "$ARCHIE_ARCH" == "i386" ]; then
   echo "Installing base gcc and g++ for amd64";
   packages_to_install="gcc g++";
-  if [ "$COBBLER_ARCH" == "i386" ] ; then packages_to_install="$packages_to_install g++-multilib"; fi;
+  if [ "$ARCHIE_ARCH" == "i386" ] ; then packages_to_install="$packages_to_install g++-multilib"; fi;
 else
-  echo "Installing [$COBBLER_GNU_TRIPLET] gcc and g++";
-  packages_to_install="gcc-$COBBLER_GNU_TRIPLET g++-$COBBLER_GNU_TRIPLET dpkg-cross";
+  echo "Installing [$ARCHIE_GNU_TRIPLET] gcc and g++";
+  packages_to_install="gcc-$ARCHIE_GNU_TRIPLET g++-$ARCHIE_GNU_TRIPLET dpkg-cross";
 fi;
 
-if [ "$COBBLER_ARCH" != "amd64" ] && [ "$COBBLER_STRATEGY" == "cross" ] ; then
-  echo "Adding cross-compilation target of [$COBBLER_ARCH]";
-  dpkg --add-architecture $COBBLER_ARCH;
+if [ "$ARCHIE_ARCH" != "amd64" ] && [ "$ARCHIE_STRATEGY" == "cross" ] ; then
+  echo "Adding cross-compilation target of [$ARCHIE_ARCH]";
+  dpkg --add-architecture $ARCHIE_ARCH;
 fi;
 
 echo "Updating APT caches prior to dependency installation";
 apt-get update -yq;
 
 echo "Preparing to install dependencies";
-packages_to_install="$packages_to_install $COBBLER_HOST_DEPENDENCIES";
+packages_to_install="$packages_to_install $ARCHIE_HOST_DEPENDENCIES";
 
-for cobbler_dependency_package in $COBBLER_TARGET_DEPENDENCIES; do
-  if [ "$COBBLER_STRATEGY" == "cross" ] ; then
-    cobbler_dependency_package="$cobbler_dependency_package:$COBBLER_ARCH";
+for archie_dependency_package in $ARCHIE_TARGET_DEPENDENCIES; do
+  if [ "$ARCHIE_STRATEGY" == "cross" ] ; then
+    archie_dependency_package="$archie_dependency_package:$ARCHIE_ARCH";
   fi;
-  packages_to_install="$packages_to_install $cobbler_dependency_package";
+  packages_to_install="$packages_to_install $archie_dependency_package";
 done;
 
 echo "Packages to install:";
 echo $packages_to_install;
   
-if [ "$COBBLER_STRATEGY" == "cross" ] || [ "$COBBLER_STRATEGY" == "virtualize" ] ; then
+if [ "$ARCHIE_STRATEGY" == "cross" ] || [ "$ARCHIE_STRATEGY" == "virtualize" ] ; then
   echo "Installing dependency packages";
   apt-get install -y $packages_to_install;
 else
-  echo "Installing dependency packages in jail for [$COBBLER_ARCH]";
-  $COBBLER_HOME/kitchen/env/linux/cobbler_jail.sh apt-get install -y $packages_to_install;
+  echo "Installing dependency packages in jail for [$ARCHIE_ARCH]";
+  $ARCHIE_HOME/kitchen/env/linux/archie_jail.sh apt-get install -y $packages_to_install;
 fi;
 
 echo "[$HOME] is where the ♥ is";
 
 echo "Dependencies installed";
 
-. $COBBLER_HOME/kitchen/env/linux/display.sh;
+. $ARCHIE_HOME/kitchen/env/linux/display.sh;

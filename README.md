@@ -1,31 +1,31 @@
-![Cobbler logo](https://github.com/headmelted/cobbler/raw/master/logo_128.png)
+![Archie logo](https://github.com/headmelted/archie/raw/master/logo_128.png)
 
-# Cobbler
+# Archie
 ## Simpler cross-compilation and testing for busy developers
 
 _WARNING: THIS PROJECT IS STILL VERY MUCH A WORK-IN-PROGRESS AND SHOULD NOT BE USED FOR YOUR OWN PROJECTS YET. THERE'S A LOT OF PARTS MOVING AROUND. YE'VE BEEN WARNED!!_
 
-[![GitHub Stars](https://img.shields.io/github/stars/headmelted/cobbler.svg)](https://github.com/headmelted/cobbler/stargazers)
-[![GitHub Watchers](https://img.shields.io/github/watchers/headmelted/cobbler.svg)](https://github.com/headmelted/cobbler/watchers)
-[![Docker Stars](https://img.shields.io/docker/stars/headmelted/cobbler.svg)](https://hub.docker.com/r/headmelted/cobbler/)
-[![Docker Pulls](https://img.shields.io/docker/pulls/headmelted/cobbler.svg)](https://hub.docker.com/r/headmelted/cobbler/)
-[![Build Status](https://dev.azure.com/headmelted/headmelted_on_github/_apis/build/status/headmelted.cobbler)](https://dev.azure.com/headmelted/headmelted_on_github/_build/latest?definitionId=4)
+[![GitHub Stars](https://img.shields.io/github/stars/headmelted/archie.svg)](https://github.com/headmelted/archie/stargazers)
+[![GitHub Watchers](https://img.shields.io/github/watchers/headmelted/archie.svg)](https://github.com/headmelted/archie/watchers)
+[![Docker Stars](https://img.shields.io/docker/stars/headmelted/archie.svg)](https://hub.docker.com/r/headmelted/archie/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/headmelted/archie.svg)](https://hub.docker.com/r/headmelted/archie/)
+[![Build Status](https://dev.azure.com/headmelted/headmelted_on_github/_apis/build/status/headmelted.archie)](https://dev.azure.com/headmelted/headmelted_on_github/_build/latest?definitionId=4)
 
-### What is Cobbler?
-Cobbler is a series of pre-configured Debian Stretch docker containers that are collectively intended to make porting, compiling and testing code written for GNU compilers on multiple architectures as simple as possible.
+### What is Archie?
+Archie is a series of pre-configured Debian Stretch docker containers that are collectively intended to make porting, compiling and testing code written for GNU compilers on multiple architectures as simple as possible.
 
-By using some sensible defaults, and several commonly used and well-supported tools, Cobbler's goal is to make compiling platform-agnostic code in several languages to architectures such as ARM, PowerPC and SPARC as simple as building for Intel.
+By using some sensible defaults, and several commonly used and well-supported tools, Archie's goal is to make compiling platform-agnostic code in several languages to architectures such as ARM, PowerPC and SPARC as simple as building for Intel.
 
-### Who should use Cobbler?
-Certain projects are a better fit than others for the assumptions Cobbler makes.  Specifically, any code that relies heavily on architecture-specific calls is will see limited benefit from using Cobbler, whereas platform-agnostic code (or code with platform-agnostic native dependencies) is likely to have much better results.
+### Who should use Archie?
+Certain projects are a better fit than others for the assumptions Archie makes.  Specifically, any code that relies heavily on architecture-specific calls is will see limited benefit from using Archie, whereas platform-agnostic code (or code with platform-agnostic native dependencies) is likely to have much better results.
 
-It's expected that Cobbler should be able to compile fully platform-agnostic code to any target it supports without any changes, but any architecture-specific calls in your code will need to be patched to support your target.  In these cases, Cobbler can still help with migrating your project to support multiple architectures, but it isn't a silver bullet for deeply architecture-dependent code.
+It's expected that Archie should be able to compile fully platform-agnostic code to any target it supports without any changes, but any architecture-specific calls in your code will need to be patched to support your target.  In these cases, Archie can still help with migrating your project to support multiple architectures, but it isn't a silver bullet for deeply architecture-dependent code.
 
 ### How to get started
-Typically, the easiest way to get started with Cobbler is to first try to migrate your existing build script to building inside Cobbler with the **amd64** target (i.e. an **amd64** to **amd64** build).  Once your scripts are correctly configured for Cobbler, and your project is compiling successfully for **amd64**, targeting other architectures should be as simple as adding a different target architecture from the Supported Architectures table to your configuration.
+Typically, the easiest way to get started with Archie is to first try to migrate your existing build script to building inside Archie with the **amd64** target (i.e. an **amd64** to **amd64** build).  Once your scripts are correctly configured for Archie, and your project is compiling successfully for **amd64**, targeting other architectures should be as simple as adding a different target architecture from the Supported Architectures table to your configuration.
 
 ### Strategies
-Cobbler supports three different strategies for working with a target architecture within a session, as explained below.  Each of these strategies are agnostic as to the structure of your code, such that you should be able to change the setting as required by your project without making changes to your own code.
+Archie supports three different strategies for working with a target architecture within a session, as explained below.  Each of these strategies are agnostic as to the structure of your code, such that you should be able to change the setting as required by your project without making changes to your own code.
 
 #### cross
 The session is executed using **amd64** GNU cross-compilers for the target architecture.  When using this strategy, the dependency packages for the target architecture are installed, and linked explicitly during compilation.
@@ -49,24 +49,24 @@ _This strategy is most useful in scenarios where you need to be able to confirm 
 
 ### Support matrix
 #### Variables
-Cobbler sets a series of global variables inside each session that can be used to help with your builds.  The table below explains these variables, and gives some context as to what each one means.  Note that Cobbler globals are always prefixed with *COBBLER_* so as to prevent conflicts with your own variables **except** in limited instances where Cobbler intentionally overwrites global variables to make cross-compilation easier, these variables are in **bold**.
+Archie sets a series of global variables inside each session that can be used to help with your builds.  The table below explains these variables, and gives some context as to what each one means.  Note that Archie globals are always prefixed with *ARCHIE_* so as to prevent conflicts with your own variables **except** in limited instances where Archie intentionally overwrites global variables to make cross-compilation easier, these variables are in **bold**.
 
 | Global                               | Description                                                               | cross | hybrid | emulate | virtualize | CI bindings
 |--------------------------------------|---------------------------------------------------------------------------|-------|--------|---------|------------|-------
-| $COBBLER_ARCH                        | The target architecture of the current session                            | yes   | yes    | yes     | yes        | yes
-| $COBBLER_STRATEGY                    | The strategy of the current session                                       | yes   | yes    | yes     | yes        | yes
-| $COBBLER_OS_DISTRIBUTION_NAME        | The Linux distribution Cobbler is running on (currently *debian*)         | yes   | yes    | yes     | yes        | yes
-| $COBBLER_OS_RELEASE_NAME             | The Linux release Cobbler is running on (currently *stretch-slim*)        | yes   | yes    | yes     | yes        | yes
-| $COBBLER_CLEANROOM_ROOT_DIRECTORY    | The directory in which the architecture-specific cleanrooms are placed    | no    | no     | yes     | no         | no
-| $COBBLER_CLEANROOM_RELEASE_DIRECTORY | A sub-directory of the cleanroom corresponding to the OS release          | no    | no     | yes     | no         | no
-| $COBBLER_CLEANROOM_DIRECTORY         | The directory of the cleanroom for the current session                    | no    | no     | yes     | no         | no
-| $COBBLER_OUTPUT_DIRECTORY            | This is where build artifacts should should be placed during compilation. | yes   | yes    | yes     | yes        | yes
-| $COBBLER_CODE_DIRECTORY              | This is where the source code for compilation is placed.                  | yes   | yes    | yes     | yes        | yes
+| $ARCHIE_ARCH                        | The target architecture of the current session                            | yes   | yes    | yes     | yes        | yes
+| $ARCHIE_STRATEGY                    | The strategy of the current session                                       | yes   | yes    | yes     | yes        | yes
+| $ARCHIE_OS_DISTRIBUTION_NAME        | The Linux distribution Archie is running on (currently *debian*)         | yes   | yes    | yes     | yes        | yes
+| $ARCHIE_OS_RELEASE_NAME             | The Linux release Archie is running on (currently *stretch-slim*)        | yes   | yes    | yes     | yes        | yes
+| $ARCHIE_CLEANROOM_ROOT_DIRECTORY    | The directory in which the architecture-specific cleanrooms are placed    | no    | no     | yes     | no         | no
+| $ARCHIE_CLEANROOM_RELEASE_DIRECTORY | A sub-directory of the cleanroom corresponding to the OS release          | no    | no     | yes     | no         | no
+| $ARCHIE_CLEANROOM_DIRECTORY         | The directory of the cleanroom for the current session                    | no    | no     | yes     | no         | no
+| $ARCHIE_OUTPUT_DIRECTORY            | This is where build artifacts should should be placed during compilation. | yes   | yes    | yes     | yes        | yes
+| $ARCHIE_CODE_DIRECTORY              | This is where the source code for compilation is placed.                  | yes   | yes    | yes     | yes        | yes
 
 #### Architecture
-There are effectively two lists of supported architectures for Cobbler. Compiling and testing of programs without dependendent packages (i.e. programs for which no dependencies need to be pulled from Debian repositories) is supported for the intersection of architectures of GCC and QEMU.
+There are effectively two lists of supported architectures for Archie. Compiling and testing of programs without dependendent packages (i.e. programs for which no dependencies need to be pulled from Debian repositories) is supported for the intersection of architectures of GCC and QEMU.
 
-As Cobbler is built on Debian Stretch, the architectures supported for those programs which have dependencies on standard packages within the repository mirror those supported by the operating system.  To clarify, the table below shows the state of support for different architectures within Cobbler, and the level of support that's available in terms of APT packages for that architecture.
+As Archie is built on Debian Stretch, the architectures supported for those programs which have dependencies on standard packages within the repository mirror those supported by the operating system.  To clarify, the table below shows the state of support for different architectures within Archie, and the level of support that's available in terms of APT packages for that architecture.
 
 | Architecture  | Family   | Bit width        | cross   | hybrid  | emulate | virtualize | packages 
 |---------------|----------|------------------|---------|---------|---------|------------|----------
@@ -81,4 +81,4 @@ As Cobbler is built on Debian Stretch, the architectures supported for those pro
 | ppc64el       | POWER    | 64               | yes     | yes     | yes     | yes        | all      
 | s390x         | IBM Z    | 64               | yes     | yes     | yes     | yes        | all      
 
-*\* The amd64 target does not actually involve cross-compilation, and simply maps directly to the x86_64 GCC compilers.  The target is included so that the the developer's build process can treat amd64 as agnostically as other architectures in Cobbler.
+*\* The amd64 target does not actually involve cross-compilation, and simply maps directly to the x86_64 GCC compilers.  The target is included so that the the developer's build process can treat amd64 as agnostically as other architectures in Archie.

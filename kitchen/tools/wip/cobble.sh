@@ -1,12 +1,12 @@
 #!/bin/bash
 set -e;
 
-echo "Setting COBBLER_HOME";
-export COBBLER_HOME=$HOME;
+echo "Setting ARCHIE_HOME";
+export ARCHIE_HOME=$HOME;
 
-echo "COBBLER_HOME is $COBBLER_HOME";
+echo "ARCHIE_HOME is $ARCHIE_HOME";
 
-echo "Entering kitchen to setup Cobbler";
+echo "Entering kitchen to setup Archie";
 cd ~/kitchen;
 
 echo "Setting environment";
@@ -16,4 +16,4 @@ echo "Setting environment";
 #echo "Staging environment";
 #. ./steps/stage.sh;
 
-echo "Cobbler ready for [$COBBLER_ARCH]";
+echo "Archie ready for [$ARCHIE_ARCH]";

@@ -3,10 +3,10 @@
 if [ -z "${DOCKER_TAG}" ] || [ "${DOCKER_TAG}" == "base" ]; then
   DOCKER_TAG="base"
   FROM_IMAGE="debian:stretch-slim";
-  COBBLER_STRATEGY=""
-  COBBLER_ARCH=""
+  ARCHIE_STRATEGY=""
+  ARCHIE_ARCH=""
 else
-  FROM_IMAGE="headmelted/cobbler:base";
+  FROM_IMAGE="headmelted/archie:base";
 fi;
 
-docker build --build-arg DOCKER_TAG="$DOCKER_TAG" --build-arg COBBLER_STRATEGY="$COBBLER_STRATEGY" --build-arg COBBLER_ARCH="$COBBLER_ARCH" --build-arg FROM_IMAGE="${FROM_IMAGE}" -t $IMAGE_NAME:$DOCKER_TAG .
+docker build --build-arg DOCKER_TAG="$DOCKER_TAG" --build-arg ARCHIE_STRATEGY="$ARCHIE_STRATEGY" --build-arg ARCHIE_ARCH="$ARCHIE_ARCH" --build-arg FROM_IMAGE="${FROM_IMAGE}" -t $IMAGE_NAME:$DOCKER_TAG .

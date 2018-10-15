@@ -1,9 +1,9 @@
 #!/bin/bash
 set -e;
 
-if [ "$COBBLER_STRATEGY" == "emulate" ] ; then
+if [ "$ARCHIE_STRATEGY" == "emulate" ] ; then
 
-    echo "Entering [$COBBLER_ARCH] jail to complete setup";
+    echo "Entering [$ARCHIE_ARCH] jail to complete setup";
     . ~/kitchen/steps/jail.sh /home/kitchen/steps/install_dependencies.sh;
     
 else

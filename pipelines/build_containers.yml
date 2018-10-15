@@ -1,7 +1,7 @@
 # build_containers.yml
 
 # This file contains the matrix of different architecture and strategy combinations
-# we want to produce cobbler containers for.
+# we want to produce archie containers for.
 
 jobs:
 - template: build_for_arch_and_strategy.yml

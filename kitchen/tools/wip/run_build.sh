@@ -5,13 +5,13 @@ echo "Starting to cook";
 
 echo "C compiler is ${CC}, C++ compiler is ${CXX}.";
 
-echo "Entering code directory [$COBBLER_CODE_DIRECTORY]";
-cd $COBBLER_CODE_DIRECTORY;
+echo "Entering code directory [$ARCHIE_CODE_DIRECTORY]";
+cd $ARCHIE_CODE_DIRECTORY;
 
-. ~/kitchen/cobbler/build.sh;
+. ~/kitchen/archie/build.sh;
 
 echo "Build complete";
 
-. ~/kitchen/cobbler/package.sh;
+. ~/kitchen/archie/package.sh;
 
 echo "Packaging complete";

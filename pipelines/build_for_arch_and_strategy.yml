@@ -1,25 +1,25 @@
 # build_for_arch_and_strategy.yml
 
-# This template is used to generate a cobbler image for a single architecture and strategy combination.
+# This template is used to generate a archie image for a single architecture and strategy combination.
 
 jobs:
 - job:
   pool:
     vmImage: 'Ubuntu 16.04'
   variables:
-    COBBLER_ARCH: ${{ parameters.arch }}
-    COBBLER_STRATEGY: ${{ parameters.strategy }}
+    ARCHIE_ARCH: ${{ parameters.arch }}
+    ARCHIE_STRATEGY: ${{ parameters.strategy }}
   steps:
   - script: |
-      if [ -n "${COBBLER_ARCH}" ] && [ -n "${COBBLER_STRATEGY}" ]; then
-        export COBBLER_DOCKER_TAG="$COBBLER_STRATEGY-$COBBLER_ARCH"
+      if [ -n "${ARCHIE_ARCH}" ] && [ -n "${ARCHIE_STRATEGY}" ]; then
+        export ARCHIE_DOCKER_TAG="$ARCHIE_STRATEGY-$ARCHIE_ARCH"
       else
-        export COBBLER_DOCKER_TAG="base"
+        export ARCHIE_DOCKER_TAG="base"
       fi;
       echo "Performing first stage image build";
-      sudo bash -c "IMAGE_NAME='headmelted/cobbler' && COBBLER_STRATEGY=${COBBLER_STRATEGY} && COBBLER_ARCH=${COBBLER_ARCH} && DOCKER_TAG=${COBBLER_DOCKER_TAG} && . ./hooks/build";
+      sudo bash -c "IMAGE_NAME='headmelted/archie' && ARCHIE_STRATEGY=${ARCHIE_STRATEGY} && ARCHIE_ARCH=${ARCHIE_ARCH} && DOCKER_TAG=${ARCHIE_DOCKER_TAG} && . ./hooks/build";
       echo "Logging [$(DOCKER_LOGIN)] into docker hub";
       docker login -u $(DOCKER_LOGIN) -p $(DOCKER_PASSWORD);
       echo "Pushing image to docker hub";
-      echo "Pushing ${COBBLER_DOCKER_TAG} to Docker Hub";
-      docker push "headmelted/cobbler:$COBBLER_DOCKER_TAG";
+      echo "Pushing ${ARCHIE_DOCKER_TAG} to Docker Hub";
+      docker push "headmelted/archie:$ARCHIE_DOCKER_TAG";

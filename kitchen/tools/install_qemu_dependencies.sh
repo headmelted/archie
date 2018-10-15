@@ -1,13 +1,13 @@
 #!/bin/bash
 set -e;
 
-if [ "${COBBLER_QEMU_INTERCEPTION_MODE}" == "proot" ] ; then
-  cobbler_qemu_dependencies="proot";
-elif [ "${COBBLER_QEMU_INTERCEPTION_MODE}" == "execve" ] ; then
-  cobbler_qemu_dependencies="fakechroot fakeroot";
+if [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "proot" ] ; then
+  archie_qemu_dependencies="proot";
+elif [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "execve" ] ; then
+  archie_qemu_dependencies="fakechroot fakeroot";
 else
-  cobbler_qemu_dependencies=""; # binfmt_misc and virtualize
+  archie_qemu_dependencies=""; # binfmt_misc and virtualize
 fi;
 
-echo "Installing base Cobbler dependencies";
-apt-get install -y qemu-user-static ${cobbler_qemu_dependencies};
+echo "Installing base Archie dependencies";
+apt-get install -y qemu-user-static ${archie_qemu_dependencies};
