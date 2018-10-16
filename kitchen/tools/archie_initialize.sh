@@ -7,6 +7,8 @@ echo "Initializing environment for [${ARCHIE_STRATEGY}/${ARCHIE_ARCH}]";
 . $ARCHIE_HOME/kitchen/env/setup.sh;
 
 if [ "${ARCHIE_STRATEGY}" == "hybrid" ] || [ "${ARCHIE_STRATEGY}" == "emulate" ]; then
+  echo "Updating APT";
+  apt-get update -yq;
   echo "Installing wget for prebootstrap";
   apt-get install -y wget;
   echo "Downloading rootfs from prebootstrap for [${ARCHIE_STRATEGY}] image";
