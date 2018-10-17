@@ -14,8 +14,8 @@ if [ "${ARCHIE_STRATEGY}" == "hybrid" ] || [ "${ARCHIE_STRATEGY}" == "emulate" ]
   echo "Updating APT";
   apt-get update -yq;
   
-  echo "Installing wget and qemu-user-static for prebootstrap";
-  apt-get install -y wget qemu-user-static;
+  echo "Installing wget, qemu-user-static and binfmt-support for prebootstrap";
+  apt-get install -y wget qemu-user-static binfmt-support;
   
   echo "Downloading rootfs from prebootstrap for [${ARCHIE_STRATEGY}] image";
   wget -c "https://github.com/headmelted/prebootstrap/releases/download/Oct-18/prebootstrap_stretch_minbase_${ARCHIE_ARCH}_rootfs.tar.gz" -O - | tar -xz -C "${ARCHIE_CLEANROOM_DIRECTORY}/";
