@@ -62,17 +62,17 @@ if [ $ARCHIE_STRATEGY == "cross" ]; then
   echo pkg_config_linkage_list
   echo "----------------------------------------------------------------------------------"
 
-  linkage_list="-L $ARCHIE_CROSS_LIB_PATH -I/usr/include/$ARCHIE_GNU_TRIPLET";
+  linkage_list="-L$ARCHIE_CROSS_LIB_PATH -I/usr/include/$ARCHIE_GNU_TRIPLET";
   pkg_config_path="/usr/share/pkgconfig:$ARCHIE_CROSS_LIB_PATH/pkgconfig";
   for package in $ARCHIE_TARGET_DEPENDENCIES; do
     linkage_list="$linkage_list -I/usr/lib/$ARCHIE_GNU_TRIPLET/$package/include"
   done
 else
   if [ "$ARCHIE_STRATEGY" == "hybrid" ]; then
-    linkage_list="--sysroot=$ARCHIE_CLEANROOM_DIRECTORY -L $ARCHIE_CLEANROOM_DIRECTORY$ARCHIE_CROSS_LIB_PATH -I$ARCHIE_CLEANROOM_DIRECTORY/usr/include/$ARCHIE_GNU_TRIPLET"
+    linkage_list="--sysroot=$ARCHIE_CLEANROOM_DIRECTORY -L$ARCHIE_CROSS_LIB_PATH -I/usr/include/$ARCHIE_GNU_TRIPLET"
     pkg_config_path="$ARCHIE_CLEANROOM_DIRECTORY/usr/share/pkgconfig:$ARCHIE_CLEANROOM_DIRECTORY$ARCHIE_CROSS_LIB_PATH/pkgconfig";
     for package in $ARCHIE_TARGET_DEPENDENCIES; do
-      linkage_list="$linkage_list -I$ARCHIE_CLEANROOM_DIRECTORY/usr/lib/$ARCHIE_GNU_TRIPLET/$package/include -I$ARCHIE_CLEANROOM_DIRECTORY/usr/include/$package"
+      linkage_list="$linkage_list -I/usr/lib/$ARCHIE_GNU_TRIPLET/$package/include -I/usr/include/$package"
     done
   else
     echo "TODO: OTHER STRATEGY LINKING";
