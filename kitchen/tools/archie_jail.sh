@@ -24,6 +24,9 @@ if [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "binfmt_misc" ]; then
   
     echo "Mounting /dev/pts into cleanroom [$ARCHIE_CLEANROOM_DIRECTORY]";
     mount --bind /dev/pts "$ARCHIE_CLEANROOM_DIRECTORY/dev/pts/";
+    
+    echo "Creating kitchen inside chroot";
+    mkdir "$ARCHIE_CLEANROOM_DIRECTORY/root/kitchen/";
   
     echo "Mounting /root/kitchen into cleanroom [$ARCHIE_CLEANROOM_DIRECTORY]";
     mount --bind /root/kitchen "$ARCHIE_CLEANROOM_DIRECTORY/root/kitchen/";
@@ -33,9 +36,12 @@ if [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "binfmt_misc" ]; then
     echo "Cleanroom has already been mounted.";
     
   fi;
+  
+  echo "Testing chroot architecture";
+  chroot $ARCHIE_CLEANROOM_DIRECTORY /bin/bash -C "dpkg --print-architecture";
 
   echo "Executing command in [$ARCHIE_ARCH] cleanroom (with binfmt_misc/chroot method)";
-  chroot $ARCHIE_CLEANROOM_DIRECTORY /bin/bash -C "echo dpkg --print-architecture && \"$@\"";
+  chroot "$ARCHIE_CLEANROOM_DIRECTORY" "$@";
   
 elif [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "ptrace" ]; then
   echo "Executing command in [$ARCHIE_ARCH] cleanroom (with proot method)";
