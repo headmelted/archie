@@ -19,6 +19,10 @@ if [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "binfmt_misc" ]; then
     mount --bind /dev/pts "$ARCHIE_CLEANROOM_DIRECTORY/dev/pts/";
     echo "Mounting /root/kitchen into cleanroom [$ARCHIE_CLEANROOM_DIRECTORY]";
     mount --bind /root/kitchen "$ARCHIE_CLEANROOM_DIRECTORY/home/kitchen/";
+    echo "Installing qemu-user-static";
+    apt-get install -y qemu-user-static;
+    echo "Copying QEMU-${ARCHIE_QEMU_ARCH}-static into jail";
+    cp "/usr/bin/qemu-${ARCHIE_QEMU_ARCH}-static" "${ARCHIE_CLEANROOM_DIRECTORY}/usr/bin";
   else
     echo "Cleanroom [$ARCHIE_CLEANROOM_DIRECTORY] already exists";
   fi;
