@@ -23,7 +23,7 @@ if [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "binfmt_misc" ]; then
     echo "Cleanroom [$ARCHIE_CLEANROOM_DIRECTORY] already exists";
   fi;
   echo "Executing command in [$ARCHIE_ARCH] cleanroom (with binfmt_misc/chroot method)";
-  sudo chroot $ARCHIE_CLEANROOM_DIRECTORY "$@";
+  chroot $ARCHIE_CLEANROOM_DIRECTORY "$@";
 elif [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "ptrace" ]; then
   echo "Executing command in [$ARCHIE_ARCH] cleanroom (with proot method)";
   proot -b /root/kitchen:/home/kitchen -R $ARCHIE_CLEANROOM_DIRECTORY -q qemu-$ARCHIE_QEMU_ARCH-static "$@";
