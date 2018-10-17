@@ -30,7 +30,7 @@ if [ "${ARCHIE_STRATEGY}" == "hybrid" ] || [ "${ARCHIE_STRATEGY}" == "emulate" ]
   cp "/usr/bin/qemu-${ARCHIE_QEMU_ARCH}-static" "${ARCHIE_CLEANROOM_DIRECTORY}/usr/bin";
   
   echo "Testing binfmt-support in jail";
-  chroot $ARCHIE_CLEANROOM_DIRECTORY update-binfmts --display;
+  chroot $ARCHIE_CLEANROOM_DIRECTORY apt-get update -yq;
   
   exit;
   
