@@ -23,25 +23,4 @@ if [ "${ARCHIE_STRATEGY}" == "hybrid" ] || [ "${ARCHIE_STRATEGY}" == "emulate" ]
   echo "Copying QEMU-${ARCHIE_QEMU_ARCH}-static into jail";
   cp "/usr/bin/qemu-${ARCHIE_QEMU_ARCH}-static" "${ARCHIE_CLEANROOM_DIRECTORY}/usr/bin";
   
-  if [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "binfmt_misc" ]; then
-  
-    echo "Binding mounts for [${ARCHIE_ARCH}] cleanroom (for binfmt_misc/chroot method)";
-  
-    echo "Mounting /dev into cleanroom [$ARCHIE_CLEANROOM_DIRECTORY]";
-    mount --bind /dev "$ARCHIE_CLEANROOM_DIRECTORY/dev/";
-  
-    echo "Mounting /sys into cleanroom [$ARCHIE_CLEANROOM_DIRECTORY]";
-    mount --bind /sys "$ARCHIE_CLEANROOM_DIRECTORY/sys/";
-  
-    echo "Mounting /proc into cleanroom [$ARCHIE_CLEANROOM_DIRECTORY]";
-    mount --bind /proc "$ARCHIE_CLEANROOM_DIRECTORY/proc/";
-  
-    echo "Mounting /dev/pts into cleanroom [$ARCHIE_CLEANROOM_DIRECTORY]";
-    mount --bind /dev/pts "$ARCHIE_CLEANROOM_DIRECTORY/dev/pts/";
-  
-    echo "Mounting /root/kitchen into cleanroom [$ARCHIE_CLEANROOM_DIRECTORY]";
-    mount --bind /root/kitchen "$ARCHIE_CLEANROOM_DIRECTORY/home/kitchen/";
-    
-  fi;
-  
 fi

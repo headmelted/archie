@@ -5,6 +5,30 @@ set -e;
 #echo "capsh --print | grep "Current:" | cut -d' ' -f3";
 
 if [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "binfmt_misc" ]; then
+
+  mount;
+
+  if [mount | grep $ARCHIE_CLEANROOM_DIRECTORY/dev > /dev/null]; then
+    echo "Binding mounts for [${ARCHIE_ARCH}] cleanroom (for binfmt_misc/chroot method)";
+  
+    echo "Mounting /dev into cleanroom [$ARCHIE_CLEANROOM_DIRECTORY]";
+    mount --bind /dev "$ARCHIE_CLEANROOM_DIRECTORY/dev/";
+  
+    echo "Mounting /sys into cleanroom [$ARCHIE_CLEANROOM_DIRECTORY]";
+    mount --bind /sys "$ARCHIE_CLEANROOM_DIRECTORY/sys/";
+  
+    echo "Mounting /proc into cleanroom [$ARCHIE_CLEANROOM_DIRECTORY]";
+    mount --bind /proc "$ARCHIE_CLEANROOM_DIRECTORY/proc/";
+  
+    echo "Mounting /dev/pts into cleanroom [$ARCHIE_CLEANROOM_DIRECTORY]";
+    mount --bind /dev/pts "$ARCHIE_CLEANROOM_DIRECTORY/dev/pts/";
+  
+    echo "Mounting /root/kitchen into cleanroom [$ARCHIE_CLEANROOM_DIRECTORY]";
+    mount --bind /root/kitchen "$ARCHIE_CLEANROOM_DIRECTORY/home/kitchen/";
+  fi;
+  
+  exit;
+
   echo "Executing command in [$ARCHIE_ARCH] cleanroom (with binfmt_misc/chroot method)";
   chroot $ARCHIE_CLEANROOM_DIRECTORY echo "chroot:[$(uname -a)]" && "$@" && echo "chroot:[$(uname -a)]";
 elif [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "ptrace" ]; then
