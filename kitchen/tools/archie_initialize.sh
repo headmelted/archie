@@ -32,6 +32,7 @@ if [ "${ARCHIE_STRATEGY}" == "hybrid" ] || [ "${ARCHIE_STRATEGY}" == "emulate" ]
   echo "Testing binfmt-support in jail";
   chroot $ARCHIE_CLEANROOM_DIRECTORY apt-get update -yq;
   
-  exit;
+  echo "Testing architecture in jail";
+  chroot $ARCHIE_CLEANROOM_DIRECTORY dpkg --print-architecture;
   
 fi
