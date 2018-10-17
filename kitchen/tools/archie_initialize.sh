@@ -14,6 +14,9 @@ if [ "${ARCHIE_STRATEGY}" == "hybrid" ] || [ "${ARCHIE_STRATEGY}" == "emulate" ]
   echo "Updating APT";
   apt-get update -yq;
   
+  echo "Forcing RUNLEVEL to 1 for binfmt-support";
+  export RUNLEVEL=1;
+  
   echo "Installing wget, qemu-user-static and binfmt-support for prebootstrap";
   apt-get install -y wget qemu-user-static binfmt-support;
   
