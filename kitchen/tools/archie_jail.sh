@@ -7,7 +7,7 @@ set -e;
 if [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "binfmt_misc" ]; then
 
   echo "Checking cleanroom mounts for [binfmt_misc]";
-  mount | grep "proc on ${ARCHIE_CLEANROOM_DIRECTORY}/proc type proc";
+  mount;
   
   if [ $(mount | grep "proc on ${ARCHIE_CLEANROOM_DIRECTORY}/proc type proc") > /dev/null ]; then
   
