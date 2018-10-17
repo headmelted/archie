@@ -6,7 +6,8 @@ set -e;
 
 if [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "binfmt_misc" ]; then
 
-  # if [mount | grep $ARCHIE_CLEANROOM_DIRECTORY/dev > /dev/null]; then
+  echo "Checking cleanroom mounts for [binfmt_misc]";
+  if [ $(mount | grep "proc on ${ARCHIE_CLEANROOM_DIRECTORY}/proc type proc") > /dev/null ]; then
   
     echo "Binding mounts for [${ARCHIE_ARCH}] cleanroom (for binfmt_misc/chroot method)";
   
@@ -24,15 +25,16 @@ if [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "binfmt_misc" ]; then
   
     echo "Mounting /root/kitchen into cleanroom [$ARCHIE_CLEANROOM_DIRECTORY]";
     mount --bind /root/kitchen "$ARCHIE_CLEANROOM_DIRECTORY/root/kitchen/";
-    
-      mount;
-    
- # fi;
   
-  exit;
+  else
+    
+    echo "Cleanroom has already been mounted.";
+    
+  fi;
 
   echo "Executing command in [$ARCHIE_ARCH] cleanroom (with binfmt_misc/chroot method)";
   chroot $ARCHIE_CLEANROOM_DIRECTORY echo "chroot:[$(uname -a)]" && "$@" && echo "chroot:[$(uname -a)]";
+  
 elif [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "ptrace" ]; then
   echo "Executing command in [$ARCHIE_ARCH] cleanroom (with proot method)";
   proot -b /root/kitchen:/home/kitchen -R $ARCHIE_CLEANROOM_DIRECTORY -q qemu-$ARCHIE_QEMU_ARCH-static "$@";
