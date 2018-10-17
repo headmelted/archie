@@ -5,27 +5,6 @@ set -e;
 #echo "capsh --print | grep "Current:" | cut -d' ' -f3";
 
 if [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "binfmt_misc" ]; then
-  if [ ! -d "$ARCHIE_CLEANROOM_DIRECTORY" ]; then
-    echo "Cleanroom [$ARCHIE_CLEANROOM_DIRECTORY] doesn't exist, creating";
-    mkdir "$ARCHIE_CLEANROOM_DIRECTORY";
-    echo "Binding mounts for [${ARCHIE_ARCH}] cleanroom (for binfmt_misc/chroot method)";
-    echo "Mounting /dev into cleanroom [$ARCHIE_CLEANROOM_DIRECTORY]";
-    mount --bind /dev "$ARCHIE_CLEANROOM_DIRECTORY/dev/";
-    echo "Mounting /sys into cleanroom [$ARCHIE_CLEANROOM_DIRECTORY]";
-    mount --bind /sys "$ARCHIE_CLEANROOM_DIRECTORY/sys/";
-    echo "Mounting /proc into cleanroom [$ARCHIE_CLEANROOM_DIRECTORY]";
-    mount --bind /proc "$ARCHIE_CLEANROOM_DIRECTORY/proc/";
-    echo "Mounting /dev/pts into cleanroom [$ARCHIE_CLEANROOM_DIRECTORY]";
-    mount --bind /dev/pts "$ARCHIE_CLEANROOM_DIRECTORY/dev/pts/";
-    echo "Mounting /root/kitchen into cleanroom [$ARCHIE_CLEANROOM_DIRECTORY]";
-    mount --bind /root/kitchen "$ARCHIE_CLEANROOM_DIRECTORY/home/kitchen/";
-    echo "Installing qemu-user-static";
-    apt-get install -y qemu-user-static;
-    echo "Copying QEMU-${ARCHIE_QEMU_ARCH}-static into jail";
-    cp "/usr/bin/qemu-${ARCHIE_QEMU_ARCH}-static" "${ARCHIE_CLEANROOM_DIRECTORY}/usr/bin";
-  else
-    echo "Cleanroom [$ARCHIE_CLEANROOM_DIRECTORY] already exists";
-  fi;
   echo "Executing command in [$ARCHIE_ARCH] cleanroom (with binfmt_misc/chroot method)";
   chroot $ARCHIE_CLEANROOM_DIRECTORY echo "chroot:[$(uname -a)]" && "$@" && echo "chroot:[$(uname -a)]";
 elif [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "ptrace" ]; then
