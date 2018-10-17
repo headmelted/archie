@@ -35,7 +35,7 @@ if [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "binfmt_misc" ]; then
     
   fi;
 
-  echo "Executing command in [$ARCHIE_ARCH] cleanroom (with binfmt_misc/chroot method)";
+  echo "Executing command [$@] in [$ARCHIE_ARCH] cleanroom (with binfmt_misc/chroot method)";
   chroot $ARCHIE_CLEANROOM_DIRECTORY "$@";
   
 elif [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "ptrace" ]; then
