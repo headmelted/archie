@@ -47,10 +47,10 @@ elif [ "$ARCHIE_STRATEGY" == "hybrid" ] ; then
   echo "Installing host dependency packages for [hybrid]";
   apt-get install -y $host_packages_to_install;
   echo "Installing target dependency packages in jail for [hybrid]";
-  $ARCHIE_HOME/kitchen/tools/archie_jail.sh apt-get install -y $target_packages_to_install;
+  . $ARCHIE_HOME/kitchen/tools/archie_jail.sh apt-get install -y $target_packages_to_install;
 elif [ "$ARCHIE_STRATEGY" == "emulate" ] ; then
   echo "Installing host and target dependency packages in jail for [$ARCHIE_ARCH]";
-  $ARCHIE_HOME/kitchen/tools/archie_jail.sh apt-get install -y $host_packages_to_install $target_packages_to_install;
+  . $ARCHIE_HOME/kitchen/tools/archie_jail.sh apt-get install -y $host_packages_to_install $target_packages_to_install;
 fi;
 
 echo "[$HOME] is where the ♥ is";
