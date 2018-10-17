@@ -6,9 +6,8 @@ set -e;
 
 if [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "binfmt_misc" ]; then
 
-  mount;
-
-  if [mount | grep $ARCHIE_CLEANROOM_DIRECTORY/dev > /dev/null]; then
+  # if [mount | grep $ARCHIE_CLEANROOM_DIRECTORY/dev > /dev/null]; then
+  
     echo "Binding mounts for [${ARCHIE_ARCH}] cleanroom (for binfmt_misc/chroot method)";
   
     echo "Mounting /dev into cleanroom [$ARCHIE_CLEANROOM_DIRECTORY]";
@@ -24,8 +23,11 @@ if [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "binfmt_misc" ]; then
     mount --bind /dev/pts "$ARCHIE_CLEANROOM_DIRECTORY/dev/pts/";
   
     echo "Mounting /root/kitchen into cleanroom [$ARCHIE_CLEANROOM_DIRECTORY]";
-    mount --bind /root/kitchen "$ARCHIE_CLEANROOM_DIRECTORY/home/kitchen/";
-  fi;
+    mount --bind /root/kitchen "$ARCHIE_CLEANROOM_DIRECTORY/root/kitchen/";
+    
+      mount;
+    
+ # fi;
   
   exit;
 
