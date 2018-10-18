@@ -17,7 +17,7 @@ else
   packages_to_install="gcc-$ARCHIE_GNU_TRIPLET g++-$ARCHIE_GNU_TRIPLET dpkg-cross";
 fi;
 
-if [ "$ARCHIE_ARCH" != "amd64" ] && [ "$ARCHIE_STRATEGY" == "cross" ] ; then
+if [ "$ARCHIE_ARCH" != "amd64" ] && ( [ "$ARCHIE_STRATEGY" == "cross" ] || [ "$ARCHIE_STRATEGY" == "hybrid" ] ) ; then
   echo "Adding cross-compilation target of [$ARCHIE_ARCH]";
   dpkg --add-architecture $ARCHIE_ARCH;
 fi;
@@ -53,7 +53,7 @@ elif [ "$ARCHIE_STRATEGY" == "hybrid" ] ; then
   echo "PKG_CONFIG_PATH triplet for target";
   ls /root/jail/usr/lib/${ARCHIE_GNU_TRIPLET}/pkgconfig;
   echo "Installing target dependency packages in jail for [hybrid]";
-  . $ARCHIE_HOME/kitchen/tools/archie_jail.sh apt-get install -y --allow-unauthenticated $target_packages_to_install && dpkg --print-architecture;
+  . $ARCHIE_HOME/kitchen/tools/archie_jail.sh apt-get install -y $target_packages_to_install;
 elif [ "$ARCHIE_STRATEGY" == "emulate" ] ; then
   echo "Installing host and target dependency packages in jail for [$ARCHIE_ARCH]";
   . $ARCHIE_HOME/kitchen/tools/archie_jail.sh apt-get install -y $host_packages_to_install $target_packages_to_install;
