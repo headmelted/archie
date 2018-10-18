@@ -6,6 +6,8 @@ export ARCHIE_HOME=$HOME;
 
 echo "ARCHIE_HOME is $ARCHIE_HOME";
 
+. $ARCHIE_HOME/kitchen/tools/archie_initialize_compilers.sh;
+
 if [ "$ARCHIE_ARCH" == "amd64" ] || [ "$ARCHIE_ARCH" == "i386" ]; then
   echo "Installing base gcc and g++ for amd64";
   packages_to_install="gcc g++";
