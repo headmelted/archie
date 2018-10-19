@@ -42,7 +42,7 @@ echo "Target packages to install ----------------";
 echo $target_packages_to_install;
 echo "-------------------------------------------";
   
-if [ "$ARCHIE_STRATEGY" == "cross" ] || [ "$ARCHIE_STRATEGY" == "virtualize" ] ; then
+if [ "$ARCHIE_STRATEGY" == "cross" ] || [ "$ARCHIE_STRATEGY" == "emulate" ] ; then
   echo "Installing host and target dependency packages";
   apt-get install -y $host_packages_to_install $target_packages_to_install;
 elif [ "$ARCHIE_STRATEGY" == "hybrid" ] ; then
@@ -54,9 +54,6 @@ elif [ "$ARCHIE_STRATEGY" == "hybrid" ] ; then
   # ls /root/jail/usr/lib/${ARCHIE_GNU_TRIPLET}/pkgconfig;
   echo "Installing target dependency packages in jail for [hybrid]";
   . $ARCHIE_HOME/kitchen/tools/archie_jail.sh apt-get install -y $target_packages_to_install;
-elif [ "$ARCHIE_STRATEGY" == "emulate" ] ; then
-  echo "Installing host and target dependency packages in jail for [$ARCHIE_ARCH]";
-  . $ARCHIE_HOME/kitchen/tools/archie_jail.sh apt-get install -y $host_packages_to_install $target_packages_to_install;
 fi;
 
 echo "[$HOME] is where the ♥ is";
