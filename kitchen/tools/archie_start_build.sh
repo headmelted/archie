@@ -14,6 +14,9 @@ set -e;
 
 build_command="$ARCHIE_HOME/kitchen/tools/archie_install_dependencies.sh && /root/build/build.sh"
 
+chmod +x $ARCHIE_HOME/kitchen/tools/*.sh;
+chmod +x /root/build/build.sh;
+
 if [ "$ARCHIE_STRATEGY" == "emulate" ]; then
   echo "Entering jail to start build in new bash shell";
   . $ARCHIE_HOME/kitchen/tools/archie_jail.sh $build_command;
