@@ -6,8 +6,10 @@ set -e;
 
 if [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "binfmt_misc" ]; then
 
+  check_if_bind_mounts_exist=$(mount | grep "proc on ${ARCHIE_CLEANROOM_DIRECTORY}/proc type proc");
+
   echo "Checking cleanroom mounts for [binfmt_misc]";
-  if [ -z $(mount | grep "proc on ${ARCHIE_CLEANROOM_DIRECTORY}/proc type proc") ]; then
+  if [ -z "$check_if_bind_mounts_exist" ]; then
   
     echo "Binding mounts for [${ARCHIE_ARCH}] cleanroom (for binfmt_misc/chroot method)";
   
@@ -48,7 +50,7 @@ if [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "binfmt_misc" ]; then
   fi;
 
   echo "Executing command [$@] in [$ARCHIE_ARCH] cleanroom (with binfmt_misc/chroot method)";
-  chroot $ARCHIE_CLEANROOM_DIRECTORY "$@";
+  chroot $ARCHIE_CLEANROOM_DIRECTORY "cd /root/build && $@";
   
 elif [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "ptrace" ]; then
   echo "Executing command in [$ARCHIE_ARCH] cleanroom (with proot method)";
