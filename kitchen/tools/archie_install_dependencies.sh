@@ -48,10 +48,10 @@ if [ "$ARCHIE_STRATEGY" == "cross" ] || [ "$ARCHIE_STRATEGY" == "virtualize" ] ;
 elif [ "$ARCHIE_STRATEGY" == "hybrid" ] ; then
   echo "Installing host dependency packages for [hybrid]";
   apt-get install -y $host_packages_to_install;
-  echo "PKG_CONFIG_PATH for target";
-  ls /root/jail/usr/share/pkgconfig;
-  echo "PKG_CONFIG_PATH triplet for target";
-  ls /root/jail/usr/lib/${ARCHIE_GNU_TRIPLET}/pkgconfig;
+  # echo "PKG_CONFIG_PATH for target";
+  # ls /root/jail/usr/share/pkgconfig;
+  # echo "PKG_CONFIG_PATH triplet for target";
+  # ls /root/jail/usr/lib/${ARCHIE_GNU_TRIPLET}/pkgconfig;
   echo "Installing target dependency packages in jail for [hybrid]";
   . $ARCHIE_HOME/kitchen/tools/archie_jail.sh apt-get install -y $target_packages_to_install;
 elif [ "$ARCHIE_STRATEGY" == "emulate" ] ; then
