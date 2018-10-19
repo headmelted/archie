@@ -8,8 +8,8 @@ echo "ARCHIE_HOME is $ARCHIE_HOME";
 
 . $ARCHIE_HOME/kitchen/tools/archie_initialize_compilers.sh;
 
-if [ "$ARCHIE_ARCH" == "amd64" ] || [ "$ARCHIE_ARCH" == "i386" ]; then
-  echo "Installing base gcc and g++ for amd64";
+if [ "$ARCHIE_ARCH" == "amd64" ] || [ "$ARCHIE_ARCH" == "i386" ] || [ "$ARCHIE_STRATEGY" == "emulate" ]; then
+  echo "Installing base gcc and g++ for [$ARHCHIE_ARCH] with [$ARCHIE_STRATEGY] strategy";
   packages_to_install="gcc g++";
   if [ "$ARCHIE_ARCH" == "i386" ] ; then packages_to_install="$packages_to_install g++-multilib"; fi;
 else
