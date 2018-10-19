@@ -24,7 +24,7 @@ linkage_list="-L$ARCHIE_CROSS_LIB_PATH -I/usr/include/$ARCHIE_GNU_TRIPLET";
 if [ $ARCHIE_STRATEGY == "cross" ] || [ $ARCHIE_STRATEGY == "emulate"] ; then
   PKG_CONFIG_PATH="/usr/share/pkgconfig:$ARCHIE_CROSS_LIB_PATH/pkgconfig";
 elif [ "$ARCHIE_STRATEGY" == "hybrid" ]; then
-  linkage_list="--with-native-system-header-dir=$ARCHIE_CLEANROOM_DIRECTORY/usr/include --sysroot=$ARCHIE_CLEANROOM_DIRECTORY $linkage_list"
+  linkage_list="--sysroot=$ARCHIE_CLEANROOM_DIRECTORY -ldl $linkage_list"
   PKG_CONFIG_PATH="$ARCHIE_CLEANROOM_DIRECTORY/usr/share/pkgconfig:$ARCHIE_CLEANROOM_DIRECTORY$ARCHIE_CROSS_LIB_PATH/pkgconfig";
 fi;
 
