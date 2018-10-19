@@ -19,7 +19,7 @@ chmod +x /root/build/build.sh;
 
 if [ "$ARCHIE_STRATEGY" == "emulate" ]; then
   echo "Entering jail to start build in new bash shell";
-  . $ARCHIE_HOME/kitchen/tools/archie_jail.sh $build_command;
+  . $ARCHIE_HOME/kitchen/tools/archie_jail.sh /bin/bash -C "$build_command";
 else
   echo "Starting build in new bash shell [$build_command]";
   /bin/bash -c "$build_command";
