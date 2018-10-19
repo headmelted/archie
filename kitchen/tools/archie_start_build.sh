@@ -12,7 +12,7 @@ set -e;
 #  echo "Archie is not pointed at a git endpoint, assuming the current project is the one to build";
 #fi;
 
-build_command=". $ARCHIE_HOME/kitchen/tools/archie_install_dependencies.sh && . /root/build/build.sh"
+build_command="$ARCHIE_HOME/kitchen/tools/archie_install_dependencies.sh && /root/build/build.sh"
 
 if [ "$ARCHIE_STRATEGY" == "emulate" ]; then
   echo "Entering jail to start build in new bash shell";
