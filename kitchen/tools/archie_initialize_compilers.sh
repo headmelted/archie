@@ -21,15 +21,17 @@ ARCHIE_CROSS_LIB_PATH="/usr/lib/$ARCHIE_GNU_TRIPLET";
 
 linkage_list="-L$ARCHIE_CROSS_LIB_PATH -I/usr/include/$ARCHIE_GNU_TRIPLET";
 
-if [ $ARCHIE_STRATEGY == "cross" ] || [ $ARCHIE_STRATEGY == "emulate"] ; then
-  PKG_CONFIG_PATH="/usr/share/pkgconfig:$ARCHIE_CROSS_LIB_PATH/pkgconfig";
-elif [ "$ARCHIE_STRATEGY" == "hybrid" ]; then
+if [ "$ARCHIE_STRATEGY" == "hybrid" ]; then
+  compiler_root_directory=$ARCHIE_CLEANROOM_DIRECTORY;
   linkage_list="--sysroot=$ARCHIE_CLEANROOM_DIRECTORY -ldl $linkage_list"
-  PKG_CONFIG_PATH="$ARCHIE_CLEANROOM_DIRECTORY/usr/share/pkgconfig:$ARCHIE_CLEANROOM_DIRECTORY$ARCHIE_CROSS_LIB_PATH/pkgconfig";
-fi;
+else
+  compiler_root_directory="";
+fi
+
+PKG_CONFIG_PATH="$compiler_root_directory/usr/share/pkgconfig:$compiler_root_directory$ARCHIE_CROSS_LIB_PATH/pkgconfig";
 
 for package in $ARCHIE_TARGET_DEPENDENCIES; do
-  linkage_list="$linkage_list -I/usr/lib/$ARCHIE_GNU_TRIPLET/$package/include -I/usr/include/$package";
+  linkage_list="$linkage_list -I$compiler_root_directory/usr/lib/$ARCHIE_GNU_TRIPLET/$package/include -I$compiler_root_directory/usr/include/$package";
 done
 
 echo "Setting CC and CXX with linking for [$ARCHIE_STRATEGY]";
