@@ -28,6 +28,18 @@ if [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "binfmt_misc" ]; then
   
     echo "Mounting /root/kitchen into cleanroom [$ARCHIE_CLEANROOM_DIRECTORY]";
     mount --bind /root/kitchen "$ARCHIE_CLEANROOM_DIRECTORY/root/kitchen/";
+    
+    echo "Creating build inside chroot";
+    mkdir "$ARCHIE_CLEANROOM_DIRECTORY/root/build/";
+  
+    echo "Mounting /root/build into cleanroom [$ARCHIE_CLEANROOM_DIRECTORY]";
+    mount --bind /root/build "$ARCHIE_CLEANROOM_DIRECTORY/root/build/";
+    
+    echo "Creating output inside chroot";
+    mkdir "$ARCHIE_CLEANROOM_DIRECTORY/root/output/";
+  
+    echo "Mounting /root/output into cleanroom [$ARCHIE_CLEANROOM_DIRECTORY]";
+    mount --bind /root/output "$ARCHIE_CLEANROOM_DIRECTORY/root/output/";
   
   else
     
