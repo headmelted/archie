@@ -4,6 +4,8 @@ set -e;
 #echo "Kernel capabilities "
 #echo "capsh --print | grep "Current:" | cut -d' ' -f3";
 
+echo "Preparing jail";
+
 if [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "binfmt_misc" ]; then
 
   check_if_bind_mounts_exist=$(mount | grep "proc on ${ARCHIE_CLEANROOM_DIRECTORY}/proc type proc");
@@ -55,6 +57,8 @@ if [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "binfmt_misc" ]; then
 elif [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "ptrace" ]; then
   echo "Executing command in [$ARCHIE_ARCH] cleanroom (with proot method)";
   proot -b /root/kitchen:/home/kitchen -R $ARCHIE_CLEANROOM_DIRECTORY -q qemu-$ARCHIE_QEMU_ARCH-static "$@";
+else
+  echo "ERROR: No QEMU call interception mode specified for jail!";
 fi
 
 #echo "Testing fakechroot at ($ARCHIE_CLEANROOM_DIRECTORY)";
