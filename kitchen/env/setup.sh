@@ -43,3 +43,6 @@ export ARCHIE_CODE_DIRECTORY=$(pwd);
 
 echo "Matching npm_config_arch to npm_config_target_arch. THIS MAY BE WRONG - CONTACT ME IF THIS IS THE CASE."
 export npm_config_arch=$npm_config_target_arch;
+
+echo "Setting up compilers";
+. $ARCHIE_HOME/kitchen/tools/archie_initialize_compilers.sh;
