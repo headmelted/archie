@@ -21,6 +21,6 @@ if [ "$ARCHIE_STRATEGY" == "emulate" ]; then
   . $ARCHIE_HOME/kitchen/tools/archie_jail.sh '/root/build/build.sh';
 else
   echo "Starting build in new bash shell [$build_command]";
-  /bin/bash -c "root/kitchen/tools/archie_install_dependencies.sh"
+  /bin/bash -c "/root/kitchen/tools/archie_install_dependencies.sh"
   /bin/bash -c "/root/build/build.sh";
 fi;
