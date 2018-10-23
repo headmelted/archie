@@ -14,6 +14,7 @@ set -e;
 
 chmod +x $ARCHIE_HOME/kitchen/tools/*.sh;
 chmod +x $ARCHIE_HOME/build/build.sh;
+chmod +x $ARCHIE_HOME/kitchen/env/setup.sh;
 
 if [ "$ARCHIE_STRATEGY" == "emulate" ]; then
   echo "Entering jail to start build in new bash shell";
