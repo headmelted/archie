@@ -9,7 +9,10 @@ echo "QEMU Interception Mode: ${ARCHIE_QEMU_INTERCEPTION_MODE}";
 
 if [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "binfmt_misc" ]; then
 
-  check_if_bind_mounts_exist=$(mount | grep "proc on ${ARCHIE_CLEANROOM_DIRECTORY}/proc type proc");
+  proc_command="proc on ${ARCHIE_CLEANROOM_DIRECTORY}/proc type proc";
+  echo "proc Command: ${proc_command}";
+  
+  check_if_bind_mounts_exist=$(mount | grep "${proc_command}");
 
   echo "Checking cleanroom mounts for [binfmt_misc]";
   if [ -z "$check_if_bind_mounts_exist" ]; then
