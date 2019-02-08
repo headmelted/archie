@@ -36,8 +36,8 @@ done
 
 echo "Setting CC and CXX with linking for [$ARCHIE_STRATEGY]";
 if [ "$ARCHIE_ARCH" == "i386" ]; then
-  cc_compiler="x86_64-linux-gnu-gcc -m32";
-  cxx_compiler="x86_64-linux-gnu-g++ -m32";
+  cc_compiler="gcc -m32";
+  cxx_compiler="g++ -m32";
 else
   cc_compiler="$ARCHIE_GNU_TRIPLET-gcc";
   cxx_compiler="$ARCHIE_GNU_TRIPLET-g++";
