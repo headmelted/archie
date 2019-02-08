@@ -5,6 +5,7 @@ set -e;
 #echo "capsh --print | grep "Current:" | cut -d' ' -f3";
 
 echo "Preparing jail";
+echo "QEMU Interception Mode: ${ARCHIE_QEMU_INTERCEPTION_MODE}";
 
 if [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "binfmt_misc" ]; then
 
