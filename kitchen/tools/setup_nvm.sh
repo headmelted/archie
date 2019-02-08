@@ -22,4 +22,4 @@ echo "Setting python binding";
 npm config set python `which python`;
 
 echo "Installing npm dependencies";
-npm install -g gulp yarn;
+npm install -g gulp yarn --unsafe-perm;
