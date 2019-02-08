@@ -7,5 +7,8 @@ echo "Installing dependencies";
 echo "Setting up environment";
 . /root/kitchen/env/setup.sh;
 
+echo "Entering build directory";
+cd /root/build;
+
 echo "Running build script";
-. /root/build/build.sh;
+. build.sh;
