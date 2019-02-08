@@ -8,4 +8,4 @@ echo "Setting up environment";
 . /root/kitchen/env/setup.sh;
 
 echo "Running build script";
-. /root/build/build.sh';
+. /root/build/build.sh;
