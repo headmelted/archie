@@ -14,9 +14,9 @@ echo "Running NVM script";
 source ~/.nvm/nvm.sh;
 
 echo "Setting up NVM";
-nvm install 8.10.0;
-nvm use 8.10.0;
-nvm alias default 8.10.0;
+nvm install 8.12.0;
+nvm use 8.12.0;
+nvm alias default 8.12.0;
   
 echo "Setting python binding";
 npm config set python `which python`;
