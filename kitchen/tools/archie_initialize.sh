@@ -38,7 +38,6 @@ if [ "${ARCHIE_STRATEGY}" == "hybrid" ] || [ "${ARCHIE_STRATEGY}" == "emulate" ]
 fi;
 
 chmod +x $ARCHIE_HOME/kitchen/tools/*.sh;
-chmod +x $ARCHIE_HOME/build/build.sh;
 chmod +x $ARCHIE_HOME/kitchen/env/setup.sh;
 
 if [ "$ARCHIE_STRATEGY" == "emulate" ]; then
