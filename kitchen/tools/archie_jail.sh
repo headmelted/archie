@@ -14,7 +14,7 @@ if [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "binfmt_misc" ]; then
   echo "Mountpoint at [binfmt_misc]: $(mountpoint -q $ARCHIE_CLEANROOM_DIRECTORY/dev/)";
 
   echo "Checking cleanroom mounts for [binfmt_misc]";
-  if [ $(mountpoint -q "$ARCHIE_CLEANROOM_DIRECTORY/dev/") == 0 ]; then
+  if [ '$(mountpoint -q "$ARCHIE_CLEANROOM_DIRECTORY/dev/")' == '' ]; then
   
     echo "Binding mounts for [${ARCHIE_ARCH}] cleanroom (for binfmt_misc/chroot method)";
   
