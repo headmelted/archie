@@ -10,5 +10,8 @@ echo "Setting up environment";
 echo "Entering build directory";
 cd /root/build;
 
+echo "Marking build script as executable";
+chmod +x $ARCHIE_HOME/build/build.sh;
+
 echo "Running build script";
 . build.sh;
