@@ -12,6 +12,8 @@ set -e;
 #  echo "Archie is not pointed at a git endpoint, assuming the current project is the one to build";
 #fi;
 
+export ARCHIE_HOME=/root;
+
 . $ARCHIE_HOME/kitchen/env/setup.sh;
 
 if [ "$ARCHIE_STRATEGY" == "emulate" ]; then
