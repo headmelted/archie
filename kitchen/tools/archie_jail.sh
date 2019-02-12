@@ -32,20 +32,32 @@ if [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "binfmt_misc" ]; then
     echo "Mounting /dev/pts into cleanroom [$ARCHIE_CLEANROOM_DIRECTORY]";
     mount --bind /dev/pts "$ARCHIE_CLEANROOM_DIRECTORY/dev/pts/";
     
-    echo "Creating kitchen inside chroot";
-    mkdir "$ARCHIE_CLEANROOM_DIRECTORY/root/kitchen/";
+    if [ -d "$ARCHIE_CLEANROOM_DIRECTORY/root/kitchen/" ]; then
+      echo "kitchen already exists in chroot, will not create (but will mount)";
+    else
+      echo "Creating kitchen inside chroot";
+      mkdir "$ARCHIE_CLEANROOM_DIRECTORY/root/kitchen/";
+    fi;
   
     echo "Mounting /root/kitchen into cleanroom [$ARCHIE_CLEANROOM_DIRECTORY]";
     mount --bind /root/kitchen "$ARCHIE_CLEANROOM_DIRECTORY/root/kitchen/";
     
-    echo "Creating build inside chroot";
-    mkdir "$ARCHIE_CLEANROOM_DIRECTORY/root/build/";
+    if [ -d "$ARCHIE_CLEANROOM_DIRECTORY/root/build/" ]; then
+      echo "build already exists in chroot, will not create (but will mount)";
+    else
+      echo "Creating build inside chroot";
+      mkdir "$ARCHIE_CLEANROOM_DIRECTORY/root/build/";
+    fi;
   
     echo "Mounting /root/build into cleanroom [$ARCHIE_CLEANROOM_DIRECTORY]";
     mount --bind /root/build "$ARCHIE_CLEANROOM_DIRECTORY/root/build/";
     
-    echo "Creating output inside chroot";
-    mkdir "$ARCHIE_CLEANROOM_DIRECTORY/root/output/";
+    if [ -d "$ARCHIE_CLEANROOM_DIRECTORY/root/output/" ]; then
+      echo "output already exists in chroot, will not create (but will mount)";
+    else
+      echo "Creating output inside chroot";
+      mkdir "$ARCHIE_CLEANROOM_DIRECTORY/root/output/";
+    fi;
   
     echo "Mounting /root/output into cleanroom [$ARCHIE_CLEANROOM_DIRECTORY]";
     mount --bind /root/output "$ARCHIE_CLEANROOM_DIRECTORY/root/output/";
