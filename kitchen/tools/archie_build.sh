@@ -4,6 +4,9 @@ set -e;
 #echo "Installing dependencies";
 #. /root/kitchen/tools/archie_install_dependencies.sh;
 
+echo "Ensuring qemu binfmt interception is enabled";
+update-binfmts --enable;
+
 echo "Setting up environment";
 . /root/kitchen/env/setup.sh;
 
