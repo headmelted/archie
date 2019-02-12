@@ -45,7 +45,7 @@ echo "-------------------------------------------";
   
 if [ "$ARCHIE_STRATEGY" == "cross" ] || [ "$ARCHIE_STRATEGY" == "emulate" ] ; then
   echo "Installing host and target dependency packages";
-  apt-get install -y git ${host_packages_to_install//[$'\t\r\n']} ${target_packages_to_install//[$'\t\r\n']};
+  apt-get install -y ${host_packages_to_install//[$'\t\r\n']} ${target_packages_to_install//[$'\t\r\n']};
   if [ -f /root/build/archie_custom_host_dependencies.sh ]; then
     echo 'Installing custom host dependencies';
     . /root/build/archie_custom_host_dependencies.sh;
