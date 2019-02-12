@@ -62,7 +62,7 @@ elif [ "$ARCHIE_STRATEGY" == "hybrid" ] ; then
     . /root/build/archie_custom_host_dependencies.sh;
   fi;
   echo "Installing target dependency packages in jail for [hybrid]";
-  . /root/kitchen/tools/archie_jail.sh "apt-get install -y git ${target_packages_to_install} && if [ -f /root/build/archie_custom_target_dependencies.sh ]; then echo 'Installing custom target dependencies in jail'; . /root/build/archie_custom_target_dependencies.sh; fi;";
+  . /root/kitchen/tools/archie_jail.sh "apt-get install -y ${host_packages_to_install} ${target_packages_to_install} && if [ -f /root/build/archie_custom_target_dependencies.sh ]; then echo 'Installing custom target dependencies in jail'; . /root/build/archie_custom_target_dependencies.sh; fi;";
 fi;
 
 echo "[$HOME] is where the ♥ is";
