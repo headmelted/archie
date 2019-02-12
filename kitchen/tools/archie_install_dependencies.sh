@@ -2,11 +2,12 @@
 set -e;
 
 echo "Setting ARCHIE_HOME";
-export ARCHIE_HOME=/root;
+export ARCHIE_HOME=$HOME;
 
 echo "ARCHIE_HOME is $ARCHIE_HOME";
 
-. /root/kitchen/env/setup.sh;
+echo "Initializing environment for [${ARCHIE_STRATEGY}/${ARCHIE_ARCH}]";
+. $ARCHIE_HOME/kitchen/env/setup.sh;
 
 if [ "$ARCHIE_ARCH" == "amd64" ] || [ "$ARCHIE_ARCH" == "i386" ] || [ "$ARCHIE_STRATEGY" == "emulate" ]; then
   echo "Installing base gcc and g++ for [$ARHCHIE_ARCH] with [$ARCHIE_STRATEGY] strategy";
