@@ -17,11 +17,11 @@ echo "Target architecture: $ARCHIE_ARCH"
 echo "QEMU architectures: $ARCHIE_QEMU_ARCH"
 echo "QEMU system emulator set: qemu-system-$ARCHIE_QEMU_PACKAGE_ARCH"
 echo "CC (version) --------------------------------------------"
-eval "$CC -v";
+#eval "$CC -v";
 echo "CC (configuration) --------------------------------------"
 echo $CC
 echo "CXX (version) -------------------------------------------"
-eval "$CXX -v";
+#eval "$CXX -v";
 echo "CXX (configuration) -------------------------------------"
 echo $CXX
 echo "PKG_CONFIG_PATH -----------------------------------------"
