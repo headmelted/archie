@@ -53,7 +53,7 @@ if [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "binfmt_misc" ]; then
   fi;
 
   echo "Executing command [$@] in [$ARCHIE_ARCH] cleanroom (with binfmt_misc/chroot method)";
-  chroot $ARCHIE_CLEANROOM_DIRECTORY /bin/bash -c "cd /root && $@";
+  chroot $ARCHIE_CLEANROOM_DIRECTORY /bin/bash -c "export ARCHIE_ARCH=$ARCHIE_ARCH && . /root/kitchen/env/setup.sh && cd /root && $@";
   
 elif [ "${ARCHIE_QEMU_INTERCEPTION_MODE}" == "ptrace" ]; then
   echo "Executing command in [$ARCHIE_ARCH] cleanroom (with proot method)";
