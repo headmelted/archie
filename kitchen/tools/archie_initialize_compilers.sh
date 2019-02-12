@@ -49,6 +49,15 @@ echo "CXX is [$cxx_compiler]";
 export CC="$cc_compiler $linkage_list";
 export CXX="$cxx_compiler $linkage_list";
 
+echo "CC (with linking) is:";
+echo "---------------------";
+echo "$CC";
+echo "---------------------";
+echo "CXX (with linking) is:";
+echo "---------------------";
+echo "$CXX";
+echo "---------------------";
+
 echo "Setting TARGETCC and TARGETCXX to CC and CXX";
 export TARGETCC=$CC;
 export TARGETCXX=$CXX;
