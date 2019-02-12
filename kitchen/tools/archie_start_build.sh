@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e;
 
+echo "Setting ARCHIE_HOME";
+export ARCHIE_HOME=$HOME;
+
 #echo "Setting environment";
 #. ~/kitchen/env/linux/setup.sh;
 
@@ -11,8 +14,6 @@ set -e;
 #else
 #  echo "Archie is not pointed at a git endpoint, assuming the current project is the one to build";
 #fi;
-
-export ARCHIE_HOME=/root;
 
 . $ARCHIE_HOME/kitchen/env/setup.sh;
 
