@@ -2,11 +2,11 @@
 set -e;
 
 echo "Setting ARCHIE_HOME";
-export ARCHIE_HOME=$HOME;
+export ARCHIE_HOME=/root;
 
 echo "ARCHIE_HOME is $ARCHIE_HOME";
 
-. $ARCHIE_HOME/kitchen/env/setup.sh;
+. /root/kitchen/env/setup.sh;
 
 if [ "$ARCHIE_ARCH" == "amd64" ] || [ "$ARCHIE_ARCH" == "i386" ] || [ "$ARCHIE_STRATEGY" == "emulate" ]; then
   echo "Installing base gcc and g++ for [$ARHCHIE_ARCH] with [$ARCHIE_STRATEGY] strategy";
@@ -45,15 +45,27 @@ echo "-------------------------------------------";
 if [ "$ARCHIE_STRATEGY" == "cross" ] || [ "$ARCHIE_STRATEGY" == "emulate" ] ; then
   echo "Installing host and target dependency packages";
   apt-get install -y $host_packages_to_install $target_packages_to_install;
+  if [ -f /root/build/archie_custom_host_dependencies.sh ]; then
+    echo 'Installing custom host dependencies';
+    . /root/build/archie_custom_host_dependencies.sh;
+  fi;
+  if [ -f /root/build/archie_custom_target_dependencies.sh ]; then
+    echo 'Installing custom target dependencies';
+    . /root/build/archie_custom_target_dependencies.sh;
+  fi;
 elif [ "$ARCHIE_STRATEGY" == "hybrid" ] ; then
   echo "Installing host dependency packages for [hybrid]";
-  apt-get install -y $host_packages_to_install ${target_packages_to_install};
+  apt-get install -y $host_packages_to_install;
+  if [ -f /root/build/archie_custom_host_dependencies.sh ]; then
+    echo 'Installing custom host dependencies';
+    . /root/build/archie_custom_host_dependencies.sh;
+  fi;
   echo "Installing target dependency packages in jail for [hybrid]";
-  . $ARCHIE_HOME/kitchen/tools/archie_jail.sh "apt-get install -y ${target_packages_to_install}";
+  . /root/kitchen/tools/archie_jail.sh "apt-get install -y ${target_packages_to_install} && if [ -f /root/build/archie_custom_target_dependencies.sh ]; then echo 'Installing custom target dependencies in jail'; . /root/build/archie_custom_target_dependencies.sh; fi;";
 fi;
 
 echo "[$HOME] is where the ♥ is";
 
 echo "Dependencies installed";
 
-. $ARCHIE_HOME/kitchen/env/linux/display.sh;
+. /root/kitchen/env/linux/display.sh;
