@@ -10,7 +10,7 @@ echo "ARCHIE_HOME is $ARCHIE_HOME";
 
 if [ "$ARCHIE_ARCH" == "amd64" ] || [ "$ARCHIE_ARCH" == "i386" ] || [ "$ARCHIE_STRATEGY" == "emulate" ]; then
   echo "Installing base gcc and g++ for [$ARHCHIE_ARCH] with [$ARCHIE_STRATEGY] strategy";
-  packages_to_install="gcc g++";
+  packages_to_install="gcc g++ build-essential";
   if [ "$ARCHIE_ARCH" == "i386" ] ; then packages_to_install="$packages_to_install g++-multilib"; fi;
 else
   echo "Installing [$ARCHIE_GNU_TRIPLET] gcc and g++";
