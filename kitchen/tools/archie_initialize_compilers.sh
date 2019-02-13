@@ -19,11 +19,11 @@ ARCHIE_CROSS_LIB_PATH="/usr/lib/$ARCHIE_GNU_TRIPLET";
 # echo pkg_config_linkage_list
 # echo "----------------------------------------------------------------------------------"
 
-linkage_list="-L$ARCHIE_CROSS_LIB_PATH -I/usr/include/$ARCHIE_GNU_TRIPLET -I$compiler_root_directory/usr/include/libsecret-1";
+linkage_list="-L$ARCHIE_CROSS_LIB_PATH -I/usr/include/$ARCHIE_GNU_TRIPLET";
 
 if [ "$ARCHIE_STRATEGY" == "hybrid" ]; then
   compiler_root_directory=$ARCHIE_CLEANROOM_DIRECTORY;
-  linkage_list="--sysroot=$ARCHIE_CLEANROOM_DIRECTORY -ldl $linkage_list"
+  linkage_list="--sysroot=$ARCHIE_CLEANROOM_DIRECTORY -ldl $linkage_list -I$compiler_root_directory/usr/include/libsecret-1"
 else
   compiler_root_directory="";
 fi
