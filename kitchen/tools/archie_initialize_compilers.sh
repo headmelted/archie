@@ -23,7 +23,7 @@ linkage_list="-L$ARCHIE_CROSS_LIB_PATH -I/usr/include/$ARCHIE_GNU_TRIPLET";
 
 if [ "$ARCHIE_STRATEGY" == "hybrid" ]; then
   compiler_root_directory=$ARCHIE_CLEANROOM_DIRECTORY;
-  linkage_list="--sysroot=$ARCHIE_CLEANROOM_DIRECTORY -ldl $linkage_list -I$compiler_root_directory/usr/include/libsecret-1 -I$compiler_root_directory/usr/include/glib-2.0"
+  linkage_list="--sysroot=$ARCHIE_CLEANROOM_DIRECTORY -ldl $linkage_list"
 else
   compiler_root_directory="";
 fi
