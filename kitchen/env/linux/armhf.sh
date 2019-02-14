@@ -10,4 +10,4 @@ export ARCHIE_QEMU_ARCH="arm";
 export ARCHIE_ELECTRON_ARCH="arm";
 
 export VSCODE_ELECTRON_PLATFORM="arm";
-export npm_config_target_arch='armv7l';
+export npm_config_target_arch='arm';
