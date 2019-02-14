@@ -9,7 +9,6 @@ export ARCHIE_PACKAGE_ARCH="arm";
 export ARCHIE_QEMU_PACKAGE_ARCH="arm";
 export ARCHIE_QEMU_ARCH="arm";
 export ARCHIE_ELECTRON_ARCH="arm";
-export PKG_CONFIG_PATH="/usr/lib/arm-linux-gnueabihf/pkgconfig"
 
 export VSCODE_ELECTRON_PLATFORM="arm";
 export npm_config_target_arch='arm';
