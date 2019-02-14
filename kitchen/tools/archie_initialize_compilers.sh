@@ -28,7 +28,7 @@ else
   compiler_root_directory="";
 fi
 
-export PKG_CONFIG_PATH="$compiler_root_directory/usr/share/pkgconfig:$compiler_root_directory$ARCHIE_CROSS_LIB_PATH/pkgconfig";
+#export PKG_CONFIG_PATH="$compiler_root_directory/usr/share/pkgconfig:$compiler_root_directory$ARCHIE_CROSS_LIB_PATH/pkgconfig";
 
 for package in $ARCHIE_TARGET_DEPENDENCIES; do
   linkage_list="$linkage_list -I$compiler_root_directory/usr/lib/$ARCHIE_GNU_TRIPLET/$package/include -I$compiler_root_directory/usr/include/$package";
