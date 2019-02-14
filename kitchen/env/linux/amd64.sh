@@ -8,7 +8,6 @@ export ARCHIE_PACKAGE_ARCH='x64';
 export ARCHIE_QEMU_PACKAGE_ARCH='amd64';
 export ARCHIE_QEMU_ARCH='x86_64';
 export ARCHIE_ELECTRON_ARCH='x64';
-export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-gnu/pkgconfig"
 
 export VSCODE_ELECTRON_PLATFORM='amd64';
 export npm_config_target_arch='x64';
