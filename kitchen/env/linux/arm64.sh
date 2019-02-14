@@ -8,7 +8,6 @@ export ARCHIE_PACKAGE_ARCH='arm64';
 export ARCHIE_QEMU_PACKAGE_ARCH='arm';
 export ARCHIE_QEMU_ARCH='aarch64';
 export ARCHIE_ELECTRON_ARCH='arm64';
-export PKG_CONFIG_PATH="/usr/lib/aarch64-linux-gnu/pkgconfig"
 
 export VSCODE_ELECTRON_PLATFORM='arm64';
 export npm_config_target_arch='arm64';
