@@ -3,7 +3,7 @@ set -e;
 
 echo "Setting compiler configuration for [$ARCHIE_STRATEGY]";
 
-ARCHIE_CROSS_LIB_PATH="/usr/lib/$ARCHIE_GNU_TRIPLET";
+ARCHIE_CROSS_LIB_PATH="/usr/lib/$ARCHIE_HEADERS_GNU_TRIPLET";
 
 #pkg_config_linkage_list="";
 #for archie_dependency_package in $ARCHIE_TARGET_DEPENDENCIES; do
@@ -28,7 +28,7 @@ else
   compiler_root_directory="";
 fi
 
-#export PKG_CONFIG_PATH="$compiler_root_directory/usr/share/pkgconfig:$compiler_root_directory$ARCHIE_CROSS_LIB_PATH/pkgconfig";
+export PKG_CONFIG_PATH="$compiler_root_directory/usr/share/pkgconfig:$compiler_root_directory$ARCHIE_CROSS_LIB_PATH/pkgconfig";
 
 for package in $ARCHIE_TARGET_DEPENDENCIES; do
   linkage_list="$linkage_list -I$compiler_root_directory/usr/lib/$ARCHIE_GNU_TRIPLET/$package/include -I$compiler_root_directory/usr/include/$package";
