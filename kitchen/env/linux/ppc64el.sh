@@ -8,6 +8,6 @@ export ARCHIE_PACKAGE_ARCH="ppc64el";
 export ARCHIE_QEMU_PACKAGE_ARCH="ppc";
 export ARCHIE_QEMU_ARCH="ppc64le";
 export ARCHIE_ELECTRON_ARCH="";
-export PKG_CONFIG_PATH="/usr/lib/powerpc64le-linux-gnu/pkgconfig"
+export PKG_CONFIG_PATH="/usr/lib/powerpc64le-linux-gnu/pkgconfig";
 
 export VSCODE_ELECTRON_PLATFORM="";
