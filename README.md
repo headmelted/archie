@@ -41,7 +41,7 @@ The session is executed inside an emulated environment for the target architectu
 
 _It may be necessary to switch from *hybrid* to *emulate* in certain cases where hard-coded logic inside your code or dependencies requires the target architecture specifically._
 
-#### virtualize
+#### virtualize (work-in-progress)
 The session is executed in a virtualized QEMU system that is running an image compiled explicitly for the target architecture.  This strategy has the highest compatibility, as all logic will be performed within the target architecture with effectively no trace of native host components - but at a significant performance cost due to the emulation overhead.
 
 _This strategy is most useful in scenarios where you need to be able to confirm that your code can be compiled by downstream users with specific devices (e.g. specific niche processors, lower memory). An example of this is targeting the Raspberry Pi line of single-board computers, which can be completely virtualised within a session._
@@ -61,6 +61,11 @@ Archie sets a series of global variables inside each session that can be used to
 | $ARCHIE_CLEANROOM_DIRECTORY         | The directory of the cleanroom for the current session                    | no    | no     | yes     | no         | no
 | $ARCHIE_OUTPUT_DIRECTORY            | This is where build artifacts should should be placed during compilation. | yes   | yes    | yes     | yes        | yes
 | $ARCHIE_CODE_DIRECTORY              | This is where the source code for compilation is placed.                  | yes   | yes    | yes     | yes        | yes
+| $ARCHIE_GNU_TRIPLET             | The GNU triplet for the current architecture (e.g. i686-linux-gnu for 32-bit x86).                  | yes   | yes    | yes     | yes        | yes
+| $ARCHIE_HEADERS_GNU_TRIPLET              | The GNU triplet for headers for the current architecture (e.g. i386-linux-gnu for 32-bit x86).                 | yes   | yes    | yes     | yes        | yes
+| **$PKG_CONFIG_PATH**                    | Search path for pkg-config. Archie binds this based on strategy.                    | n/a   | n/a     | n/a     | n/a        | n/a
+| **$CC** and **$CXX**                                | The GNU C\C++ compilers. Bound based on strategy and target dependencies. | n/a | n/a | n/a | n/a | n/a
+| **$npm_config_arch** and **$npm_config_target_arch** | The NPM architecture for nodejs applications. Bound based on strategy and target dependencies. | n/a | n/a | n/a | n/a | n/a
 
 #### Architecture
 There are effectively two lists of supported architectures for Archie. Compiling and testing of programs without dependendent packages (i.e. programs for which no dependencies need to be pulled from Debian repositories) is supported for the intersection of architectures of GCC and QEMU.
