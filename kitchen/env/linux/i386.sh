@@ -1,7 +1,7 @@
 export ARCHIE_LABEL='i386_linux';
 export ARCHIE_CROSS_TOOLCHAIN='true';
 export ARCHIE_ARCH='i386';
-export ARCHIE_RPM_ARCH='x86';
+export ARCHIE_RPM_ARCH='i386';
 export ARCHIE_GNU_TRIPLET='i686-linux-gnu';
 export ARCHIE_HEADERS_GNU_TRIPLET='i386-linux-gnu';
 export ARCHIE_GNU_MULTILIB_TRIPLET='';
